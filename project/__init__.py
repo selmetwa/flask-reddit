@@ -1,9 +1,9 @@
 from flask import Flask
-# from flask_sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
 from flask.app import Flask
 
 # init SQLAlchemy so we can use it later in our models
-# db = SQLAlchemy()
+db = SQLAlchemy()
 
 def create_app():
     app = Flask(__name__)
@@ -11,7 +11,7 @@ def create_app():
     app.config['SECRET_KEY'] = '9OLWxND4o83j4K4iuopO'
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
 
-    # db.init_app(app)
+    db.init_app(app)
 
     # blueprint for auth routes in our app
     from .auth import auth as auth_blueprint
