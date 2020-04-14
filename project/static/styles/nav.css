@@ -1,0 +1,110 @@
+html {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    overflow-x: hidden;
+    background-color: whitesmoke;
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+    min-width: 100%;
+    background-color: whitesmoke;
+  }
+.nav {
+    display: flex;
+    margin:0;
+    padding:0;
+    width: 100vw;
+    height: 8vh;
+    flex-direction: row;
+    text-decoration: none!important;
+    list-style: none;
+    background-color: #f7f8f8;
+    justify-content: space-between;
+    font-family:  Avenir,Lato, Arial, Helvetica, sans-serif;
+}
+.nav-title {
+    font-size: 1.5rem;
+    font-weight: 900;
+	color: #d3d1d1!important;
+    margin:0;
+    padding:0;
+    margin-top: 1.5vh;
+    margin-left: 10vw;
+    text-decoration: none!important;
+}
+#nav-title {
+    opacity: 1;
+    font-weight: 900;
+	color: #d3d1d1!important;
+    letter-spacing: 1px;
+    transition: .2s;
+    font-family: 'Lato', Helvetica,Arial , sans-serif;
+    transition-timing-function: ease-in-out;
+}
+.title {
+	color: #d3d1d1!important;
+}
+.nav-title:hover {
+    background-color: transparent!important;
+}
+#nav-title:hover {
+    background-color: transparent!important;
+}
+.nav-item-wrapper {
+    display: flex;
+    margin:0;
+    padding:0;
+    flex-direction: row;
+    margin-left: 10vw;
+    background-color: #f7f8f8!important;
+    border: none;
+    outline: none;
+    margin-right: 10vw;
+    height: 100%;
+    text-decoration: none!important;
+}
+.nav-item {
+    font-size: 1rem;
+    margin:0;
+    padding:0;
+    text-decoration: none!important;
+    background-color: #f7f8f8!important;
+	color: #333!important;
+    border: none;
+    padding: 25px;
+    font-family:  Avenir,Lato, Arial, Helvetica, sans-serif;
+    outline: none;
+}
+.nav-item:hover {
+    cursor: pointer;
+}
+.profile-button {
+    border-left: 1px solid lightgray;
+}
+.profile-button:hover {
+    border-bottom: 2px solid #386FA4;
+    margin-top: 2px;
+}
+.logout-button {
+    border-left: 1px solid lightgray;
+    border-right: 1px solid lightgray;
+}
+a {
+    background-color: #f7f8f8!important;
+}
+.logout-button:hover {
+    border-bottom: 2px solid #386FA4;
+    margin-top: 2px;
+}
+.route-link {
+    text-decoration: none!important;
+}
+.right-side {
+    margin-right: 10%;
+    margin-top: 1.5%;
+    /* wid */
+}
