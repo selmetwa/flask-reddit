@@ -3,7 +3,7 @@ html {
     padding: 0;
     width: 100vw;
     overflow-x: hidden;
-    background-color: whitesmoke;
+    background-color: #f5f6f8;
   }
   
   body {
@@ -11,7 +11,7 @@ html {
     padding: 0;
     min-height: 100%;
     min-width: 100%;
-    background-color: whitesmoke;
+    background-color: #f5f6f8;
   }
 .nav {
     display: flex;
