@@ -19,7 +19,7 @@
                 </a>
                 {% if current_user.is_authenticated %}
                 <div class="right-side">
-                    <a href="{{ url_for('main.profile') }}" class="nav-item profile-button">
+                    <a href="{{ url_for('main.profile', user_id=current_user.id) }}" class="nav-item profile-button">
                         {{ current_user.name }}
                     </a>
                     <a href="{{ url_for('auth.logout') }}" class="nav-item logout-button">

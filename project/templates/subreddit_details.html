@@ -1,20 +1,19 @@
 {% extends "base.html" %}
-
 {% block content %}
 <div class="feed-wrapper">
   <div class="all-posts-wrapper">
   <div class="posts-wrapper">
-  {% if all_posts %}
-    {% for post in all_posts %}
+  {% if music_posts %}
+    {% for post in music_posts %}
     <div class="post">
     {% if current_user.is_authenticated %}
       <div class="post-vote-wrapper">
         <button class="upvote">
-          <a href="{{ url_for('main.upvote_post', post_id=post.id) }}">upvote</a>        
+          <a href="{{ url_for('main.upvote_post_subreddit', post_id=post.id, subreddit_id=subreddit_id) }}">upvote</a>        
         </button>
         <p class='post-votes'>{{post.votes}}</p>
         <button class="downvote">
-          <a href="{{ url_for('main.downvote_post', post_id=post.id) }}">downvote</a>
+          <a href="{{ url_for('main.downvote_post_subreddit', post_id=post.id, subreddit_id=subreddit_id) }}">downvote</a>
         </button>
       </div>
       {% endif %}

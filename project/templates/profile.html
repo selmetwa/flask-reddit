@@ -3,7 +3,76 @@
 <h1 class="title">
   Welcome, {{ name }}!
 </h1>
-<div class="app-container">
-  your posts go here
-</div> 
+<div class="feed-wrapper">
+  <div class="all-posts-wrapper">
+  <div class="posts-wrapper">
+  {% if user_posts %}
+    {% for post in user_posts %}
+    <div class="post">
+    {% if current_user.is_authenticated %}
+      <div class="post-vote-wrapper">
+        <button class="upvote">
+          <a href="{{ url_for('main.upvote_post_subreddit', post_id=post.id, subreddit_id=subreddit_id) }}">upvote</a>        
+        </button>
+        <p class='post-votes'>{{post.votes}}</p>
+        <button class="downvote">
+          <a href="{{ url_for('main.downvote_post_subreddit', post_id=post.id, subreddit_id=subreddit_id) }}">downvote</a>
+        </button>
+      </div>
+      {% endif %}
+      {% if not current_user.is_authenticated %}
+      <div class="post-vote-wrapper">
+        <button class="upvote">upvote</button>
+        <p class='post-votes'>{{post.votes}}</p>
+        <button class="downvote">downvote</button>
+      </div>
+      {% endif %}
+      <div class="post-content-wrapper">
+        <h1 class='post-title'>{{post.title}}</h1>
+        <h3 class='post-description'>{{post.description}}</h3>
+        <div class="post-content-footer">
+          <p class='post-subreddit'>/h/{{post.sub}}</p>
+          <p class='post-author'>by {{post.user.name}}</p>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  {% endif %}
+  </div>
+  </div>
+  <div class="subreddits-wrapper">
+  <form action="/" method="POST" class="page-wrapper">
+      <input
+        type="text"
+        placeholder="Input Data Set"
+        class="u-full-width"
+        name="post-title"
+      />
+      <input
+        type="text"
+        placeholder="Input Data Set"
+        class="u-full-width"
+        name="post-content"
+      />
+      <select class="u-full-width" name="subreddit">
+        <option value="Music">Music</option>
+        <option value="Funny">Funny</option>
+        <option value="Programming">Programming</option>
+        <option value="News">News</option>
+        <option value="Design">Design</option>
+      </select>
+      <input type="submit" value="submit" id="calc_btn" />
+    </form>
+    <div class='subreddits-wrapper'>
+    <a href="{{ url_for('main.get_all_posts') }}">All</a>
+    {% if subreddits %}
+    {% for subreddit in subreddits %}
+    <div class="subreddit-container">
+      <a href="{{ url_for('main.get_posts_for_subreddit', sub_id=subreddit.id) }}">{{subreddit.name}}</a>
+    </div>
+    {% endfor %}
+  {% endif %}
+    </div>
+    </div>
+</div>
 {% endblock %}
