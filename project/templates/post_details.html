@@ -9,11 +9,11 @@
     {% if current_user.is_authenticated %}
       <div class="post-vote-wrapper">
         <button class="upvote">
-          <a href="{{ url_for('main.upvote_post', post_id=post.id) }}">upvote</a>        
+          <a href="{{ url_for('main.upvote_post_details', post_id=post.id, user_id=post.user.id) }}">upvote</a>        
         </button>
         <p class='post-votes'>{{post.votes}}</p>
         <button class="downvote">
-          <a href="{{ url_for('main.downvote_post', post_id=post.id) }}">downvote</a>
+          <a href="{{ url_for('main.downvote_post_details', post_id=post.id, user_id=post.user.id) }}">downvote</a>
         </button>
       </div>
       {% endif %}
@@ -49,13 +49,12 @@
     <p>{{comment.text}}</p>
     </div>
     {% endfor %}
-      comments go here
     </div>
   {% endif %}
   </div>
   </div>
   <div class="subreddits-wrapper">
- 
+  {% include "form.html" %}
     <div class='subreddits-wrapper'>
     <a href="{{ url_for('main.get_all_posts') }}">All</a>
     {% if subreddits %}

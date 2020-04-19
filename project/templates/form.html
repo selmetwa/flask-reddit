@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Flask Auth Example</title>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/nav.css') }}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/feed.css') }}">
+</head>
+<body>
+<form action="/" method="POST" class="page-wrapper">
+      <input
+        type="text"
+        placeholder="Input Data Set"
+        class="u-full-width"
+        name="post-title"
+      />
+      <input
+        type="text"
+        placeholder="Input Data Set"
+        class="u-full-width"
+        name="post-content"
+      />
+      <select class="u-full-width" name="subreddit">
+        <option value="Music">Music</option>
+        <option value="Funny">Funny</option>
+        <option value="Programming">Programming</option>
+        <option value="News">News</option>
+        <option value="Design">Design</option>
+      </select>
+      <input type="submit" value="submit" id="calc_btn" />
+    </form>
+</body>
+</html>
