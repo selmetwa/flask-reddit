@@ -117,8 +117,9 @@ def downvote_post_profile(post_id, user_id):
 def post_details(post_id):
     subreddits = Subreddit.query.all()
     target_post = Post.query.filter_by(id=post_id).first_or_404()
+    comments = Comment.query.filter_by(post_id=post_id)
     print('target_post: ', target_post)
-    return render_template('post_details.html', post=target_post, name=current_user.name, subreddits=subreddits)
+    return render_template('post_details.html', post=target_post, name=current_user.name, subreddits=subreddits, comments=comments)
 
 @main.route('/create_comment/<post_id>/<user_id>', methods=['POST'])
 def create_comment(post_id, user_id):
@@ -127,10 +128,9 @@ def create_comment(post_id, user_id):
     text = request.form['comment-text']
     post_id = post_id
     user_id = user_id
-    author = current_user.name
-    author_id = current_user.id
+    author = User.query.filter_by(id=user_id).first_or_404().name
     new_comment = Comment(text=text, post_id=post_id, user_id=user_id, author=author)
     comments = Comment.query.filter_by(post_id=post_id)
     db.session.add(new_comment)
     db.session.commit()
-    return render_template('post_details.html', post=target_post, name=current_user.name, subreddits=subreddits, comments=comments, author_id=author_id)
+    return render_template('post_details.html', post=target_post, name=current_user.name, subreddits=subreddits, comments=comments)

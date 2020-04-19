@@ -26,7 +26,6 @@
       </div>
       {% endif %}
       <div class="post-content-wrapper">
-        <h1 class='post-title'>{{post.title}}</h1>
         <a href="{{ url_for('main.post_details', post_id=post.id) }} " class="post-title">{{post.title}}</a>
         <h3 class='post-description'>{{post.description}}</h3>
         <div class="post-content-footer">
