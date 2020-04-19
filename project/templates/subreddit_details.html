@@ -38,28 +38,7 @@
   </div>
   </div>
   <div class="subreddits-wrapper">
-  <form action="/" method="POST" class="page-wrapper">
-      <input
-        type="text"
-        placeholder="Input Data Set"
-        class="u-full-width"
-        name="post-title"
-      />
-      <input
-        type="text"
-        placeholder="Input Data Set"
-        class="u-full-width"
-        name="post-content"
-      />
-      <select class="u-full-width" name="subreddit">
-        <option value="Music">Music</option>
-        <option value="Funny">Funny</option>
-        <option value="Programming">Programming</option>
-        <option value="News">News</option>
-        <option value="Design">Design</option>
-      </select>
-      <input type="submit" value="submit" id="calc_btn" />
-    </form>
+    {% include "form.html" %}
     <div class='subreddits-wrapper'>
     <a href="{{ url_for('main.get_all_posts') }}">All</a>
     {% if subreddits %}
