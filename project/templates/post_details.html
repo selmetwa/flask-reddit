@@ -44,7 +44,10 @@
     </form>
     <div class='comments-wrapper'>
     {% for comment in comments%}
+    <div class="comment-wrapper">
+    <a href="{{ url_for('main.profile', user_id=author_id) }}" class="post-author">by {{comment.author}}</a>
     <p>{{comment.text}}</p>
+    </div>
     {% endfor %}
       comments go here
     </div>

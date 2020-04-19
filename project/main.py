@@ -127,8 +127,10 @@ def create_comment(post_id, user_id):
     text = request.form['comment-text']
     post_id = post_id
     user_id = user_id
-    new_comment = Comment(text=text, post_id=post_id, user_id=user_id)
+    author = current_user.name
+    author_id = current_user.id
+    new_comment = Comment(text=text, post_id=post_id, user_id=user_id, author=author)
     comments = Comment.query.filter_by(post_id=post_id)
     db.session.add(new_comment)
     db.session.commit()
-    return render_template('post_details.html', post=target_post, name=current_user.name, subreddits=subreddits, comments=comments)
+    return render_template('post_details.html', post=target_post, name=current_user.name, subreddits=subreddits, comments=comments, author_id=author_id)

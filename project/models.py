@@ -9,7 +9,7 @@ class User(UserMixin, db.Model):
     password = db.Column(db.String(100))
     name = db.Column(db.String(1000))
     posts = db.relationship('Post', backref='user')
-    comments = db.relationship('Comment', backref='author')
+    comments = db.relationship('Comment', backref='owner')
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -32,3 +32,4 @@ class Comment(db.Model):
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     text = db.Column(db.String(500))
+    author = db.Column(db.String(100))
