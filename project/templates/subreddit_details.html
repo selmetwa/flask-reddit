@@ -9,11 +9,11 @@
     {% if current_user.is_authenticated %}
       <div class="post-vote-wrapper">
         <button class="upvote">
-          <a href="{{ url_for('main.upvote_post_subreddit', post_id=post.id, subreddit_id=subreddit_id) }}">upvote</a>        
+          <a href="{{ url_for('main.upvote_post_subreddit', post_id=post.id, sub_name=post.sub) }}">upvote</a>        
         </button>
         <p class='post-votes'>{{post.votes}}</p>
         <button class="downvote">
-          <a href="{{ url_for('main.downvote_post_subreddit', post_id=post.id, subreddit_id=subreddit_id) }}">downvote</a>
+          <a href="{{ url_for('main.downvote_post_subreddit', post_id=post.id, sub_name=post.sub) }}">downvote</a>        
         </button>
       </div>
       {% endif %}
@@ -28,7 +28,7 @@
         <h1 class='post-title'>{{post.title}}</h1>
         <h3 class='post-description'>{{post.description}}</h3>
         <div class="post-content-footer">
-          <p class='post-subreddit'>/h/{{post.sub}}</p>
+          <a href="{{ url_for('main.get_posts_for_subreddit', sub_name=post.sub) }} " class="post-subreddit">/h/{{post.sub}}</a>
           <a href="{{ url_for('main.profile', user_id=post.user.id) }}" class="post-author">by {{post.user.name}}</a>
         </div>
       </div>
@@ -65,7 +65,7 @@
     {% if subreddits %}
     {% for subreddit in subreddits %}
     <div class="subreddit-container">
-      <a href="{{ url_for('main.get_posts_for_subreddit', sub_id=subreddit.id) }}">{{subreddit.name}}</a>
+      <a href="{{ url_for('main.get_posts_for_subreddit', sub_name=subreddit.name) }}">{{subreddit.name}}</a>
     </div>
     {% endfor %}
   {% endif %}

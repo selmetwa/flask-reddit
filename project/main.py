@@ -55,14 +55,11 @@ def create_post():
     all_posts = Post.query.all()
     return render_template('index.html', name=current_user.name, all_posts=all_posts, subreddits=subreddits)    
 
-@main.route('/subreddits/<sub_id>')
-def get_posts_for_subreddit(sub_id):
+@main.route('/subreddits/<sub_name>')
+def get_posts_for_subreddit(sub_name):
     subreddits = Subreddit.query.all()
-    sub_id = int(sub_id) 
-    print('sub_id: ', sub_id)
-    print('type(sub_id): ', type(sub_id))
-    music_posts = Post.query.filter_by(subreddit_id=sub_id-1)
-    return render_template('subreddit_details.html', music_posts=music_posts, subreddits=subreddits, subreddit_id=sub_id)
+    music_posts = Post.query.filter_by(sub=sub_name)
+    return render_template('subreddit_details.html', music_posts=music_posts, subreddits=subreddits, sub_name=sub_name)
 
 @main.route('/all')
 def get_all_posts():
@@ -70,30 +67,23 @@ def get_all_posts():
     all_posts = Post.query.all()
     return render_template('index.html', all_posts=all_posts, subreddits=subreddits)
 
-@main.route('/upvote_post_subreddit/<subreddit_id>/<post_id>')
-def upvote_post_subreddit(post_id, subreddit_id):
-    print('post_id: ', post_id)
+@main.route('/upvote_post_subreddit/<sub_name>/<post_id>')
+def upvote_post_subreddit(post_id, sub_name):
     subreddits = Subreddit.query.all()
     post = Post.query.filter_by(id=post_id).first_or_404()
     post.votes = post.votes + 1
     db.session.commit()
-    sub_id = int(subreddit_id)
-    sub_id = sub_id - 1
-    print('sub_id: ', sub_id)
-    music_posts = Post.query.filter_by(subreddit_id=sub_id)
-    return render_template('subreddit_details.html', music_posts=music_posts, subreddits=subreddits, subreddit_id=sub_id+1)
+    music_posts = Post.query.filter_by(sub=sub_name)
+    return render_template('subreddit_details.html', music_posts=music_posts, subreddits=subreddits, sub_name=sub_name)
 
-@main.route('/downvote_post_subreddit/<subreddit_id>/<post_id>')
-def downvote_post_subreddit(post_id, subreddit_id):
+@main.route('/downvote_post_subreddit/<sub_name>/<post_id>')
+def downvote_post_subreddit(post_id, sub_name):
     subreddits = Subreddit.query.all()
     post = Post.query.filter_by(id=post_id).first_or_404()
     post.votes = post.votes - 1
     db.session.commit()
-    sub_id = int(subreddit_id)
-    sub_id = sub_id - 1
-    print('sub_id: ', sub_id)
-    music_posts = Post.query.filter_by(subreddit_id=sub_id)
-    return render_template('subreddit_details.html', music_posts=music_posts, subreddits=subreddits, subreddit_id=sub_id+1)
+    music_posts = Post.query.filter_by(sub=sub_name)
+    return render_template('subreddit_details.html', music_posts=music_posts, subreddits=subreddits, sub_name=sub_name)
 
 @main.route('/profile<user_id>', methods=['GET', 'POST'])
 @login_required
