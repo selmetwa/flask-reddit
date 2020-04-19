@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request
 from . import db
 from flask_login import login_required, current_user
-from project.models import Post, Subreddit
+from project.models import Post, Subreddit, User
 
 main = Blueprint('main', __name__)
 
@@ -98,6 +98,27 @@ def downvote_post_subreddit(post_id, subreddit_id):
 @main.route('/profile<user_id>', methods=['GET', 'POST'])
 @login_required
 def profile(user_id):
+    subreddits = Subreddit.query.all()
     user_posts = Post.query.filter_by(user_id=user_id)
-    return render_template('profile.html', user_posts=user_posts, name=current_user.name)
+    current_user = User.query.filter_by(id=user_id).first_or_404()
+    return render_template('profile.html', user_posts=user_posts, name=current_user.name, subreddits=subreddits)
 
+@main.route('/upvote_post_profile/<user_id>/<post_id>')
+def upvote_post_profile(post_id, user_id):
+    subreddits = Subreddit.query.all()
+    current_user = User.query.filter_by(id=user_id).first_or_404()
+    post = Post.query.filter_by(id=post_id).first_or_404()
+    post.votes = post.votes + 1
+    db.session.commit()
+    user_posts = Post.query.filter_by(user_id=user_id)
+    return render_template('profile.html', user_posts=user_posts, subreddits=subreddits, name=current_user.name)
+
+@main.route('/downvote_post_profile/<user_id>/<post_id>')
+def downvote_post_profile(post_id, user_id):
+    subreddits = Subreddit.query.all()
+    current_user = User.query.filter_by(id=user_id).first_or_404()
+    post = Post.query.filter_by(id=post_id).first_or_404()
+    post.votes = post.votes - 1
+    db.session.commit()
+    user_posts = Post.query.filter_by(user_id=user_id)
+    return render_template('profile.html', user_posts=user_posts, subreddits=subreddits, name=current_user.name)

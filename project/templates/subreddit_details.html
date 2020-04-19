@@ -29,7 +29,7 @@
         <h3 class='post-description'>{{post.description}}</h3>
         <div class="post-content-footer">
           <p class='post-subreddit'>/h/{{post.sub}}</p>
-          <p class='post-author'>by {{post.user.name}}</p>
+          <a href="{{ url_for('main.profile', user_id=post.user.id) }}" class="post-author">by {{post.user.name}}</a>
         </div>
       </div>
     </div>

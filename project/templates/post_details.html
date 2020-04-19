@@ -1,11 +1,10 @@
 {% extends "base.html" %}
-
 {% block content %}
 <div class="feed-wrapper">
   <div class="all-posts-wrapper">
+  
   <div class="posts-wrapper">
-  {% if all_posts %}
-    {% for post in all_posts %}
+  {% if post %}
     <div class="post">
     {% if current_user.is_authenticated %}
       <div class="post-vote-wrapper">
@@ -29,12 +28,32 @@
         <h1 class='post-title'>{{post.title}}</h1>
         <h3 class='post-description'>{{post.description}}</h3>
         <div class="post-content-footer">
-          <p class='post-subreddit'>/h/{{post.sub}}</p>
+          {% for comment in post.comments %}
+          {% if comment == post.comments[0] %}
+          <a href="{{ url_for('main.get_post_details', post_id=post.id) }}">{{loop.length}}</a>
+          {% endif %}
+          {% endfor %} 
+          <a href="{{ url_for('main.get_posts_for_subreddit', sub_name=post.sub) }}">{{post.sub}}</a>
           <a href="{{ url_for('main.profile', user_id=post.user.id) }}" class="post-author">by {{post.user.name}}</a>
         </div>
       </div>
     </div>
+    <form action="/create_comment/{{ post.id }}" method="POST">
+        <input
+            type="text"
+            placeholder="Input Data Set"
+            class="u-full-width"
+            name="comment-text"
+      />
+      <input type="submit" value="submit" />
+    </form>
+    <div class='comments-wrapper'>
+    {% for comment in post.comments%}
+        <div class="comment">
+        <p>{{ comment.text }}</p>
+        </div>
     {% endfor %}
+    </div>
   {% endif %}
   </div>
   </div>
@@ -66,7 +85,7 @@
     {% if subreddits %}
     {% for subreddit in subreddits %}
     <div class="subreddit-container">
-      <a href="{{ url_for('main.get_posts_for_subreddit', sub_id=subreddit.id) }}">{{subreddit.name}}</a>
+      <a href="{{ url_for('main.get_posts_for_subreddit', sub_name=subreddit.name) }}">{{subreddit.name}}</a>
     </div>
     {% endfor %}
   {% endif %}

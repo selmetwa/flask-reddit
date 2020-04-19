@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 <h1 class="title">
-  Welcome, {{ name }}!
+  Posts by, {{ name }}!
 </h1>
 <div class="feed-wrapper">
   <div class="all-posts-wrapper">
@@ -12,11 +12,11 @@
     {% if current_user.is_authenticated %}
       <div class="post-vote-wrapper">
         <button class="upvote">
-          <a href="{{ url_for('main.upvote_post_subreddit', post_id=post.id, subreddit_id=subreddit_id) }}">upvote</a>        
+          <a href="{{ url_for('main.upvote_post_profile', post_id=post.id, user_id=post.user.id) }}">upvote</a>        
         </button>
         <p class='post-votes'>{{post.votes}}</p>
         <button class="downvote">
-          <a href="{{ url_for('main.downvote_post_subreddit', post_id=post.id, subreddit_id=subreddit_id) }}">downvote</a>
+          <a href="{{ url_for('main.downvote_post_profile', post_id=post.id, user_id=post.user.id) }}">downvote</a>
         </button>
       </div>
       {% endif %}
@@ -32,7 +32,7 @@
         <h3 class='post-description'>{{post.description}}</h3>
         <div class="post-content-footer">
           <p class='post-subreddit'>/h/{{post.sub}}</p>
-          <p class='post-author'>by {{post.user.name}}</p>
+          <a href="{{ url_for('main.profile', user_id=post.user.id) }}" class="post-author">by {{post.user.name}}</a>
         </div>
       </div>
     </div>
