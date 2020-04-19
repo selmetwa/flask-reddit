@@ -9,6 +9,7 @@ class User(UserMixin, db.Model):
     password = db.Column(db.String(100))
     name = db.Column(db.String(1000))
     posts = db.relationship('Post', backref='user')
+    comments = db.relationship('Comment', backref='author')
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -18,9 +19,16 @@ class Post(db.Model):
     votes = db.Column(db.Integer)
     subreddit_id = db.Column(db.Integer, db.ForeignKey('subreddit.id'))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    comments = db.relationship('Comment', backref='parent')
 
 class Subreddit(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), unique=True)
     description = db.Column(db.String(500), unique=True)
     posts = db.relationship('Post', backref='subreddit')
+
+class Comment(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    text = db.Column(db.String(500))

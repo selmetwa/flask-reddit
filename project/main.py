@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request
 from . import db
 from flask_login import login_required, current_user
-from project.models import Post, Subreddit, User
+from project.models import Post, Subreddit, User, Comment
 
 main = Blueprint('main', __name__)
 
@@ -112,3 +112,23 @@ def downvote_post_profile(post_id, user_id):
     db.session.commit()
     user_posts = Post.query.filter_by(user_id=user_id)
     return render_template('profile.html', user_posts=user_posts, subreddits=subreddits, name=current_user.name)
+
+@main.route('/post_details/<post_id>', methods=['GET', 'POST'])
+def post_details(post_id):
+    subreddits = Subreddit.query.all()
+    target_post = Post.query.filter_by(id=post_id).first_or_404()
+    print('target_post: ', target_post)
+    return render_template('post_details.html', post=target_post, name=current_user.name, subreddits=subreddits)
+
+@main.route('/create_comment/<post_id>/<user_id>', methods=['POST'])
+def create_comment(post_id, user_id):
+    target_post = Post.query.filter_by(id=post_id).first_or_404()
+    subreddits = Subreddit.query.all()
+    text = request.form['comment-text']
+    post_id = post_id
+    user_id = user_id
+    new_comment = Comment(text=text, post_id=post_id, user_id=user_id)
+    comments = Comment.query.filter_by(post_id=post_id)
+    db.session.add(new_comment)
+    db.session.commit()
+    return render_template('post_details.html', post=target_post, name=current_user.name, subreddits=subreddits, comments=comments)
