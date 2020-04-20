@@ -62,6 +62,13 @@
     flex-direction: row;
     margin-top: 1%;
 }
+.post-comments {
+    margin-right: 3%;
+    padding: 0;
+    font-size: 14px;
+    opacity: .7;
+    font-weight: 100;
+}
 .post-subreddit {
     margin: 0;
     padding: 0;
@@ -76,4 +83,8 @@
     opacity: .7;
     font-weight: 100;
     margin-left: 3%;
+}
+.addPostForm {
+    display: none;
+    border: 5px solid red;
 }

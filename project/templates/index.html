@@ -29,8 +29,14 @@
         <a href="{{ url_for('main.post_details', post_id=post.id) }} " class="post-title">{{post.title}}</a>
         <h3 class='post-description'>{{post.description}}</h3>
         <div class="post-content-footer">
+        {% set ns = namespace(comment_count=0) %}
+          {% for comment in post.comments %}
+            {% set ns.comment_count = ns.comment_count + 1 %}
+          {% endfor %}
+          <a href="{{ url_for('main.post_details', post_id=post.id) }} " class="post-comments">{{ ns.comment_count }} comments</a>
           <a href="{{ url_for('main.get_posts_for_subreddit', sub_name=post.sub) }} " class="post-subreddit">/h/{{post.sub}}</a>
           <a href="{{ url_for('main.profile', user_id=post.user.id) }}" class="post-author">by {{post.user.name}}</a>
+          
         </div>
       </div>
     </div>
@@ -40,6 +46,7 @@
   </div>
   <div class="subreddits-wrapper">
     {% include "form.html" %}
+    <button class="showForm">show form</button>
     <div class='subreddits-wrapper'>
     <a href="{{ url_for('main.get_all_posts') }}">All</a>
     {% if subreddits %}
@@ -52,4 +59,19 @@
     </div>
     </div>
 </div>
+{% block javascript %}
+  <script>
+    const form = document.querySelector('.addPostForm')
+    let formIsOpen = false
+    document.querySelector('.showForm').addEventListener('click', () => {
+      if (!formIsOpen) {
+        form.style.display = "flex";
+        formIsOpen = true
+      } else {
+        form.style.display = "none"
+        formIsOpen = false
+      }
+    })
+  </script>
+{% endblock %}
 {% endblock %}
