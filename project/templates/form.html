@@ -1,14 +1,8 @@
-<!DOCTYPE html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Flask Auth Example</title>
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/nav.css') }}">
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/feed.css') }}">
-</head>
-<body>
-<form action="/" method="POST" class="page-wrapper addPostForm">
+{% extends "base.html" %}
+
+{% block content %}
+<div class="form-wrapper">
+  <form action="/" method="POST" class="page-wrapper addPostForm">
       <input
         type="text"
         placeholder="Input Data Set"
@@ -29,6 +23,6 @@
         <option value="Design">Design</option>
       </select>
       <input type="submit" value="submit" id="calc_btn" />
-    </form>
-</body>
-</html>
+  </form>
+</div>
+{% endblock %}

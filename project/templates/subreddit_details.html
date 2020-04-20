@@ -44,7 +44,7 @@
   </div>
   </div>
   <div class="subreddits-wrapper">
-    {% include "form.html" %}
+    <a href="{{ url_for('main.create_post_form') }}">create post</a>
     <div class='subreddits-wrapper'>
     <a href="{{ url_for('main.get_all_posts') }}">All</a>
     {% if subreddits %}

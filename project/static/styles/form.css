@@ -1,0 +1,13 @@
+.form-wrapper {
+    border: 1px solid green;
+    width: 60%;
+    margin-left: 15%;
+    margin-top: 5%;
+}
+.addPostForm {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    margin: 15px;
+    border: 1px solid red;
+}

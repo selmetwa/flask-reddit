@@ -156,3 +156,7 @@ def create_comment(post_id, user_id):
     db.session.add(new_comment)
     db.session.commit()
     return render_template('post_details.html', post=target_post, name=current_user.name, subreddits=subreddits, comments=comments)
+
+@main.route('/create_post_form', methods=['GET'])
+def create_post_form():
+    return render_template('form.html')
