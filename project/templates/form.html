@@ -3,26 +3,54 @@
 {% block content %}
 <div class="form-wrapper">
   <form action="/" method="POST" class="page-wrapper addPostForm">
+      <label class="create-post-label">Title</label>
       <input
         type="text"
         placeholder="Input Data Set"
-        class="u-full-width"
+        class="create-post-title form-input"
         name="post-title"
       />
+      <label class="create-post-label">Text</label>
       <input
         type="text"
         placeholder="Input Data Set"
-        class="u-full-width"
+        class="create-post-content form-input"
         name="post-content"
       />
-      <select class="u-full-width" name="subreddit">
+      <label class="create-post-label">Subreddit</label>
+      <select class="create-post-select" name="subreddit">
         <option value="Music">Music</option>
         <option value="Funny">Funny</option>
         <option value="Programming">Programming</option>
         <option value="News">News</option>
         <option value="Design">Design</option>
       </select>
-      <input type="submit" value="submit" id="calc_btn" />
+      <div class="buttons-wrapper">
+      <button type="submit" value="post" class="create-form-button form-submit" onClick="return empty()">Post</button>
+      <button type="submit" value="submit" class="create-form-button form-cancel">
+        <a href="{{ url_for('main.index') }}">cancel</a>
+      </button>
+      </div>
   </form>
 </div>
+<script>
+  function empty() {
+      let postTitle;
+      let postContent;
+      postTitle = document.querySelector(".create-post-title").value;
+      postContent = document.querySelector(".create-post-content").value;
+      if (postTitle == "" && postContent == "") {
+          alert("fields cannot be empty");
+          return false;
+      }
+      else if (postTitle == "") {
+          alert("post title cannot be empty");
+          return false;
+      }
+      else if (postContent == "") {
+          alert("post text cannot be empty");
+          return false;
+      };
+  }
+</script>
 {% endblock %}

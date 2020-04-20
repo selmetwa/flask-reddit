@@ -1,6 +1,7 @@
 from flask_login import UserMixin
 from sqlalchemy.orm import backref
 from sqlalchemy.orm import sessionmaker, relationship
+from sqlalchemy import Column, Integer, String
 from . import db
 
 class User(UserMixin, db.Model):
