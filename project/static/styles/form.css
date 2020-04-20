@@ -1,13 +1,82 @@
 .form-wrapper {
-    border: 1px solid green;
-    width: 60%;
-    margin-left: 15%;
+    /* border: 1px solid green; */
+    width: 40%;
+    margin-left: 30%;
+    background-color: #ffffff;
     margin-top: 5%;
+    height: min-content;
+    padding-bottom: 20px;
+    box-shadow: 0px 1px 1px rgba(34, 34, 34, 0.3);
 }
 .addPostForm {
     display: flex;
     flex-direction: column;
     padding: 15px;
     margin: 15px;
-    border: 1px solid red;
+}
+.create-post-label {
+    font-family: 'Lato','Avenir', Helvetica,Arial , sans-serif!important;
+    font-size: .9rem;
+    color: #333;
+    margin-top: 3vh;
+}
+.form-input {
+    padding: 8px;
+    font-family: 'Lato','Avenir', Helvetica,Arial , sans-serif!important;
+    border: 1px solid #dfdede;
+    color: #333;
+    background-color: #fcfcfc;
+    font-size: .9rem;
+    margin-top: 1vh;
+    border-radius: 5px;
+    font-weight: 100;
+}
+.create-post-select {
+    margin-top: 1vh;    
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding: 8px;
+    height: min-content;
+    font-family: 'Lato','Avenir', Helvetica,Arial , sans-serif!important;
+    border: 1px solid #dfdede;
+    color: #333;
+    background-color: #fcfcfc;
+    font-size: 1.2rem;
+}
+.buttons-wrapper {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+.create-form-button {
+    font-family: 'Lato','Avenir', Helvetica,Arial , sans-serif!important;
+    border: 1px solid #3B60E4;
+    width: 30%;
+    margin-top: 3vh;
+    border-radius: 5px;
+    padding: 8px;
+    font-size: 1.2rem;
+    transition: .2s;
+}
+.form-submit:hover {
+    background-color: rgb(42, 79, 211);
+    transition: .2s;
+    cursor: pointer;
+}
+.form-submit {
+    color: #fafafa;
+    background-color: #3B60E4;
+}
+.form-cancel {
+    margin-left: 3%;
+}
+.form-cancel:hover {
+    border: 1px solid rgb(36, 69, 189);
+    
+}
+.form-cancel a {
+    text-decoration: none;
+    color: #333;
+    opacity: .6;
 }

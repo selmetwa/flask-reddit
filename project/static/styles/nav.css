@@ -3,7 +3,7 @@ html {
     padding: 0;
     width: 100vw;
     overflow-x: hidden;
-    background-color: #f5f6f8;
+    background-color: #f1f2f5;
   }
   
   body {
@@ -11,7 +11,7 @@ html {
     padding: 0;
     min-height: 100%;
     min-width: 100%;
-    background-color: #f5f6f8;
+    background-color: #f1f2f5;
   }
 .nav {
     display: flex;
@@ -22,7 +22,7 @@ html {
     flex-direction: row;
     text-decoration: none!important;
     list-style: none;
-    background-color: #f7f8f8;
+    background-color: #fafafa;
     justify-content: space-between;
     font-family:  Avenir,Lato, Arial, Helvetica, sans-serif;
 }
@@ -60,7 +60,7 @@ html {
     padding:0;
     flex-direction: row;
     margin-left: 10vw;
-    background-color: #f7f8f8!important;
+    background-color: #fafafa!important;
     border: none;
     outline: none;
     margin-right: 10vw;
@@ -72,10 +72,10 @@ html {
     margin:0;
     padding:0;
     text-decoration: none!important;
-    background-color: #f7f8f8!important;
+    background-color: #fafafa!important;
 	color: #333!important;
     border: none;
-    padding: 25px;
+    padding: 20px;
     font-family:  Avenir,Lato, Arial, Helvetica, sans-serif;
     outline: none;
 }
@@ -94,7 +94,7 @@ html {
     border-right: 1px solid lightgray;
 }
 a {
-    background-color: #f7f8f8!important;
+    background-color: #fafafa!important;
 }
 .logout-button:hover {
     border-bottom: 2px solid #386FA4;
