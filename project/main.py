@@ -55,6 +55,17 @@ def create_post():
     all_posts = Post.query.all()
     return render_template('index.html', name=current_user.name, all_posts=all_posts, subreddits=subreddits)    
 
+@main.route('/delete_post/<post_id>/<user_id>', methods=['GET'])
+def delete_post(post_id, user_id):
+    target_post = Post.query.filter_by(id=post_id).first_or_404()    
+    print('post: ', target_post)
+    db.session.delete(target_post)
+    db.session.commit()
+    subreddits = Subreddit.query.all()
+    user_posts = Post.query.filter_by(user_id=user_id)
+    current_user = User.query.filter_by(id=user_id).first_or_404()
+    return render_template('profile.html', user_posts=user_posts, name=current_user.name, subreddits=subreddits)
+
 @main.route('/subreddits/<sub_name>')
 def get_posts_for_subreddit(sub_name):
     subreddits = Subreddit.query.all()
@@ -92,6 +103,33 @@ def profile(user_id):
     user_posts = Post.query.filter_by(user_id=user_id)
     current_user = User.query.filter_by(id=user_id).first_or_404()
     return render_template('profile.html', user_posts=user_posts, name=current_user.name, subreddits=subreddits)
+
+@main.route('/user/<user_id>', methods=['GET', 'POST'])
+def user_profile(user_id):
+    subreddits = Subreddit.query.all()
+    user_posts = Post.query.filter_by(user_id=user_id)
+    current_user = User.query.filter_by(id=user_id).first_or_404()
+    return render_template('user.html', user_posts=user_posts, name=current_user.name, subreddits=subreddits)
+
+@main.route('/upvote_post_user/<user_id>/<post_id>')
+def upvote_post_user(post_id, user_id):
+    subreddits = Subreddit.query.all()
+    current_user = User.query.filter_by(id=user_id).first_or_404()
+    post = Post.query.filter_by(id=post_id).first_or_404()
+    post.votes = post.votes + 1
+    db.session.commit()
+    user_posts = Post.query.filter_by(user_id=user_id)
+    return render_template('user.html', user_posts=user_posts, subreddits=subreddits, name=current_user.name)
+
+@main.route('/downvote_post_user/<user_id>/<post_id>')
+def downvote_post_user(post_id, user_id):
+    subreddits = Subreddit.query.all()
+    current_user = User.query.filter_by(id=user_id).first_or_404()
+    post = Post.query.filter_by(id=post_id).first_or_404()
+    post.votes = post.votes - 1
+    db.session.commit()
+    user_posts = Post.query.filter_by(user_id=user_id)
+    return render_template('user.html', user_posts=user_posts, subreddits=subreddits, name=current_user.name)
 
 @main.route('/upvote_post_profile/<user_id>/<post_id>')
 def upvote_post_profile(post_id, user_id):
@@ -150,9 +188,9 @@ def create_comment(post_id, user_id):
     text = request.form['comment-text']
     post_id = post_id
     user_id = user_id
-    author_id = User.query.filter_by(name=current_user.name).first_or_404()
+    author_id = User.query.filter_by(name=current_user.name).first_or_404().id
     author = User.query.filter_by(id=user_id).first_or_404().name
-    new_comment = Comment(text=text, post_id=post_id, user_id=user_id, author=current_user.name, author_id=author_id)
+    new_comment = Comment(text=text, post_id=post_id, user_id=user_id, author=current_user.name)
     comments = Comment.query.filter_by(post_id=post_id)
     db.session.add(new_comment)
     db.session.commit()

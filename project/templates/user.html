@@ -1,20 +1,22 @@
 {% extends "base.html" %}
-
 {% block content %}
+<h1 class="title">
+  Posts by, {{ name }}!
+</h1>
 <div class="feed-wrapper">
   <div class="all-posts-wrapper">
   <div class="posts-wrapper">
-  {% if all_posts %}
-    {% for post in all_posts %}
+  {% if user_posts %}
+    {% for post in user_posts %}
     <div class="post">
     {% if current_user.is_authenticated %}
       <div class="post-vote-wrapper">
         <button class="upvote">
-          <a href="{{ url_for('main.upvote_post', post_id=post.id) }}">upvote</a>        
+          <a href="{{ url_for('main.upvote_post_user', post_id=post.id, user_id=post.user.id) }}">upvote</a>        
         </button>
         <p class='post-votes'>{{post.votes}}</p>
         <button class="downvote">
-          <a href="{{ url_for('main.downvote_post', post_id=post.id) }}">downvote</a>
+          <a href="{{ url_for('main.downvote_post_user', post_id=post.id, user_id=post.user.id) }}">downvote</a>
         </button>
       </div>
       {% endif %}
@@ -26,7 +28,7 @@
       </div>
       {% endif %}
       <div class="post-content-wrapper">
-        <a href="{{ url_for('main.post_details', post_id=post.id) }} " class="post-title">{{post.title}}</a>
+        <a href="{{ url_for('main.post_details', post_id=post.id) }} " class="post-title">{{post.title}}</a>        
         <h3 class='post-description'>{{post.description}}</h3>
         <div class="post-content-footer">
         {% set ns = namespace(comment_count=0) %}
@@ -63,19 +65,4 @@
     </div>
     </div>
 </div>
-{% block javascript %}
-  <script>
-    const form = document.querySelector('.addPostForm')
-    let formIsOpen = false
-    document.querySelector('.showForm').addEventListener('click', () => {
-      if (!formIsOpen) {
-        form.style.display = "flex";
-        formIsOpen = true
-      } else {
-        form.style.display = "none"
-        formIsOpen = false
-      }
-    })
-  </script>
-{% endblock %}
 {% endblock %}

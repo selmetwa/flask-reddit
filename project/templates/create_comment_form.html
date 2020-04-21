@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Heddit</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,900&display=swap" rel="stylesheet">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/create-comment-form.css') }}">
+</head>
+
+<body>
+<div class="comment-form-wrapper">
+  <form action="/create_comment/{{ post.id }}/{{ post.user.id }}" method="POST" class="comment-form">
+      <input
+        type="text"
+        placeholder="enter your comment..."
+        class="comment-text"
+        name="comment-text"
+      >
+      <button type="submit" value="post" class="comment-submit" onClick="return empty()">create post</button>
+    </form>
+</div>
+<script>
+  function empty() {
+      let commentText;
+      commentText = document.querySelector(".comment-text").value;
+      if (commentText == "" ) {
+          alert("comment cannot be empty");
+          return false;
+      }
+  }
+</script>
+</body>
+</html>

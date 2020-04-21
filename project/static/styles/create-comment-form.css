@@ -1,0 +1,40 @@
+.comment-form-wrapper {
+    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.comment-form {
+    display: flex;
+    flex-direction: column;
+}
+.comment-text {
+    padding: 8px;
+    padding-bottom: 50px;
+    font-family: 'Lato','Avenir', Helvetica,Arial , sans-serif!important;
+    border: 1px solid #dfdede;
+    color: #333;
+    background-color: #fcfcfc;
+    font-size: 1rem;
+    margin-top: 1vh;
+    font-weight: 100;
+}
+.comment-text:hover {
+    border: 1px solid #3B60E4;
+}
+.comment-submit {
+    font-family: 'Lato','Avenir', Helvetica,Arial , sans-serif!important;
+    width: 30%;
+    margin-top: 1vh;
+    border-radius: 3px;
+    padding: 8px;
+    font-size: 1rem;
+    transition: .2s;
+    color: #fafafa;
+    background-color: #3B60E4;
+    margin-left: .5%;
+}
+.comment-submit:hover {
+    background-color: rgb(42, 79, 211);
+    transition: .2s;
+    cursor: pointer;
+}

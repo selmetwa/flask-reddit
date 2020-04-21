@@ -1,8 +1,11 @@
 from flask_login import UserMixin
 from sqlalchemy.orm import backref
 from sqlalchemy.orm import sessionmaker, relationship
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import create_engine, Column, Integer, String, text
 from . import db
+
+
+engine = create_engine('sqlite://', echo=False)
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True) # primary keys are required by SQLAlchemy

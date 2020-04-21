@@ -31,6 +31,9 @@
     border-radius: 5px;
     font-weight: 100;
 }
+.form-input:hover {
+    border: 1px solid #3B60E4;
+}
 .create-post-select {
     margin-top: 1vh;    
     -webkit-appearance: none;
@@ -43,6 +46,9 @@
     color: #333;
     background-color: #fcfcfc;
     font-size: 1.2rem;
+}
+.create-post-select:hover {
+    border: 1px solid #3B60E4;
 }
 .buttons-wrapper {
     display: flex;

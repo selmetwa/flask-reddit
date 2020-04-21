@@ -33,15 +33,7 @@
         </div>
       </div>
     </div>
-    <form action="/create_comment/{{ post.id }}/{{ post.user.id }}" method="POST">
-        <input
-            type="text"
-            placeholder="Input Data Set"
-            class="u-full-width"
-            name="comment-text"
-      />
-      <input type="submit" value="submit" />
-    </form>
+    {% include "create_comment_form.html" %}
     <div class='comments-wrapper'>
     {% for comment in comments%}
     <div class="comment-wrapper">

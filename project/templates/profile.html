@@ -37,10 +37,19 @@
           {% endfor %}
           <a href="{{ url_for('main.post_details', post_id=post.id) }} " class="post-comments">{{ ns.comment_count }} comments</a>
           <a href="{{ url_for('main.get_posts_for_subreddit', sub_name=post.sub) }} " class="post-subreddit">/h/{{post.sub}}</a>
-          <a href="{{ url_for('main.profile', user_id=post.user.id) }}" class="post-author">by {{post.user.name}}</a>
+          {% if post.user.name == current_user.name %}
+          <a href="{{ url_for('main.profile', user_id=current_user.id) }}" class="post-author">
+              {{ current_user.name }}
+          </a>
+          {% else %}
+          <a href="{{ url_for('main.user_profile', user_id=post.user.id) }}" class="post-author">by {{post.user.name}}</a>
+          {% endif %}
         </div>
       </div>
     </div>
+    <button>
+          <a href="{{ url_for('main.delete_post', post_id=post.id, user_id=post.user.id) }}">delete post</a>    
+    </button>
     {% endfor %}
   {% endif %}
   </div>
