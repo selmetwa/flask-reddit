@@ -1,5 +1,6 @@
 from flask_login import UserMixin
 from sqlalchemy.orm import backref
+from datetime import datetime
 from sqlalchemy.orm import sessionmaker, relationship
 from sqlalchemy import create_engine, Column, Integer, String, text
 from . import db
@@ -24,6 +25,7 @@ class Post(db.Model):
     subreddit_id = db.Column(db.Integer, db.ForeignKey('subreddit.id'))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     comments = db.relationship('Comment', backref='parent')
+    timestamp = db.Column(db.String(50))
 
 class Subreddit(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -38,3 +40,5 @@ class Comment(db.Model):
     text = db.Column(db.String(500))
     author = db.Column(db.String(100))
     votes = db.Column(db.Integer)
+    timestamp = db.Column(db.String(50))
+

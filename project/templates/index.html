@@ -27,6 +27,7 @@
       {% endif %}
       <div class="post-content-wrapper">
         <a href="{{ url_for('main.post_details', post_id=post.id) }} " class="post-title">{{post.title}}</a>
+        <p>{{post.timestamp}}</p>
         <h3 class='post-description'>{{post.description}}</h3>
         <div class="post-content-footer">
         {% set ns = namespace(comment_count=0) %}

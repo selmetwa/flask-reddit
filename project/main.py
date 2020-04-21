@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request
 from . import db
 from flask_login import login_required, current_user
 from project.models import Post, Subreddit, User, Comment
+from datetime import datetime
 
 main = Blueprint('main', __name__)
 
@@ -47,9 +48,13 @@ def create_post():
     else:
         subreddit_id = 5 
 
+    time = datetime.strptime('01/01/2010', '%d/%m/%Y')
+    newtime = datetime.strftime(time, '%d/%m/%Y')
+    print('newtime: ', newtime)
+    print('newtime: ', type(newtime))
     subreddits = Subreddit.query.all()
     sub = subreddit
-    newPost = Post(title=title, description=content, sub=sub, votes=0, user=current_user, subreddit_id=subreddit_id)
+    newPost = Post(title=title, description=content, sub=sub, votes=0, user=current_user, subreddit_id=subreddit_id, timestamp=newtime)
     db.session.add(newPost)
     db.session.commit()
     all_posts = Post.query.all()
@@ -191,7 +196,9 @@ def create_comment(post_id, user_id):
     author_id = User.query.filter_by(name=current_user.name).first_or_404().id
     author = User.query.filter_by(id=user_id).first_or_404().name
     print('author: ', author)
-    new_comment = Comment(text=text, post_id=post_id, user_id=user_id, author=author, votes=0)
+    time = datetime.strptime('01/01/2010', '%d/%m/%Y')
+    newtime = datetime.strftime(time, '%d/%m/%Y')
+    new_comment = Comment(text=text, post_id=post_id, user_id=user_id, author=author, votes=0, timestamp=newtime)
     comments = Comment.query.filter_by(post_id=post_id)
     db.session.add(new_comment)
     db.session.commit()
