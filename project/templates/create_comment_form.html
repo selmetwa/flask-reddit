@@ -12,7 +12,7 @@
 
 <body>
 <div class="comment-form-wrapper">
-  <form action="/create_comment/{{ post.id }}/{{ post.user.id }}" method="POST" class="comment-form">
+  <form action="/create_comment/{{ post.id }}/{{ current_user.id }}" method="POST" class="comment-form">
       <input
         type="text"
         placeholder="enter your comment..."

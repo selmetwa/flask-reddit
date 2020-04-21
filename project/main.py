@@ -190,11 +190,37 @@ def create_comment(post_id, user_id):
     user_id = user_id
     author_id = User.query.filter_by(name=current_user.name).first_or_404().id
     author = User.query.filter_by(id=user_id).first_or_404().name
-    new_comment = Comment(text=text, post_id=post_id, user_id=user_id, author=current_user.name)
+    print('author: ', author)
+    new_comment = Comment(text=text, post_id=post_id, user_id=user_id, author=author, votes=0)
     comments = Comment.query.filter_by(post_id=post_id)
     db.session.add(new_comment)
     db.session.commit()
     return render_template('post_details.html', post=target_post, name=current_user.name, subreddits=subreddits, comments=comments)
+
+@main.route('/upvote_comment/<user_id>/<post_id>/<comment_id>')
+def upvote_comment(post_id, user_id, comment_id):
+    subreddits = Subreddit.query.all()
+    current_user = User.query.filter_by(id=user_id).first_or_404()
+    target_post = Post.query.filter_by(id=post_id).first_or_404()
+    target_comment = Comment.query.filter_by(id=comment_id).first_or_404()
+    print('target_comment: ', target_comment)
+    comments = Comment.query.filter_by(post_id=post_id)
+    target_comment.votes = target_comment.votes + 1
+    db.session.commit()
+    user_posts = Post.query.filter_by(user_id=user_id)
+    return render_template('post_details.html', post=target_post, subreddits=subreddits, comments=comments)
+
+@main.route('/downvote_comment/<user_id>/<post_id>/<comment_id>')
+def downvote_comment(post_id, user_id, comment_id):
+    subreddits = Subreddit.query.all()
+    current_user = User.query.filter_by(id=user_id).first_or_404()
+    target_post = Post.query.filter_by(id=post_id).first_or_404()
+    target_comment = Comment.query.filter_by(id=comment_id).first_or_404()
+    comments = Comment.query.filter_by(post_id=post_id)
+    target_comment.votes = target_comment.votes - 1
+    db.session.commit()
+    user_posts = Post.query.filter_by(user_id=user_id)
+    return render_template('post_details.html', post=target_post, subreddits=subreddits, comments=comments)
 
 @main.route('/create_post_form', methods=['GET'])
 def create_post_form():

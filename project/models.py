@@ -37,3 +37,4 @@ class Comment(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     text = db.Column(db.String(500))
     author = db.Column(db.String(100))
+    votes = db.Column(db.Integer)

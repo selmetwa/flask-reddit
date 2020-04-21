@@ -43,7 +43,31 @@
     <div class='comments-wrapper'>
     {% for comment in comments%}
     <div class="comment-wrapper">
-    <a href="{{ url_for('main.profile', user_id=comment.user_id) }}" class="post-author">by {{comment.author}}</a>
+    {% if current_user.is_authenticated %}
+    <div class="post-vote-wrapper">
+        <button class="upvote">
+          <a href="{{ url_for('main.upvote_comment', post_id=post.id, user_id=post.user.id, comment_id=comment.id) }}">upvote</a>        
+        </button>
+        <p class='post-votes'>{{comment.votes}}</p>
+        <button class="downvote">
+          <a href="{{ url_for('main.downvote_comment', post_id=post.id, user_id=post.user.id, comment_id=comment.id) }}">downvote</a>
+        </button>
+      </div>
+      {% endif %}
+      {% if not current_user.is_authenticated %}
+      <div class="post-vote-wrapper">
+        <button class="upvote">upvote</button>
+        <p class='post-votes'>{{comment.votes}}</p>
+        <button class="downvote">downvote</button>
+      </div>
+      {% endif %}
+      {% if comment.author == current_user.name %}
+      <a href="{{ url_for('main.profile', user_id=current_user.id) }}" class="post-author">
+          {{ comment.author }}
+      </a>
+      {% else %}
+      <a href="{{ url_for('main.user_profile', user_id=comment.user_id) }}" class="post-author">by {{comment.author}}</a>
+      {% endif %}
     <p>{{comment.text}}</p>
     </div>
     {% endfor %}
