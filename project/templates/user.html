@@ -1,51 +1,15 @@
 {% extends "base.html" %}
+
 {% block content %}
-<h1 class="title">
-  Posts by, {{ name }}!
-</h1>
 <div class="feed-wrapper">
   <div class="all-posts-wrapper">
+    <h1 class="title">
+      Posts by, {{ name }}!
+    </h1>
   <div class="posts-wrapper">
   {% if user_posts %}
     {% for post in user_posts %}
-    <div class="post">
-    {% if current_user.is_authenticated %}
-      <div class="post-vote-wrapper">
-        <button class="upvote">
-          <a href="{{ url_for('main.upvote_post_user', post_id=post.id, user_id=post.user.id) }}">upvote</a>        
-        </button>
-        <p class='post-votes'>{{post.votes}}</p>
-        <button class="downvote">
-          <a href="{{ url_for('main.downvote_post_user', post_id=post.id, user_id=post.user.id) }}">downvote</a>
-        </button>
-      </div>
-      {% endif %}
-      {% if not current_user.is_authenticated %}
-      <div class="post-vote-wrapper">
-        <button class="upvote">upvote</button>
-        <p class='post-votes'>{{post.votes}}</p>
-        <button class="downvote">downvote</button>
-      </div>
-      {% endif %}
-      <div class="post-content-wrapper">
-        <a href="{{ url_for('main.post_details', post_id=post.id) }} " class="post-title">{{post.title}}</a>        
-        <h3 class='post-description'>{{post.description}}</h3>
-        <div class="post-content-footer">
-        {% set ns = namespace(comment_count=0) %}
-          {% for comment in post.comments %}
-            {% set ns.comment_count = ns.comment_count + 1 %}
-          {% endfor %}
-          <a href="{{ url_for('main.post_details', post_id=post.id) }} " class="post-comments">{{ ns.comment_count }} comments</a>
-          <a href="{{ url_for('main.get_posts_for_subreddit', sub_name=post.sub) }} " class="post-subreddit">/h/{{post.sub}}</a>
-          {% if post.user.name == current_user.name %}
-          <a href="{{ url_for('main.profile', user_id=current_user.id) }}" class="post-author">
-              {{ current_user.name }}
-          </a>
-          {% else %}
-          <a href="{{ url_for('main.user_profile', user_id=post.user.id) }}" class="post-author">by {{post.user.name}}</a>
-          {% endif %}
-        </div>
-      </div>
+      {% include "post.html" %}
     </div>
     {% endfor %}
   {% endif %}
@@ -65,4 +29,19 @@
     </div>
     </div>
 </div>
+{% block javascript %}
+  <script>
+    const form = document.querySelector('.addPostForm')
+    let formIsOpen = false
+    document.querySelector('.showForm').addEventListener('click', () => {
+      if (!formIsOpen) {
+        form.style.display = "flex";
+        formIsOpen = true
+      } else {
+        form.style.display = "none"
+        formIsOpen = false
+      }
+    })
+  </script>
+{% endblock %}
 {% endblock %}

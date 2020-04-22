@@ -10,7 +10,7 @@ main = Blueprint('main', __name__)
 def index():
     all_posts = Post.query.all()
     subreddits = Subreddit.query.all()
-    return render_template('index.html', all_posts=all_posts, subreddits=subreddits)
+    return render_template('index.html', all_posts=all_posts, subreddits=subreddits, profile=False)
 
 @main.route('/upvote_post/<post_id>')
 def upvote_post(post_id):
@@ -19,7 +19,7 @@ def upvote_post(post_id):
     post.votes = post.votes + 1
     db.session.commit()
     all_posts = Post.query.all()
-    return render_template('index.html', all_posts=all_posts, subreddits=subreddits)
+    return render_template('index.html', all_posts=all_posts, subreddits=subreddits, profile=False)
 
 @main.route('/downvote_post/<post_id>')
 def downvote_post(post_id):
@@ -48,9 +48,10 @@ def create_post():
     else:
         subreddit_id = 5 
 
-    time = datetime.strptime('01/01/2010', '%d/%m/%Y')
+    time = datetime.now()
     newtime = datetime.strftime(time, '%d/%m/%Y')
     print('newtime: ', newtime)
+    print('time: ', time)
     print('newtime: ', type(newtime))
     subreddits = Subreddit.query.all()
     sub = subreddit
@@ -58,7 +59,7 @@ def create_post():
     db.session.add(newPost)
     db.session.commit()
     all_posts = Post.query.all()
-    return render_template('index.html', name=current_user.name, all_posts=all_posts, subreddits=subreddits)    
+    return render_template('index.html', name=current_user.name, all_posts=all_posts, subreddits=subreddits, profile=False)    
 
 @main.route('/delete_post/<post_id>/<user_id>', methods=['GET'])
 def delete_post(post_id, user_id):
@@ -107,7 +108,7 @@ def profile(user_id):
     subreddits = Subreddit.query.all()
     user_posts = Post.query.filter_by(user_id=user_id)
     current_user = User.query.filter_by(id=user_id).first_or_404()
-    return render_template('profile.html', user_posts=user_posts, name=current_user.name, subreddits=subreddits)
+    return render_template('profile.html', user_posts=user_posts, name=current_user.name, subreddits=subreddits, profile=True)
 
 @main.route('/user/<user_id>', methods=['GET', 'POST'])
 def user_profile(user_id):
@@ -144,7 +145,7 @@ def upvote_post_profile(post_id, user_id):
     post.votes = post.votes + 1
     db.session.commit()
     user_posts = Post.query.filter_by(user_id=user_id)
-    return render_template('profile.html', user_posts=user_posts, subreddits=subreddits, name=current_user.name)
+    return render_template('profile.html', user_posts=user_posts, subreddits=subreddits, name=current_user.name, profile=True)
 
 @main.route('/downvote_post_profile/<user_id>/<post_id>')
 def downvote_post_profile(post_id, user_id):
@@ -154,7 +155,7 @@ def downvote_post_profile(post_id, user_id):
     post.votes = post.votes - 1
     db.session.commit()
     user_posts = Post.query.filter_by(user_id=user_id)
-    return render_template('profile.html', user_posts=user_posts, subreddits=subreddits, name=current_user.name)
+    return render_template('profile.html', user_posts=user_posts, subreddits=subreddits, name=current_user.name, profile=True)
 
 @main.route('/post_details/<post_id>', methods=['GET', 'POST'])
 def post_details(post_id):

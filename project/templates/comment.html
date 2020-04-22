@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Heddit</title>
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sigmar+One&display=swap" rel="stylesheet">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/post.css') }}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/comment.css') }}">
+</head>
+<body>
+<div class="comment">
+    {% if current_user.is_authenticated %}
+    <div class="post-vote-wrapper">
+        <button class="upvote">
+          <a href="{{ url_for('main.upvote_comment', post_id=post.id, user_id=post.user.id, comment_id=comment.id) }}">></a>        
+        </button>
+        <p class='post-votes'>{{comment.votes}}</p>
+        <button class="downvote">
+          <a href="{{ url_for('main.downvote_comment', post_id=post.id, user_id=post.user.id, comment_id=comment.id) }}">></a>
+        </button>
+      </div>
+      {% endif %}
+      {% if not current_user.is_authenticated %}
+      <div class="post-vote-wrapper">
+        <button class="upvote">></button>
+        <p class='post-votes'>{{comment.votes}}</p>
+        <button class="downvote">></button>
+      </div>
+      {% endif %}
+      <div class="comment-content">
+        <div class="comment-header">
+            {% if comment.author == current_user.name %}
+            <a href="{{ url_for('main.profile', user_id=current_user.id) }}" class="comment-author">
+            <span class='by'>by</span> <span class="author-wrapper">{{ comment.author }}</span>
+            </a>
+            {% else %}
+            <a href="{{ url_for('main.user_profile', user_id=comment.user_id) }}" class="comment-author">
+            <span class='by'>by</span> <span class="author-wrapper">{{ comment.author }}</span>
+            </a>
+            {% endif %}
+            <p class='comment-timestamp'>{{comment.timestamp}}</p>
+        </div>
+        <p class="comment-details">{{comment.text}}</p>
+    </div>
+    </div>
+</div>
+</body>
+</html>

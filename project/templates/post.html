@@ -38,26 +38,30 @@
         </div>
         <h3 class='post-description'>{{post.description}}</h3>
         <div class="post-content-footer">
-        {% set ns = namespace(comment_count=0) %}
-          {% for comment in post.comments %}
-            {% set ns.comment_count = ns.comment_count + 1 %}
-          {% endfor %}
-          <a href="{{ url_for('main.post_details', post_id=post.id) }} " class="post-comments">{{ ns.comment_count }} comments</a>
-          <a href="{{ url_for('main.get_posts_for_subreddit', sub_name=post.sub) }} " class="post-subreddit">/h/{{post.sub}}</a>
-          {% if post.user.name == current_user.name %}
-          <a href="{{ url_for('main.profile', user_id=current_user.id) }}" class="post-author">
-              <span class='by'>by</span> <span class="author-wrapper">{{ post.user.name }}</span>
-          </a>
-          {% else %}
-          <a href="{{ url_for('main.user_profile', user_id=post.user.id) }}" class="post-author"><span class='by'>by</span> <span class="author-wrapper">{{ post.user.name }}</span></a>
-          {% endif %}
-          {% if post.user.name == current_user.name %}
-          <form action="/delete_post/{{ post.id }}/{{ post.user.id }}" method="GET" class="comment-form">
-           <button type="submit" value="post" class="delete-button">delete post</button>
-          </form>
-          {% else %}
-          <p></p>
-          {% endif %}
+        <div class='post-footer-content-wrapper'>
+          {% set ns = namespace(comment_count=0) %}
+            {% for comment in post.comments %}
+              {% set ns.comment_count = ns.comment_count + 1 %}
+            {% endfor %}
+            <a href="{{ url_for('main.post_details', post_id=post.id) }} " class="post-comments">{{ ns.comment_count }} comments</a>
+            <a href="{{ url_for('main.get_posts_for_subreddit', sub_name=post.sub) }} " class="post-subreddit">/h/{{post.sub}}</a>
+            {% if post.user.name == current_user.name %}
+            <a href="{{ url_for('main.profile', user_id=current_user.id) }}" class="post-author">
+                <span class='by'>by</span> <span class="author-wrapper">{{ post.user.name }}</span>
+            </a>
+            {% else %}
+            <a href="{{ url_for('main.user_profile', user_id=post.user.id) }}" class="post-author"><span class='by'>by</span> <span class="author-wrapper">{{ post.user.name }}</span></a>
+            {% endif %}
+          </div>
+          <div class="delete-button-wrapper">
+            {% if profile %}
+            <form action="/delete_post/{{ post.id }}/{{ post.user.id }}" method="GET" class="comment-form">
+            <button type="submit" value="post" class="delete-button">delete post</button>
+            </form>
+            {% else %}
+            <p></p>
+            {% endif %}
+          </div>
         </div>
       </div>
 </body>

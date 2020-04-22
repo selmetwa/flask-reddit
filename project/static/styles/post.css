@@ -6,6 +6,7 @@
     margin-top: 2vh;
     background-color: #fff;
     padding-left: 15px;
+    padding-bottom: 5px;
     box-shadow: 0px 1px 3px rgba(34, 34, 34, 0.1);
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -100,7 +101,7 @@
     font-size: .75rem;
     margin: 0;
     margin-right: 2%;
-    font-family: 'Lato','Avenir', Helvetica,Arial , sans-serif!important;
+    font-family: 'Avenir', Helvetica,Arial , sans-serif!important;
     color: #333;
     opacity: .7;
     text-decoration: none;
@@ -112,7 +113,8 @@
     padding: 0;
     margin-top: 1%!important;
     font-size: .9rem;
-    font-family: 'Lato','Avenir', Helvetica,Arial , sans-serif!important;
+    width: 95%;
+    font-family: 'Avenir', Helvetica,Arial , sans-serif!important;
     color: #333;
     margin-top: 2px;
     opacity: .5;
@@ -122,11 +124,19 @@
     display: flex;
     flex-direction: row;
     margin-top: 1%;
-    font-family: 'Lato','Avenir', Helvetica,Arial , sans-serif!important;
+    font-family: 'Avenir', Helvetica,Arial , sans-serif!important;
     font-size: 1.1rem;
+    width: 100%;
     opacity: .9;
     text-decoration: none!important;
     margin-top: 2%;
+    justify-content: space-between;
+}
+.post-footer-content-wrapper {
+    flex: 5;
+}
+.delete-button-wrapper {
+    flex: 1;
 }
 .post-content-footer a {
     text-decoration: none!important;
@@ -168,7 +178,6 @@
     opacity: .9;
     font-weight: 600;
     margin-left: 2%;
-    margin-right: 50%;
     transition: .2s;
 }
 .author-wrapper:hover {
@@ -186,21 +195,20 @@
     opacity: .9;
 } */
 .delete-button {
-    font-family: 'Lato','Avenir', Helvetica,Arial , sans-serif!important;
-    width: 100%;
-    float: right;
+    font-family: 'Avenir', Helvetica,Arial , sans-serif!important;
     margin-top: -1vh;
     border-radius: 2px;
     padding: 4px;
-    font-size: .8rem;
+    font-size: .75rem;
     transition: .2s;
     border: none;
     color: #fafafa;
     background-color: #BA274A;
-    margin-left: .5%;
 }
 .delete-button:hover {
     background-color: rgb(141, 29, 55);
     border: none;
+    margin-left: auto!important;
+    order:2;
     cursor: pointer;
 }
