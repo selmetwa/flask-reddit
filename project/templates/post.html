@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Heddit</title>
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sigmar+One&display=swap" rel="stylesheet">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/post.css') }}">
+</head>
+<body>
+<div class="post">
+    {% if current_user.is_authenticated %}
+      <div class="post-vote-wrapper">
+        <button class="upvote">
+          <a href="{{ url_for('main.upvote_post', post_id=post.id) }}">></a>        
+        </button>
+        <p class='post-votes'>{{post.votes}}</p>
+        <button class="downvote">
+          <a href="{{ url_for('main.downvote_post', post_id=post.id) }}">></a>
+        </button>
+      </div>
+      {% endif %}
+      {% if not current_user.is_authenticated %}
+      <div class="post-vote-wrapper">
+        <button class="upvote">></button>
+        <p class='post-votes'>{{post.votes}}</p>
+        <button class="downvote">></button>
+      </div>
+      {% endif %}
+      <div class="post-content-wrapper">
+        <div class="post-title-wrapper">
+          <a href="{{ url_for('main.post_details', post_id=post.id) }} " class="post-title">{{post.title}}</a>
+          <p class="post-timestamp">{{post.timestamp}}</p>
+        </div>
+        <h3 class='post-description'>{{post.description}}</h3>
+        <div class="post-content-footer">
+        {% set ns = namespace(comment_count=0) %}
+          {% for comment in post.comments %}
+            {% set ns.comment_count = ns.comment_count + 1 %}
+          {% endfor %}
+          <a href="{{ url_for('main.post_details', post_id=post.id) }} " class="post-comments">{{ ns.comment_count }} comments</a>
+          <a href="{{ url_for('main.get_posts_for_subreddit', sub_name=post.sub) }} " class="post-subreddit">/h/{{post.sub}}</a>
+          {% if post.user.name == current_user.name %}
+          <a href="{{ url_for('main.profile', user_id=current_user.id) }}" class="post-author">
+              <span class='by'>by</span> <span class="author-wrapper">{{ post.user.name }}</span>
+          </a>
+          {% else %}
+          <a href="{{ url_for('main.user_profile', user_id=post.user.id) }}" class="post-author"><span class='by'>by</span> <span class="author-wrapper">{{ post.user.name }}</span></a>
+          {% endif %}
+          {% if post.user.name == current_user.name %}
+          <form action="/delete_post/{{ post.id }}/{{ post.user.id }}" method="GET" class="comment-form">
+           <button type="submit" value="post" class="delete-button">delete post</button>
+          </form>
+          {% else %}
+          <p></p>
+          {% endif %}
+        </div>
+      </div>
+</body>
+</html>

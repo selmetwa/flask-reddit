@@ -1,0 +1,206 @@
+.post {
+    border-bottom: 1px solid lightgrey;
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    margin-top: 2vh;
+    background-color: #fff;
+    padding-left: 15px;
+    box-shadow: 0px 1px 3px rgba(34, 34, 34, 0.1);
+    font-family: Arial, Helvetica, sans-serif;
+}
+.post-votes-wrapper {
+    display: flex;
+    flex: 1;
+    margin: 0;
+    border-right: 1px solid lightgrey;
+    padding: 0;
+    flex-direction: column;
+}
+.upvote {
+    margin: 0;
+    padding: 0; 
+    font-family: 'Sigmar One', cursive;    
+    color: #333;
+    font-size: 1.2rem;
+    transform: rotate(270deg);
+    font-weight: 900;
+    background: transparent;
+    border: none;
+    padding: 2px;
+    opacity: .75;
+}
+.upvote a {
+    color: #333;
+    text-decoration: none;
+    transition: .2s;
+}
+.upvote a:hover {
+    color: #049A8F;
+    transition: .2s;
+}
+.post-votes {
+    margin: 0;
+    padding: 0;
+    margin-top: 3px;
+    font-family: 'Lato','Avenir', Helvetica,Arial , sans-serif!important;
+    color: #333;
+    font-size: .85rem;
+    opacity: .75;
+    margin-bottom: 3px;
+}
+.downvote {
+    margin: 0;
+    padding: 0;
+    font-family: 'Sigmar One', cursive;    
+    font-size: 1.2rem;
+    margin-left: 2px;
+    transform: rotate(90deg);
+    font-weight: 900;
+    background: transparent;
+    opacity: .75;
+    padding: 2px;
+    border: none;
+}
+.downvote a {
+    color: #333;
+    text-decoration: none;
+    transition: .2s;
+}
+.downvote a:hover {
+    color: #BA274A;
+    transition: .2s;
+}
+.post-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex: 6;
+    margin-left: 5%;
+    margin-top: 2.5%;
+}
+.post-title-wrapper {
+    display: flex;
+    margin: 0;
+    margin-top: -1%;
+    padding: 0;
+    flex-direction: row;
+    justify-content: space-between
+}
+.post-title {
+    margin: 0;
+    padding: 0;
+    font-family: 'Lato','Avenir', Helvetica,Arial , sans-serif!important;
+    color: #333;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    background-color: #fff!important;
+}
+.post-timestamp {
+    font-size: .75rem;
+    margin: 0;
+    margin-right: 2%;
+    font-family: 'Lato','Avenir', Helvetica,Arial , sans-serif!important;
+    color: #333;
+    opacity: .7;
+    text-decoration: none;
+    font-weight: 100;
+    padding: 0;
+}
+.post-description {
+    margin: 0;
+    padding: 0;
+    margin-top: 1%!important;
+    font-size: .9rem;
+    font-family: 'Lato','Avenir', Helvetica,Arial , sans-serif!important;
+    color: #333;
+    margin-top: 2px;
+    opacity: .5;
+    font-weight: 100;
+}
+.post-content-footer {
+    display: flex;
+    flex-direction: row;
+    margin-top: 1%;
+    font-family: 'Lato','Avenir', Helvetica,Arial , sans-serif!important;
+    font-size: 1.1rem;
+    opacity: .9;
+    text-decoration: none!important;
+    margin-top: 2%;
+}
+.post-content-footer a {
+    text-decoration: none!important;
+    color: #333!important;
+}
+.post-comments {
+    margin-right: 2%;
+    padding: 0;
+    font-size: .85rem;
+    opacity: .7;
+    color: #333;
+    font-weight: 100;
+    transition: .2s;
+}
+.post-comments:hover {
+    color: #3B60E4!important;
+    transition: .2s;
+}
+.post-subreddit {
+    margin: 0;
+    padding: 0;
+    font-size: .85rem;
+    opacity: .7;
+    font-weight: 100;
+    color: #333;
+    transition: .2s;
+}
+.post-subreddit:hover {
+    color: #3B60E4!important;
+    transition: .2s;
+}
+.by {
+    font-weight: 100;
+}
+.post-author {
+    margin: 0;
+    padding: 0;
+    font-size: .85rem;
+    opacity: .9;
+    font-weight: 600;
+    margin-left: 2%;
+    margin-right: 50%;
+    transition: .2s;
+}
+.author-wrapper:hover {
+    color: #3B60E4;
+    transition: .2s;
+}
+
+/* .delete-button {
+    margin-left: 50%;
+    font-family: 'Lato','Avenir', Helvetica,Arial , sans-serif!important;
+    font-size: .8rem;
+    background-color: #BA274A;
+    border-radius: 2px;
+    border: none;
+    opacity: .9;
+} */
+.delete-button {
+    font-family: 'Lato','Avenir', Helvetica,Arial , sans-serif!important;
+    width: 100%;
+    float: right;
+    margin-top: -1vh;
+    border-radius: 2px;
+    padding: 4px;
+    font-size: .8rem;
+    transition: .2s;
+    border: none;
+    color: #fafafa;
+    background-color: #BA274A;
+    margin-left: .5%;
+}
+.delete-button:hover {
+    background-color: rgb(141, 29, 55);
+    border: none;
+    cursor: pointer;
+}

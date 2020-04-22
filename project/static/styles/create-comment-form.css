@@ -34,7 +34,7 @@
     margin-left: .5%;
 }
 .comment-submit:hover {
-    background-color: rgb(42, 79, 211);
+    background-color: #2a4fd3;
     transition: .2s;
     cursor: pointer;
 }
