@@ -29,7 +29,11 @@
           <a href="{{ url_for('main.post_details', post_id=post.id) }} " class="post-details-title">{{post.title}}</a>        
           <p class="post-details-timestamp">{{post.timestamp}}</p>   
         </div>
+        {% if post.description.startswith('http') %}
+        <a href="{{ (post.description) }} " class="post-link" target="_blank">{{post.description}}</a>
+        {% else %}
         <h3 class='post-details-description'>{{post.description}}</h3>
+        {% endif %}
         <div class="post-content-footer">
         <div class='post-footer-content-wrapper'>
           {% set ns = namespace(comment_count=0) %}

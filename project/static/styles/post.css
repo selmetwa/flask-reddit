@@ -3,7 +3,7 @@
     display: flex;
     flex-direction: row;
     margin: 0;
-    margin-top: 2vh;
+    margin-top: 1vh;
     background-color: #fff;
     padding-left: 15px;
     padding-bottom: 5px;
@@ -128,6 +128,7 @@
     font-size: 1.1rem;
     width: 100%;
     opacity: .9;
+    background-color: #fff!important;
     text-decoration: none!important;
     margin-top: 2%;
     justify-content: space-between;

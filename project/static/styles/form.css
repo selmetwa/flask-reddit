@@ -8,6 +8,29 @@
     padding-bottom: 20px;
     box-shadow: 0px 1px 1px rgba(34, 34, 34, 0.3);
 }
+.form-tabs-wrapper {
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    margin-left: 5%;
+}
+.form-tab {
+    font-family: 'Lato','Avenir', Helvetica,Arial , sans-serif!important;
+    border: 1px solid #3B60E4;
+    width: 50%;
+    margin-top: 3vh;
+    border-radius: 2px;
+    padding: 8px;
+    font-size: 1rem;
+    transition: .2s;
+}
+.form-tab.active {
+    background-color: #3B60E4;
+    color: #fafafa;
+}
+#form-link {
+    display: none;
+}
 .addPostForm {
     display: flex;
     flex-direction: column;
@@ -44,8 +67,26 @@
     margin-top: 1vh;
     font-weight: 100;
 }
+.link-input {
+    padding: 8px;
+    padding-bottom: 10px;
+    resize: none;
+    font-family: 'Lato','Avenir', Helvetica,Arial , sans-serif!important;
+    border: 1px solid #dfdede;
+    color: #333;
+    background-color: #fcfcfc;
+    font-size: 1rem;
+    margin-top: 1vh;
+    font-weight: 100;
+}
 .form-input:hover {
     border: 1px solid #3B60E4;
+}
+.error {
+    border: 1px solid red;
+}
+.error:hover {
+    border: 1px solid red;
 }
 .create-post-select {
     margin-top: 1vh;    
