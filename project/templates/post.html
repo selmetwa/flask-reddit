@@ -12,24 +12,41 @@
 </head>
 <body>
 <div class="post">
-    {% if current_user.is_authenticated %}
+      {% if page_name == 'home' %}
+        <div class="post-vote-wrapper">
+          <button class="upvote">
+            <a href="{{ url_for('main.upvote_post', post_id=post.id) }}">></a>        
+          </button>
+          <p class='post-votes'>{{post.votes}}</p>
+          <button class="downvote">
+            <a href="{{ url_for('main.downvote_post', post_id=post.id) }}">></a>
+          </button>
+        </div>
+      {% elif page_name == post.user.name %}
       <div class="post-vote-wrapper">
         <button class="upvote">
-          <a href="{{ url_for('main.upvote_post', post_id=post.id) }}">></a>        
+          <a href="{{ url_for('main.upvote_post_user', user_id=post.user.id, post_id=post.id) }}">></a>        
         </button>
         <p class='post-votes'>{{post.votes}}</p>
         <button class="downvote">
-          <a href="{{ url_for('main.downvote_post', post_id=post.id) }}">></a>
+          <a href="{{ url_for('main.downvote_post_user', user_id=post.user.id, post_id=post.id) }}">></a>
         </button>
       </div>
-      {% endif %}
-      {% if not current_user.is_authenticated %}
-      <div class="post-vote-wrapper">
-        <button class="upvote">></button>
-        <p class='post-votes'>{{post.votes}}</p>
-        <button class="downvote">></button>
-      </div>
-      {% endif %}
+      {% else %}
+        {% for subreddit in subreddits %}
+          {% if page_name == subreddit.name %}
+            <div class="post-vote-wrapper">
+              <button class="upvote">
+                <a href="{{ url_for('main.upvote_post_subreddit', sub_name=subreddit.name, post_id=post.id) }}">></a>        
+              </button>
+              <p class='post-votes'>{{post.votes}}</p>
+              <button class="downvote">
+                <a href="{{ url_for('main.downvote_post_subreddit', sub_name=subreddit.name, post_id=post.id) }}">></a>
+              </button>
+            </div>
+          {% endif %}          
+        {% endfor %}
+      {% endif %}     
       <div class="post-content-wrapper">
         <div class="post-title-wrapper">
           <a href="{{ url_for('main.post_details', post_id=post.id) }} " class="post-title">{{post.title}}</a>
@@ -44,16 +61,11 @@
             {% endfor %}
             <a href="{{ url_for('main.post_details', post_id=post.id) }} " class="post-comments">{{ ns.comment_count }} comments</a>
             <a href="{{ url_for('main.get_posts_for_subreddit', sub_name=post.sub) }} " class="post-subreddit">/h/{{post.sub}}</a>
-            {% if post.user.name == current_user.name %}
-            <a href="{{ url_for('main.profile', user_id=current_user.id) }}" class="post-author">
-                <span class='by'>by</span> <span class="author-wrapper">{{ post.user.name }}</span>
-            </a>
-            {% else %}
+  
             <a href="{{ url_for('main.user_profile', user_id=post.user.id) }}" class="post-author"><span class='by'>by</span> <span class="author-wrapper">{{ post.user.name }}</span></a>
-            {% endif %}
           </div>
           <div class="delete-button-wrapper">
-            {% if profile %}
+            {% if post.user.name == current_user.name %}
             <form action="/delete_post/{{ post.id }}/{{ post.user.id }}" method="GET" class="comment-form">
             <button type="submit" value="post" class="delete-button">delete post</button>
             </form>

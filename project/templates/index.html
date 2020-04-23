@@ -3,7 +3,7 @@
 {% block content %}
 <div class="feed-wrapper">
   <div class="all-posts-wrapper">
-  <div class="posts-wrapper">
+  <div class="posts-wrapper" name='index'>
   {% if all_posts %}
     {% for post in all_posts %}
       {% include "post.html" %}
