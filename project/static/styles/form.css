@@ -19,10 +19,19 @@
     border: 1px solid #3B60E4;
     width: 50%;
     margin-top: 3vh;
-    border-radius: 2px;
+    border-radius: 4px;
     padding: 8px;
     font-size: 1rem;
     transition: .2s;
+}
+.form-tab:hover {
+    background-color: #3B60E4;
+    color: #fafafa;
+    transition: .2s;
+    cursor: pointer;
+}
+.link-tab {
+    margin-left: 2%;
 }
 .form-tab.active {
     background-color: #3B60E4;
@@ -130,6 +139,7 @@
 }
 .form-cancel {
     margin-left: 3%;
+    transition: .2s;
 }
 .form-cancel:hover {
     border: 1px solid rgb(36, 69, 189);
@@ -137,6 +147,12 @@
 }
 .form-cancel a {
     text-decoration: none;
+    background-color: transparent!important;
     color: #333;
-    opacity: .6;
+    opacity: 1;
+}
+.form-cancel:hover {
+    background-color: #fafafa;
+    transition: .2s;
+    cursor: pointer;
 }

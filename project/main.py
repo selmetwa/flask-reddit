@@ -13,6 +13,7 @@ def index():
     return render_template('index.html', all_posts=all_posts, subreddits=subreddits, profile=False, page_name='home')
 
 @main.route('/upvote_post/<post_id>')
+@login_required
 def upvote_post(post_id):
     subreddits = Subreddit.query.all()
     post = Post.query.filter_by(id=post_id).first_or_404()
@@ -22,6 +23,7 @@ def upvote_post(post_id):
     return render_template('index.html', all_posts=all_posts, subreddits=subreddits, profile=False, page_name='home')
 
 @main.route('/downvote_post/<post_id>')
+@login_required
 def downvote_post(post_id):
     post = Post.query.filter_by(id=post_id).first_or_404()
     subreddits = Subreddit.query.all()
@@ -31,6 +33,7 @@ def downvote_post(post_id):
     return render_template('index.html', all_posts=all_posts, subreddits=subreddits, page_name='home')
 
 @main.route('/', methods=['POST'])
+@login_required
 def create_post():
     title = request.form['post-title']
     content = request.form['post-content'] 
@@ -70,7 +73,7 @@ def delete_post(post_id, user_id):
     subreddits = Subreddit.query.all()
     user_posts = Post.query.filter_by(user_id=user_id)
     current_user = User.query.filter_by(id=user_id).first_or_404()
-    return render_template('profile.html', user_posts=user_posts, name=current_user.name, subreddits=subreddits, page_name=current_user.name, profile=True)
+    return render_template('user.html', user_posts=user_posts, name=current_user.name, subreddits=subreddits, page_name=current_user.name)
 
 @main.route('/subreddits/<sub_name>')
 def get_posts_for_subreddit(sub_name):
@@ -85,6 +88,7 @@ def get_all_posts():
     return render_template('index.html', all_posts=all_posts, subreddits=subreddits)
 
 @main.route('/upvote_post_subreddit/<sub_name>/<post_id>')
+@login_required
 def upvote_post_subreddit(post_id, sub_name):
     subreddits = Subreddit.query.all()
     post = Post.query.filter_by(id=post_id).first_or_404()
@@ -94,6 +98,7 @@ def upvote_post_subreddit(post_id, sub_name):
     return render_template('subreddit_details.html', music_posts=music_posts, subreddits=subreddits, sub_name=sub_name, page_name=sub_name)
 
 @main.route('/downvote_post_subreddit/<sub_name>/<post_id>')
+@login_required
 def downvote_post_subreddit(post_id, sub_name):
     subreddits = Subreddit.query.all()
     post = Post.query.filter_by(id=post_id).first_or_404()
@@ -118,6 +123,7 @@ def user_profile(user_id):
     return render_template('user.html', user_posts=user_posts, name=current_user.name, subreddits=subreddits, page_name=current_user.name)
 
 @main.route('/upvote_post_user/<user_id>/<post_id>')
+@login_required
 def upvote_post_user(post_id, user_id):
     subreddits = Subreddit.query.all()
     current_user = User.query.filter_by(id=user_id).first_or_404()
@@ -128,6 +134,7 @@ def upvote_post_user(post_id, user_id):
     return render_template('user.html', user_posts=user_posts, subreddits=subreddits, name=current_user.name, page_name=current_user.name)
 
 @main.route('/downvote_post_user/<user_id>/<post_id>')
+@login_required
 def downvote_post_user(post_id, user_id):
     subreddits = Subreddit.query.all()
     current_user = User.query.filter_by(id=user_id).first_or_404()
@@ -197,7 +204,7 @@ def create_comment(post_id, user_id):
     author_id = User.query.filter_by(name=current_user.name).first_or_404().id
     author = User.query.filter_by(id=user_id).first_or_404().name
     print('author: ', author)
-    time = datetime.strptime('01/01/2010', '%d/%m/%Y')
+    time = datetime.now()
     newtime = datetime.strftime(time, '%d/%m/%Y')
     new_comment = Comment(text=text, post_id=post_id, user_id=user_id, author=author, votes=0, timestamp=newtime)
     comments = Comment.query.filter_by(post_id=post_id)
@@ -231,5 +238,29 @@ def downvote_comment(post_id, user_id, comment_id):
     return render_template('post_details.html', post=target_post, subreddits=subreddits, comments=comments)
 
 @main.route('/create_post_form', methods=['GET'])
+@login_required
 def create_post_form():
     return render_template('form.html')
+
+@main.route('/edit_post_form/<user_id>/<post_id>', methods=['GET'])
+def edit_post_form(user_id, post_id):
+    print('user_id: ', post_id)
+    print('post_id: ', user_id)
+    post_to_edit = Post.query.filter_by(id=user_id).first_or_404()
+    print('post_to_edit: ', post_to_edit)
+    return render_template('edit_post_form.html', post_id=post_id, user_id=user_id, post_to_edit=post_to_edit)
+
+@main.route('/edit_post/<post_id>/<user_id>', methods=['POST'])
+def edit_post(post_id, user_id):
+    post_to_edit = Post.query.filter_by(id=user_id).first_or_404()
+    if request.form['btn'] == 'update':
+        new_title = request.form['new-post-title']
+        new_content = request.form['new-post-content'] 
+        post_to_edit.title = new_title
+        post_to_edit.description = new_content
+        db.session.commit()
+    else:
+        pass
+    subreddits = Subreddit.query.all()
+    user_posts = Post.query.filter_by(user_id=post_id)
+    return render_template('user.html', user_posts=user_posts, subreddits=subreddits, name=current_user.name, page_name=current_user.name)

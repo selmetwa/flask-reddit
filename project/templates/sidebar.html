@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Heddit</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sigmar+One&display=swap" rel="stylesheet">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/sidebar.css') }}">
+</head>
+<body>
+    <div class="sidebar-wrapper">
+        <a href="{{ url_for('main.create_post_form') }}" class="create-post-button">create post</a>
+        <div class='subreddits-container'>
+        <h1 class="subreddit-categories">subreddits</h1>
+            <div class="subreddit-container">
+            <a href="{{ url_for('main.get_all_posts') }}" class="subreddit">All</a>
+            </div>
+            {% if subreddits %}
+                {% for subreddit in subreddits %}
+                <div class="subreddit-container">
+                <a href="{{ url_for('main.get_posts_for_subreddit', sub_name=subreddit.name) }}" class="subreddit">{{subreddit.name}}</a>
+                </div>
+                {% endfor %}
+            {% endif %}
+        </div>  
+    </div>
+</body>
+</html>

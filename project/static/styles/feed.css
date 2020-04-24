@@ -14,7 +14,9 @@
 .subreddits-wrapper {
     display: flex;
     flex-direction: column;
-    border: 1px solid green;
+    width: 50%;
+    margin-top: .5%;
+    margin-left: -5.5%;
     flex: 1
 }
 .posts-wrapper {

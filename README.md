@@ -17,7 +17,6 @@
 - [x] User can delete his/her own post
 - [x] Render date of creation on post
 - [ ] User can edit his/her own post
-- [ ] User can sort posts 
 - [ ] threading of comments
 - [ ] Refactor routes
 

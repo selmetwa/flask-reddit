@@ -13,18 +13,8 @@
   </div>
   </div>
   <div class="subreddits-wrapper">
-    <a href="{{ url_for('main.create_post_form') }}">create post</a>
-    <div class='subreddits-wrapper'>
-    <a href="{{ url_for('main.get_all_posts') }}">All</a>
-    {% if subreddits %}
-    {% for subreddit in subreddits %}
-    <div class="subreddit-container">
-      <a href="{{ url_for('main.get_posts_for_subreddit', sub_name=subreddit.name) }}">{{subreddit.name}}</a>
-    </div>
-    {% endfor %}
-  {% endif %}
-    </div>
-    </div>
+   {% include "sidebar.html" %}
+  </div>
 </div>
 {% block javascript %}
   <script>

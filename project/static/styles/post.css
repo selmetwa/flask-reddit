@@ -6,7 +6,7 @@
     margin-top: 1vh;
     background-color: #fff;
     padding-left: 15px;
-    padding-bottom: 5px;
+    padding-bottom: 2px;
     box-shadow: 0px 1px 3px rgba(34, 34, 34, 0.1);
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -23,12 +23,12 @@
     padding: 0; 
     font-family: 'Sigmar One', cursive;    
     color: #333;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     transform: rotate(270deg);
     font-weight: 900;
     background: transparent;
     border: none;
-    padding: 2px;
+    /* padding: 2px; */
     opacity: .75;
 }
 .upvote a {
@@ -48,19 +48,19 @@
     color: #333;
     font-size: .85rem;
     opacity: .75;
-    margin-bottom: 3px;
+    /* margin-bottom: 3px; */
 }
 .downvote {
     margin: 0;
     padding: 0;
     font-family: 'Sigmar One', cursive;    
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     margin-left: 2px;
     transform: rotate(90deg);
     font-weight: 900;
     background: transparent;
     opacity: .75;
-    padding: 2px;
+    /* padding: 2px; */
     border: none;
 }
 .downvote a {
@@ -136,9 +136,6 @@
 .post-footer-content-wrapper {
     flex: 5;
 }
-.delete-button-wrapper {
-    flex: 1;
-}
 .post-content-footer a {
     text-decoration: none!important;
     color: #333!important;
@@ -195,16 +192,39 @@
     border: none;
     opacity: .9;
 } */
-.delete-button {
+.modify-buttons-wrapper {
+    flex: 2;
+    display: flex;
+    flex-direction: row!important;
+    margin-top: 1.5%;
+    padding-bottom: 10px;
+}
+.modify-button {
     font-family: 'Avenir', Helvetica,Arial , sans-serif!important;
     margin-top: -1vh;
     border-radius: 2px;
-    padding: 4px;
-    font-size: .75rem;
+    flex: 1;
+    display: flex;
+    padding: 5px;
+    font-size: .8rem;
     transition: .2s;
     border: none;
+}
+.delete-button {
     color: #fafafa;
     background-color: #BA274A;
+}
+.edit-button {
+    color: #fafafa;
+    margin-left: 1vw;
+    background-color: #3B60E4;
+    /* border: 1px solid #3B60E4; */
+}
+.edit-button:hover {
+    background-color: rgb(34, 66, 182);
+    border: none;
+    order: 2;
+    cursor: pointer;
 }
 .delete-button:hover {
     background-color: rgb(141, 29, 55);

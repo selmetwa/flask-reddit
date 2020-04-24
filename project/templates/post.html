@@ -64,15 +64,19 @@
   
             <a href="{{ url_for('main.user_profile', user_id=post.user.id) }}" class="post-author"><span class='by'>by</span> <span class="author-wrapper">{{ post.user.name }}</span></a>
           </div>
-          <div class="delete-button-wrapper">
-            {% if post.user.name == current_user.name %}
-            <form action="/delete_post/{{ post.id }}/{{ post.user.id }}" method="GET" class="comment-form">
-            <button type="submit" value="post" class="delete-button">delete post</button>
-            </form>
-            {% else %}
+          {% if post.user.name == current_user.name and page_name == post.user.name %}
+            <div class="modify-buttons-wrapper">
+                <form action="/delete_post/{{ post.id }}/{{ post.user.id }}" method="GET" class="comment-form">
+                  <button type="submit" value="delete" class="delete-button modify-button">delete post</button>
+                </form>
+                {% with post=post, user=post.user %}
+                  {% include "edit_post_button.html" %}
+                {% endwith %}
+                
+            </div>
+          {% else %}
             <p></p>
-            {% endif %}
-          </div>
+          {% endif %}
         </div>
       </div>
 </body>
