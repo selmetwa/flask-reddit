@@ -3,14 +3,34 @@
 {% block content %}
 <div class="feed-wrapper">
   <div class="all-posts-wrapper">
-  <div class="posts-wrapper">
-  {% if user_posts %}
-    {% for post in user_posts %}
-      {% include "post.html" %}
+    <h1 class='profile-title'>{{name}}'s profile</h1>
+  
+    <div class="user-tabs-wrapper">
+      <button class="user-tab posts-tab active">Posts ({{list_of_posts|length}})</button>
+      <button class="user-tab comments-tab">Comments ({{list_of_comments|length}})</button>
     </div>
-    {% endfor %}
-  {% endif %}
-  </div>
+    <div class="posts-wrapper">
+        <div class="user-posts">
+          {% if user_posts %}
+            {% for post in user_posts %}
+              {% include "post.html" %}
+            {% endfor %}
+          {% else %}
+          <p>no posts here</p>
+          {% endif %}
+        </div>
+        <div class="user-comments">
+          {% if user_comments %}
+            {% for comment in user_comments %}
+              <p>{{comment.author}}</p>
+            {% endfor %}
+          {% else %}
+            {% include "error.html" %}
+          {% endif %}
+          
+
+        </div>
+    </div>
   </div>
   <div class="subreddits-wrapper">
    {% include "sidebar.html" %}
@@ -18,17 +38,29 @@
 </div>
 {% block javascript %}
   <script>
-    const form = document.querySelector('.addPostForm')
-    let formIsOpen = false
-    document.querySelector('.showForm').addEventListener('click', () => {
-      if (!formIsOpen) {
-        form.style.display = "flex";
-        formIsOpen = true
-      } else {
-        form.style.display = "none"
-        formIsOpen = false
-      }
+    const postTab = document.querySelector('.posts-tab')
+    const commentsTab = document.querySelector('.comments-tab')
+
+    const userPosts = document.querySelector('.user-posts')
+    const userComments = document.querySelector('.user-comments')
+    userComments.style.display = 'none'
+
+    postTab.addEventListener('click', () => {
+      console.log('userPosts: ', userPosts)
+      postTab.classList.add('active')
+      commentsTab.classList.remove('active')
+      userPosts.style.display = 'flex';
+      userComments.style.display = 'none'
     })
+
+    commentsTab.addEventListener('click', () => {
+      console.log('userComments: ', userComments)
+      postTab.classList.remove('active')
+      commentsTab.classList.add('active')
+      userPosts.style.display = 'none';
+      userComments.style.display = 'flex'
+    })
+
   </script>
 {% endblock %}
 {% endblock %}

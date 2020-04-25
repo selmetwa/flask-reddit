@@ -17,11 +17,12 @@
     width: 50%;
     margin-top: .5%;
     margin-left: -5.5%;
-    flex: 1
+    flex: 1;
 }
 .posts-wrapper {
     width: 70%;
     margin-left: 20%;
+    flex-direction: column;
     background-color: transparent;
 }
 .subreddit-title {

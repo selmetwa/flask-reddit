@@ -119,8 +119,11 @@ def profile(user_id):
 def user_profile(user_id):
     subreddits = Subreddit.query.all()
     user_posts = Post.query.filter_by(user_id=user_id)
+    list_of_posts = list(user_posts)
+    user_comments = Comment.query.filter_by(user_id=user_id)
+    list_of_comments = list(user_comments)
     current_user = User.query.filter_by(id=user_id).first_or_404()
-    return render_template('user.html', user_posts=user_posts, name=current_user.name, subreddits=subreddits, page_name=current_user.name)
+    return render_template('user.html', user_posts=user_posts, user_comments=user_comments, name=current_user.name, subreddits=subreddits, page_name=current_user.name, list_of_posts=list_of_posts, list_of_comments=list_of_comments)
 
 @main.route('/upvote_post_user/<user_id>/<post_id>')
 @login_required
@@ -131,7 +134,10 @@ def upvote_post_user(post_id, user_id):
     post.votes = post.votes + 1
     db.session.commit()
     user_posts = Post.query.filter_by(user_id=user_id)
-    return render_template('user.html', user_posts=user_posts, subreddits=subreddits, name=current_user.name, page_name=current_user.name)
+    list_of_posts = list(user_posts)
+    user_comments = Comment.query.filter_by(user_id=user_id)
+    list_of_comments = list(user_comments)
+    return render_template('user.html', user_posts=user_posts,user_comments=user_comments, subreddits=subreddits, name=current_user.name, page_name=current_user.name, list_of_posts=list_of_posts, list_of_comments=list_of_comments)
 
 @main.route('/downvote_post_user/<user_id>/<post_id>')
 @login_required
@@ -142,7 +148,10 @@ def downvote_post_user(post_id, user_id):
     post.votes = post.votes - 1
     db.session.commit()
     user_posts = Post.query.filter_by(user_id=user_id)
-    return render_template('user.html', user_posts=user_posts, subreddits=subreddits, name=current_user.name, page_name=current_user.name)
+    list_of_posts = list(user_posts)
+    user_comments = Comment.query.filter_by(user_id=user_id)
+    list_of_comments = list(user_comments)
+    return render_template('user.html', user_posts=user_posts,user_comments=user_comments, subreddits=subreddits, name=current_user.name, page_name=current_user.name, list_of_posts=list_of_posts, list_of_comments=list_of_comments)
 
 @main.route('/upvote_post_profile/<user_id>/<post_id>')
 def upvote_post_profile(post_id, user_id):

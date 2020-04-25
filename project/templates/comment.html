@@ -12,14 +12,14 @@
 </head>
 <body>
 <div class="comment">
-    {% if current_user.is_authenticated %}
+    {% if current_user.is_authenticated %}    
     <div class="post-vote-wrapper">
         <button class="upvote">
-          <a href="{{ url_for('main.upvote_comment', post_id=post.id, user_id=post.user.id, comment_id=comment.id) }}">></a>        
+          <a href="{{ url_for('main.upvote_comment', post_id=comment.post_id, user_id=comment.user_id, comment_id=comment.id) }}">></a>        
         </button>
         <p class='post-votes'>{{comment.votes}}</p>
         <button class="downvote">
-          <a href="{{ url_for('main.downvote_comment', post_id=post.id, user_id=post.user.id, comment_id=comment.id) }}">></a>
+          <a href="{{ url_for('main.downvote_comment', post_id=comment.post_id, user_id=comment.user_id, comment_id=comment.id) }}">></a>
         </button>
       </div>
       {% endif %}

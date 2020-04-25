@@ -68,3 +68,27 @@ let postTitle;
     formLinkButton.classList.remove('active')
     formTextButton.classList.add('active')
   })
+
+
+  const postTab = document.querySelector('.posts-tab')
+    const commentsTab = document.querySelector('.comments-tab')
+
+    const userPosts = document.querySelector('.user-posts')
+    const userComments = document.querySelector('.user-comments')
+    userComments.style.display = 'none'
+
+    postTab.addEventListener('click', () => {
+      console.log('userPosts: ', userPosts)
+      postTab.classList.add('active')
+      commentsTab.classList.remove('active')
+      userPosts.style.display = 'flex';
+      userComments.style.display = 'none'
+    })
+
+    commentsTab.addEventListener('click', () => {
+      console.log('userComments: ', userComments)
+      postTab.classList.remove('active')
+      commentsTab.classList.add('active')
+      userPosts.style.display = 'none';
+      userComments.style.display = 'flex'
+    })
