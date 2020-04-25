@@ -16,7 +16,10 @@
 - [x] Add styles
 - [x] User can delete his/her own post
 - [x] Render date of creation on post
-- [ ] User can edit his/her own post
+- [x] User can edit his/her own post
+- [x] Render user's posts and comments on profile page
+- [ ] Allow a user to delete his/her comment
+- [ ] Allow a user to edit his/her comment
 - [ ] threading of comments
 - [ ] Refactor routes
 
