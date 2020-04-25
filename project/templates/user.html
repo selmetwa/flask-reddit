@@ -24,7 +24,7 @@
             {% for comment in user_comments %}
               <p>{{comment.author}}</p>
             {% endfor %}
-          {% else %}
+          {% elif list_of_comments|length == 0 %}
             {% include "error.html" %}
           {% endif %}
           

@@ -272,4 +272,7 @@ def edit_post(post_id, user_id):
         pass
     subreddits = Subreddit.query.all()
     user_posts = Post.query.filter_by(user_id=post_id)
-    return render_template('user.html', user_posts=user_posts, subreddits=subreddits, name=current_user.name, page_name=current_user.name)
+    list_of_posts = list(user_posts)
+    user_comments = Comment.query.filter_by(user_id=user_id)
+    list_of_comments = list(user_comments)
+    return render_template('user.html', user_posts=user_posts,user_comments=user_comments, subreddits=subreddits, name=current_user.name, page_name=current_user.name, list_of_posts=list_of_posts, list_of_comments=list_of_comments)
