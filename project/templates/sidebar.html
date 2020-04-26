@@ -16,7 +16,7 @@
         <div class='subreddits-container'>
         <h1 class="subreddit-categories">subreddits</h1>
             <div class="subreddit-container">
-            <a href="{{ url_for('main.get_all_posts') }}" class="subreddit">All</a>
+            <a href="{{ url_for('main.index') }}" class="subreddit">All</a>
             </div>
             {% if subreddits %}
                 {% for subreddit in subreddits %}

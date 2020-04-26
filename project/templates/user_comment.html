@@ -8,10 +8,11 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Sigmar+One&display=swap" rel="stylesheet">
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/post.css') }}">
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/comment.css') }}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/user-comment.css') }}">
 </head>
 <body>
-<div class="comment">
+<div class="user-comment">
+{#
     {% if current_user.is_authenticated %}    
     <div class="post-vote-wrapper">
         <button class="upvote">
@@ -30,22 +31,26 @@
         <button class="downvote">></button>
       </div>
       {% endif %}
-      <div class="comment-content">
-        <div class="comment-header">
-            {% if comment.author == current_user.name %}
-            <a href="{{ url_for('main.user_profile', user_id=comment.user_id) }}" class="comment-author">
-            <span class='by'>by</span> <span class="author-wrapper">{{ comment.author }}</span>
+      #}
+      <div class="user-comment-content">
+        <div class="user-comment-header">
+            <a href="{{ url_for('main.post_details', post_id=comment.post_id) }}" class="user-comment-author">
+            <span class='by'>by</span> <span class="user-author-wrapper">{{ comment.author }}</span>
             </a>
-            {% else %}
-            <a href="{{ url_for('main.user_profile', user_id=comment.user_id) }}" class="comment-author">
-            <span class='by'>by</span> <span class="author-wrapper">{{ comment.author }}</span>
-            </a>
-            {% endif %}
-            <p class='comment-timestamp'>{{comment.timestamp}}</p>
+            <p class='user-comment-timestamp'>{{comment.timestamp}}</p>
         </div>
-        <p class="comment-details">{{comment.text}}</p>
-    </div>
-    </div>
+        <div class="user-comment-description">
+            <p class="user-comment-details">{{comment.text}}</p>
+        </div>
+        <div class="user-modify-content-buttons">
+            <form action="/delete_comment/{{ comment.id }}/{{ comment.user_id }}/{{comment.post_id}}" method="GET" class="user-comment-form">
+                <button type="submit" value="delete" class="user-delete-button user-modify-button">delete comment</button>
+            </form>
+            {% with comment=comment %}
+                {% include "edit_comment_button.html" %}
+            {% endwith %}
+        </div>
+      </div>
 </div>
 </body>
 </html>

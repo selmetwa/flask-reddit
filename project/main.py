@@ -62,7 +62,7 @@ def create_post():
     db.session.add(newPost)
     db.session.commit()
     all_posts = Post.query.all()
-    return render_template('index.html', name=current_user.name, all_posts=all_posts, subreddits=subreddits, profile=False)    
+    return render_template('index.html', name=current_user.name, all_posts=all_posts, subreddits=subreddits, profile=False, page_name='home')    
 
 @main.route('/delete_post/<post_id>/<user_id>', methods=['GET'])
 def delete_post(post_id, user_id):
@@ -73,7 +73,10 @@ def delete_post(post_id, user_id):
     subreddits = Subreddit.query.all()
     user_posts = Post.query.filter_by(user_id=user_id)
     current_user = User.query.filter_by(id=user_id).first_or_404()
-    return render_template('user.html', user_posts=user_posts, name=current_user.name, subreddits=subreddits, page_name=current_user.name)
+    list_of_posts = list(user_posts)
+    user_comments = Comment.query.filter_by(user_id=user_id)
+    list_of_comments = list(user_comments)
+    return render_template('user.html', user_posts=user_posts,user_comments=user_comments, name=current_user.name, subreddits=subreddits, page_name=current_user.name, list_of_posts=list_of_posts, list_of_comments=list_of_comments)
 
 @main.route('/subreddits/<sub_name>')
 def get_posts_for_subreddit(sub_name):
@@ -276,3 +279,41 @@ def edit_post(post_id, user_id):
     user_comments = Comment.query.filter_by(user_id=user_id)
     list_of_comments = list(user_comments)
     return render_template('user.html', user_posts=user_posts,user_comments=user_comments, subreddits=subreddits, name=current_user.name, page_name=current_user.name, list_of_posts=list_of_posts, list_of_comments=list_of_comments)
+
+@main.route('/delete_comment/<comment_id>/<user_id>/<post_id>', methods=['GET'])
+def delete_comment(comment_id, user_id, post_id):
+    current_user = User.query.filter_by(id=user_id).first_or_404()
+    target_comment = Comment.query.filter_by(id=comment_id).first_or_404()
+    db.session.delete(target_comment)
+    db.session.commit()
+    subreddits = Subreddit.query.all()
+    user_posts = Post.query.filter_by(user_id=user_id)
+    current_user = User.query.filter_by(id=user_id).first_or_404()
+    list_of_posts = list(user_posts)
+    user_comments = Comment.query.filter_by(user_id=user_id)
+    list_of_comments = list(user_comments)
+    return render_template('user.html', user_posts=user_posts,user_comments=user_comments, name=current_user.name, subreddits=subreddits, page_name=current_user.name, list_of_posts=list_of_posts, list_of_comments=list_of_comments, just_modified_comment=True)
+
+@main.route('/edit_comment_form/<comment_id>/<user_id>/<post_id>', methods=['GET'])
+def edit_comment_form(comment_id, user_id, post_id):
+    print('user_id: ', post_id)
+    print('post_id: ', user_id)
+    comment_to_edit = Comment.query.filter_by(id=comment_id).first_or_404()
+    return render_template('edit_comment_form.html', post_id=post_id, user_id=user_id, comment_id=comment_id, comment_to_edit=comment_to_edit)
+
+@main.route('/edit_comment/<comment_id>/<user_id>/<post_id>', methods=['POST'])
+def edit_comment(comment_id, user_id, post_id):
+    comment_to_edit = Comment.query.filter_by(id=comment_id).first_or_404()
+    print(' comment_to_edit: ',  comment_to_edit)
+    if request.form['comment-btn'] == 'update':
+        new_content = request.form['new-comment-content'] 
+        comment_to_edit.text = new_content
+        db.session.commit()
+    else:
+        pass
+    subreddits = Subreddit.query.all()
+    user_posts = Post.query.filter_by(user_id=user_id)
+    list_of_posts = list(user_posts)
+    user_comments = Comment.query.filter_by(user_id=user_id)
+    list_of_comments = list(user_comments)
+    return render_template('user.html', user_posts=user_posts,user_comments=user_comments, subreddits=subreddits, name=current_user.name, page_name=current_user.name, list_of_posts=list_of_posts, list_of_comments=list_of_comments, just_modified_comment=True)

@@ -92,3 +92,11 @@ let postTitle;
       userPosts.style.display = 'none';
       userComments.style.display = 'flex'
     })
+
+    if (commentsTab.classList.contains('active')) {
+      userPosts.style.display = 'none';
+      userComments.style.display = 'flex'
+    } else {
+      userPosts.style.display = 'flex';
+      userComments.style.display = 'none'
+    }

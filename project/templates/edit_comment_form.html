@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="form-wrapper">
+  <form action="/edit_comment/{{ comment_id }}/{{ user_id }}/{{ post_id }}" method="POST" class="page-wrapper addPostForm" id="form-text">
+      <label class="create-post-label">New Text</label>
+      <textarea type="text" placeholder={{comment_to_edit.text}} class="create-post-content form-input" name="new-comment-content"></textarea>
+      <div class="buttons-wrapper">
+      <button type="submit" value="update" class="create-form-button form-submit" onClick="return empty()" name='comment-btn'>update</button>
+      <button type="submit" value="cancel" class="create-form-button form-cancel" name='comment-btn'>cancel</button>
+      </div>
+  </form>
+</div>
+{% endblock %}

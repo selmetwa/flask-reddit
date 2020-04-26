@@ -4,11 +4,17 @@
 <div class="feed-wrapper">
   <div class="all-posts-wrapper">
     <h1 class='profile-title'>{{name}}'s profile</h1>
-  
+    {% if just_modified_comment %}
+    <div class="user-tabs-wrapper">
+      <button class="user-tab posts-tab">Posts ({{list_of_posts|length}})</button>
+      <button class="user-tab comments-tab active">Comments ({{list_of_comments|length}})</button>
+    </div>
+    {% else %}
     <div class="user-tabs-wrapper">
       <button class="user-tab posts-tab active">Posts ({{list_of_posts|length}})</button>
       <button class="user-tab comments-tab">Comments ({{list_of_comments|length}})</button>
     </div>
+    {% endif %}
     <div class="posts-wrapper">
         <div class="user-posts">
           {% if user_posts %}
@@ -22,13 +28,11 @@
         <div class="user-comments">
           {% if user_comments %}
             {% for comment in user_comments %}
-              <p>{{comment.author}}</p>
+                {% include "user_comment.html" %}
             {% endfor %}
           {% elif list_of_comments|length == 0 %}
             {% include "error.html" %}
           {% endif %}
-          
-
         </div>
     </div>
   </div>
@@ -60,6 +64,15 @@
       userPosts.style.display = 'none';
       userComments.style.display = 'flex'
     })
+
+    if (commentsTab.classList.contains('active')) {
+      userPosts.style.display = 'none';
+      userComments.style.display = 'flex'
+    } else {
+      userPosts.style.display = 'flex';
+      userComments.style.display = 'none'
+    }
+   
 
   </script>
 {% endblock %}

@@ -1,0 +1,77 @@
+.user-comment {
+    display: flex;
+    background-color: white;
+    flex-direction: row;
+    margin-top: 1vh;
+    padding-left: 15px;
+    padding-bottom: 2px;
+    box-shadow: 0px 1px 3px rgba(34, 34, 34, 0.1);
+}
+.user-comment-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-left: 3%;
+}
+.user-comment-header {
+    display: flex;
+    flex-direction: row;
+    margin-top: 2%;
+}
+.user-comment-author {
+    margin: 0;
+    padding: 0;
+    font-family: 'Lato','Avenir', Helvetica,Arial , sans-serif!important;
+    color: #333;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: .8rem;
+    opacity: .8;
+    background-color: transparent!important;
+}
+.user-comment-timestamp {
+    font-size: .8rem;
+    margin: 0;
+    margin-left: 2%;
+    font-family: 'Avenir', Helvetica,Arial , sans-serif!important;
+    color: #333;
+    opacity: .7;
+    text-decoration: none;
+    font-weight: 100;
+    padding: 0;
+}
+.user-comment-description {
+    display: flex;
+    flex-direction: row;
+}
+.user-comment-details {
+    margin-top: 1%!important;
+    font-size: 1rem;
+    width: 95%;
+    font-family: 'Avenir', Helvetica,Arial , sans-serif!important;
+    color: #333;
+    margin-top: 2px;
+    opacity: .8;
+    width: 90%;
+    font-weight: 100;
+}
+.user-modify-content-buttons {
+    display: flex;
+    margin-right: 3%;
+    padding-bottom: 5px;
+    justify-content: flex-end;
+    flex-direction: row;
+}
+.user-delete-button {
+    font-family: 'Avenir', Helvetica,Arial , sans-serif!important;
+    margin-top: -1vh;
+    border-radius: 2px;
+    flex: 1;
+    display: flex;
+    padding: 5px;
+    font-size: .8rem;
+    transition: .2s;
+    border: none;
+    color: #fafafa;
+    background-color: #BA274A;
+}
