@@ -6,6 +6,9 @@ from datetime import datetime
 
 main = Blueprint('main', __name__)
 
+state = {
+    "limit": 5
+}
 @main.route('/')
 def index():
     all_posts = Post.query.all()
@@ -53,12 +56,12 @@ def create_post():
 
     time = datetime.now()
     newtime = datetime.strftime(time, '%d/%m/%Y')
-    print('newtime: ', newtime)
-    print('time: ', time)
-    print('newtime: ', type(newtime))
+    # print('newtime: ', newtime)
+    # print('time: ', time)
+    # print('newtime: ', type(newtime))
     subreddits = Subreddit.query.all()
     sub = subreddit
-    newPost = Post(title=title, description=content, sub=sub, votes=0, user=current_user, subreddit_id=subreddit_id, timestamp=newtime)
+    newPost = Post(title=title, description=content, sub=sub, votes=0, user=current_user, subreddit_id=subreddit_id, timestamp=time)
     db.session.add(newPost)
     db.session.commit()
     all_posts = Post.query.all()

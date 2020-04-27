@@ -34,15 +34,19 @@
       #}
       <div class="user-comment-content">
         <div class="user-comment-header">
-            <a href="{{ url_for('main.post_details', post_id=comment.post_id) }}" class="user-comment-author">
+            <a href="{{ url_for('main.user_profile', user_id=comment.user_id) }}" class="user-comment-author">
             <span class='by'>by</span> <span class="user-author-wrapper">{{ comment.author }}</span>
             </a>
-            <p class='user-comment-timestamp'>{{comment.timestamp}}</p>
+            <p class='user-comment-timestamp'>on {{comment.timestamp}}</p>
         </div>
         <div class="user-comment-description">
             <p class="user-comment-details">{{comment.text}}</p>
         </div>
+        {% if comment.author == current_user.name %}
         <div class="user-modify-content-buttons">
+          <button class="view-original-post user-modify-button">
+              <a href="{{ url_for('main.post_details', post_id=comment.post_id) }}" >View Parent Post</a>
+          </button>
             <form action="/delete_comment/{{ comment.id }}/{{ comment.user_id }}/{{comment.post_id}}" method="GET" class="user-comment-form">
                 <button type="submit" value="delete" class="user-delete-button user-modify-button">delete comment</button>
             </form>
@@ -50,6 +54,13 @@
                 {% include "edit_comment_button.html" %}
             {% endwith %}
         </div>
+        {% else %}
+        <div  class="user-modify-content-buttons-else">
+            <button class="view-original-post user-modify-button">
+                <a href="{{ url_for('main.post_details', post_id=comment.post_id) }}" >View Parent Post</a>
+            </button>
+        </div>
+        {% endif %}
       </div>
 </div>
 </body>

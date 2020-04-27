@@ -100,3 +100,23 @@ let postTitle;
       userPosts.style.display = 'flex';
       userComments.style.display = 'none'
     }
+
+    const postWrapper = document.querySelector('.posts-wrapper')
+
+    const posts = Array.from(document.querySelectorAll('.post'))
+
+    let newPosts = posts.slice(Math.max(posts.length - 2, 5))
+  
+    newPosts.forEach(post => {
+      post.style.border = '1px solid #3B60E4';
+      setTimeout(() => {
+        post.style.border = '0px solid #3B60E4';        
+      }, 3000)
+    })
+
+    console.log('posts: ', posts)
+    console.log('newPosts: ', newPosts)
+    if (postWrapper.classList.contains('scroll')) {
+      console.log('true')
+      window.scrollTo(0,document.body.scrollHeight);
+    }

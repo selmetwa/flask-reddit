@@ -8,6 +8,7 @@
     padding-left: 15px;
     padding-bottom: 2px;
     box-shadow: 0px 1px 3px rgba(34, 34, 34, 0.1);
+    transition: .2s ease-in-out;
     font-family: Arial, Helvetica, sans-serif;
 }
 .post-votes-wrapper {
@@ -190,6 +191,7 @@
     display: flex;
     flex-direction: row!important;
     margin-top: 1.5%;
+    margin-right: 5%;
     padding-bottom: 10px;
 }
 .modify-button {
@@ -198,7 +200,7 @@
     border-radius: 2px;
     flex: 1;
     display: flex;
-    padding: 5px;
+    padding: 7px;
     font-size: .8rem;
     transition: .2s;
     border: none;
@@ -206,22 +208,28 @@
 .delete-button {
     color: #fafafa;
     background-color: #BA274A;
+    border: 1px solid #BA274A;
 }
 .edit-button {
-    color: #fafafa;
+    color: #1f1e1e;
     margin-left: 1vw;
-    background-color: #3B60E4;
+    background-color: transparent;
+    border: 1px solid #3B60E4;
 }
 .edit-button:hover {
-    background-color: rgb(34, 66, 182);
-    border: none;
+    border: 1px solid rgb(26, 61, 190);
+    background-color: #fafafa;
     order: 2;
     cursor: pointer;
 }
 .delete-button:hover {
     background-color: rgb(141, 29, 55);
-    border: none;
+    border: 1px solid rgb(141, 29, 55);
     margin-left: auto!important;
     order:2;
     cursor: pointer;
+}
+.new-post {
+    border: 5px solid red!important;
+    transition: .2s ease-in-out;
 }

@@ -3,7 +3,11 @@
 {% block content %}
 <div class="feed-wrapper">
   <div class="all-posts-wrapper">
-  <div class="posts-wrapper" name='index'>
+  {% if scroll_to_bottom %}
+    <div class="posts-wrapper scroll" name='index'>
+    {% else %}
+    <div class="posts-wrapper" name='index'>
+  {% endif %}
   {% if all_posts %}
     {% for post in all_posts %}
       {% include "post.html" %}
@@ -17,17 +21,7 @@
 </div>
 {% block javascript %}
   <script>
-    const form = document.querySelector('.addPostForm')
-    let formIsOpen = false
-    document.querySelector('.showForm').addEventListener('click', () => {
-      if (!formIsOpen) {
-        form.style.display = "flex";
-        formIsOpen = true
-      } else {
-        form.style.display = "none"
-        formIsOpen = false
-      }
-    })
+
   </script>
 {% endblock %}
 {% endblock %}
