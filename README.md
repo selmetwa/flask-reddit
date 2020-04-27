@@ -18,8 +18,8 @@
 - [x] Render date of creation on post
 - [x] User can edit his/her own post
 - [x] Render user's posts and comments on profile page
-- [ ] Allow a user to delete his/her comment
-- [ ] Allow a user to edit his/her comment
+- [x] Allow a user to delete his/her comment
+- [x] Allow a user to edit his/her comment
 - [ ] threading of comments
 - [ ] Refactor routes
 
