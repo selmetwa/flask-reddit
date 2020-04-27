@@ -2,7 +2,6 @@
 {% block content %}
 <div class="feed-wrapper">
   <div class="all-posts-wrapper">
-  
   <div class="posts-wrapper">
   {% if post %}
     <div class="post">
@@ -43,7 +42,7 @@
             <a href="{{ url_for('main.post_details', post_id=post.id) }} " class="post-comments">{{ ns.comment_count }} comments</a>
             <a href="{{ url_for('main.get_posts_for_subreddit', sub_name=post.sub) }} " class="post-subreddit">/h/{{post.sub}}</a>
             {% if post.user.name == current_user.name %}
-            <a href="{{ url_for('main.profile', user_id=current_user.id) }}" class="post-author">
+            <a href="{{ url_for('main.user_profile', user_id=post.user.id) }}" class="post-author">
                 <span class='by'>by</span> <span class="author-wrapper">{{ post.user.name }}</span>
             </a>
             {% else %}

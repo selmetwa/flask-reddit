@@ -1,0 +1,54 @@
+.sort-buttons-wrapper {
+    /* border: 1px solid red; */
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    padding: 0;
+    line-height: .35;
+}
+.sort-title {
+    font-family: 'Avenir', Helvetica,Arial , sans-serif!important;
+    font-size: .9rem;
+    color: #333;    
+}
+#first {
+    margin-left: 2%;
+}
+.sort-button {
+    font-family: 'Avenir', Helvetica,Arial , sans-serif!important;
+    border: 1px solid #3B60E4;
+    border-radius: 3px;
+    padding: 4px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin: 2px;
+    font-weight: 500;
+    font-size: .75rem;
+    transition: .2s;
+    transition: .2s ease-in-out;
+}
+.sort-button:hover {
+    background-color: #3B60E4;
+    border: 1px solid #3B60E4;
+    transition: .2s ease-in-out;
+}
+.sort-button a:hover {
+    color: white!important;
+    opacity: 1;
+    transition: .2s ease-in-out;
+}
+.sort-button a {
+    background: transparent!important;
+    color: #333;
+    text-decoration: none;
+    opacity: .5;
+}
+.active {
+    background-color: #3B60E4;
+    border: 1px solid #3B60E4;
+    transition: .2s ease-in-out;
+}
+.active a {
+    color: #fff!important;
+    opacity: 1;
+}

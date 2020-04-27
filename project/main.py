@@ -7,13 +7,46 @@ from datetime import datetime
 main = Blueprint('main', __name__)
 
 state = {
-    "limit": 5
+    "limit": 5,
+    "sort": None
 }
 @main.route('/')
 def index():
     all_posts = Post.query.all()
     subreddits = Subreddit.query.all()
     return render_template('index.html', all_posts=all_posts, subreddits=subreddits, profile=False, page_name='home')
+
+@main.route('/sort_upvotes')
+def sort_upvotes():
+    state['sort'] = 'sort-by-upvote';
+    print('sort: ', state['sort'])
+    all_posts = Post.query.all()
+    subreddits = Subreddit.query.all()
+    return render_template('index.html', all_posts=all_posts, subreddits=subreddits, profile=False, page_name='home', sort_by=state['sort'])
+
+@main.route('/sort_downvotes')
+def sort_downvotes():
+    state['sort'] = 'sort-by-downvote';
+    print('sort: ' , state['sort'])
+    all_posts = Post.query.all()
+    subreddits = Subreddit.query.all()
+    return render_template('index.html', all_posts=all_posts, subreddits=subreddits, profile=False, page_name='home', sort_by=state['sort'])
+
+@main.route('/sort_oldest')
+def sort_oldest():
+    state['sort'] = 'dates_oldest';
+    print('sort: ' , state['sort'])
+    all_posts = Post.query.all()
+    subreddits = Subreddit.query.all()
+    return render_template('index.html', all_posts=all_posts, subreddits=subreddits, profile=False, page_name='home', sort_by=state['sort'])
+
+@main.route('/sort_newest')
+def sort_newest():
+    state['sort'] = 'dates_newest';
+    print('sort: ' , state['sort'])
+    all_posts = Post.query.all()
+    subreddits = Subreddit.query.all()
+    return render_template('index.html', all_posts=all_posts, subreddits=subreddits, profile=False, page_name='home', sort_by=state['sort'])
 
 @main.route('/upvote_post/<post_id>')
 @login_required
@@ -23,7 +56,7 @@ def upvote_post(post_id):
     post.votes = post.votes + 1
     db.session.commit()
     all_posts = Post.query.all()
-    return render_template('index.html', all_posts=all_posts, subreddits=subreddits, profile=False, page_name='home')
+    return render_template('index.html', all_posts=all_posts, subreddits=subreddits, profile=False, page_name='home', sort_by=state['sort'])
 
 @main.route('/downvote_post/<post_id>')
 @login_required
@@ -33,7 +66,7 @@ def downvote_post(post_id):
     post.votes = post.votes - 1
     db.session.commit()
     all_posts = Post.query.all()
-    return render_template('index.html', all_posts=all_posts, subreddits=subreddits, page_name='home')
+    return render_template('index.html', all_posts=all_posts, subreddits=subreddits, page_name='home', sort_by=state['sort'])
 
 @main.route('/', methods=['POST'])
 @login_required

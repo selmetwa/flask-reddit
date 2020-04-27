@@ -120,3 +120,38 @@ let postTitle;
       console.log('true')
       window.scrollTo(0,document.body.scrollHeight);
     }
+
+    const sortButtons = Array.from(document.querySelectorAll('.sort-button'));
+        const postsWrapper = document.querySelector('.posts-wrapper')
+
+        const downvoteButton = document.querySelector('.sort-by-downvotes')
+        const upvoteButton = document.querySelector('.sort-by-upvotes')
+        const oldestButton = document.querySelector('.sort-by-oldest')
+        const newestButton = document.querySelector('.sort-by-newest')
+
+        const removeActiveClass = () => {
+            sortButtons.forEach(button => {
+                button.classList.remove('active')
+            })
+        }
+
+        if (postsWrapper.classList.contains('sort-by-downvote')) {
+            removeActiveClass()
+            downvoteButton.classList.add('active')
+        } 
+        else if (postsWrapper.classList.contains('sort-by-upvote')) {
+            removeActiveClass()
+            upvoteButton.classList.add('active')
+        } 
+        else if (postsWrapper.classList.contains('dates_oldest')) {
+            removeActiveClass()
+            oldestButton.classList.add('active')
+        } 
+        else if (postsWrapper.classList.contains('dates_newest')) {
+            removeActiveClass()
+            newestButton.classList.add('active')
+        } 
+        else {
+            removeActiveClass()
+            newestButton.classList.add('active')
+        }

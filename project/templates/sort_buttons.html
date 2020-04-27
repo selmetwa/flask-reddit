@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Heddit</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sigmar+One&display=swap" rel="stylesheet">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/sort-buttons.css') }}">
+</head>
+<body>
+    <div class="sort-buttons-wrapper">
+        <h3 class="sort-title">Sort Posts</h3>
+        <button type="submit" class="sort-button sort-by-newest" id="first"><a href="{{ url_for('main.sort_newest') }}" type="submit">newest post</a></button>
+        <button type="submit" class="sort-button sort-by-oldest"><a href="{{ url_for('main.sort_oldest') }}" type="submit">oldest post</a></button>
+        <button type="submit" class="sort-button sort-by-upvotes"><a href="{{ url_for('main.sort_upvotes') }}" type="submit">upvotes</a></button>
+        <button type="submit" class="sort-button sort-by-downvotes"><a href="{{ url_for('main.sort_downvotes') }}" type="submit">downvotes</a></button>
+    </div>
+    {% block javascript %}
+    <script>
+        const sortButtons = Array.from(document.querySelectorAll('.sort-button'));
+        const postsWrapper = document.querySelector('.posts-wrapper')
+
+        const downvoteButton = document.querySelector('.sort-by-downvotes')
+        const upvoteButton = document.querySelector('.sort-by-upvotes')
+        const oldestButton = document.querySelector('.sort-by-oldest')
+        const newestButton = document.querySelector('.sort-by-newest')
+
+        const removeActiveClass = () => {
+            sortButtons.forEach(button => {
+                button.classList.remove('active')
+            })
+        }
+
+        if (postsWrapper.classList.contains('sort-by-downvote')) {
+            removeActiveClass()
+            downvoteButton.classList.add('active')
+        } 
+        else if (postsWrapper.classList.contains('sort-by-upvote')) {
+            removeActiveClass()
+            upvoteButton.classList.add('active')
+        } 
+        else if (postsWrapper.classList.contains('dates_oldest')) {
+            removeActiveClass()
+            oldestButton.classList.add('active')
+        } 
+        else if (postsWrapper.classList.contains('dates_newest')) {
+            removeActiveClass()
+            newestButton.classList.add('active')
+        } 
+        else {
+            removeActiveClass()
+            newestButton.classList.add('active')
+        }
+        
+    </script>   
+    {% endblock %}
+</body>
+</html>

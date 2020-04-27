@@ -3,15 +3,30 @@
 {% block content %}
 <div class="feed-wrapper">
   <div class="all-posts-wrapper">
-  {% if scroll_to_bottom %}
-    <div class="posts-wrapper scroll" name='index'>
-    {% else %}
-    <div class="posts-wrapper" name='index'>
-  {% endif %}
+    <div class="posts-wrapper {{sort_by}}" name='index'>
+    {% include "sort_buttons.html" %}
   {% if all_posts %}
-    {% for post in all_posts %}
-      {% include "post.html" %}
-    {% endfor %}
+    {% if sort_by == 'sort-by-upvote' %}
+      {% for post in all_posts|sort(attribute='votes', reverse = True) %}
+        {% include "post.html" %}
+      {% endfor %}
+    {% elif sort_by == 'sort-by-downvote' %}
+      {% for post in all_posts|sort(attribute='votes') %}
+        {% include "post.html" %}
+      {% endfor %}
+    {% elif sort_by == 'dates_oldest' %}
+      {% for post in all_posts|sort(attribute='timestamp') %}
+        {% include "post.html" %}
+      {% endfor %}
+    {% elif sort_by == 'dates_newest' %}
+      {% for post in all_posts|sort(attribute='timestamp', reverse = True) %}
+          {% include "post.html" %}
+        {% endfor %}
+    {% else %}
+      {% for post in all_posts|sort(attribute='timestamp', reverse = True) %}
+        {% include "post.html" %}
+      {% endfor %}
+    {% endif %}
   {% endif %}
   </div>
   </div>
@@ -21,7 +36,7 @@
 </div>
 {% block javascript %}
   <script>
-
+    
   </script>
 {% endblock %}
 {% endblock %}
