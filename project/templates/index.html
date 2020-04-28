@@ -4,30 +4,43 @@
 <div class="feed-wrapper">
   <div class="all-posts-wrapper">
     <div class="posts-wrapper {{sort_by}}" name='index'>
-    {% include "sort_buttons.html" %}
+    {# {% include "sort_buttons.html" %} #} 
   {% if all_posts %}
     {% if sort_by == 'sort-by-upvote' %}
-      {% for post in all_posts|sort(attribute='votes', reverse = True) %}
+      {% for post in all_posts.items|sort(attribute='votes', reverse = True) %}
         {% include "post.html" %}
       {% endfor %}
     {% elif sort_by == 'sort-by-downvote' %}
-      {% for post in all_posts|sort(attribute='votes') %}
+      {% for post in all_posts.items|sort(attribute='votes') %}
         {% include "post.html" %}
       {% endfor %}
     {% elif sort_by == 'dates_oldest' %}
-      {% for post in all_posts|sort(attribute='timestamp') %}
+      {% for post in all_posts.items|sort(attribute='id') %}
         {% include "post.html" %}
       {% endfor %}
     {% elif sort_by == 'dates_newest' %}
-      {% for post in all_posts|sort(attribute='timestamp', reverse = True) %}
+      {% for post in all_posts.items|sort(attribute='id', reverse = True) %}
           {% include "post.html" %}
         {% endfor %}
     {% else %}
-      {% for post in all_posts|sort(attribute='timestamp', reverse = True) %}
+      {% for post in all_posts.items|sort(attribute='id', reverse = True) %}
         {% include "post.html" %}
       {% endfor %}
     {% endif %}
   {% endif %}
+  <div class="page-links-wrapper">
+    {% for page_num in all_posts.iter_pages() %}
+      {% if page_num %}
+        {% if all_posts.page == page_num %}
+          <a href="{{ url_for('main.index', page=page_num) }}" class="page-link-active">{{ page_num }}</a>
+        {% else %}
+          <a href="{{ url_for('main.index', page=page_num) }}" class="page-link">{{ page_num }}</a>
+        {% endif %}
+      {% else %}
+        ...
+      {% endif %}
+    {% endfor %}
+  </div>
   </div>
   </div>
   <div class="subreddits-wrapper">

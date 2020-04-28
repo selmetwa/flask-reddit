@@ -41,3 +41,27 @@
     font-size: 1.1rem;
     opacity: .7;
 }
+
+.page-links-wrapper {
+    margin-top: 2vh;
+}
+.page-link {
+    font-family: 'Avenir', Helvetica,Arial , sans-serif!important;
+    font-size: 1rem;
+    font-weight: 600;
+    background-color: transparent!important;
+    color: #333;
+    padding: 5px;
+    text-decoration: none;
+    transition: .2s ease-in-out;
+}
+.page-link-active {
+    font-family: 'Avenir', Helvetica,Arial , sans-serif!important;
+    font-size: 1.7rem;
+    font-weight: 600;
+    background-color: transparent!important;
+    padding: 5px;
+    color: #2a4fd3;
+    transition: .2s ease-in-out;
+    text-decoration: none;
+}

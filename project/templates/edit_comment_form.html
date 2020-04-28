@@ -3,6 +3,7 @@
 {% block content %}
 <div class="form-wrapper">
   <form action="/edit_comment/{{ comment_id }}/{{ user_id }}/{{ post_id }}" method="POST" class="page-wrapper addPostForm" id="form-text">
+      <h1 class="edit-post-form-title">Edit Comment</h1>
       <label class="create-post-label">New Text</label>
       <textarea type="text" placeholder={{comment_to_edit.text}} class="create-post-content form-input" name="new-comment-content"></textarea>
       <div class="buttons-wrapper">

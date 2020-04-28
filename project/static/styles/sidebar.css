@@ -19,6 +19,11 @@
     transition: .2s;
     text-decoration: none;
 }
+.create-post-button:hover {
+    background-color: #2a4fd3!important;
+    transition: .2s;
+    cursor: pointer;
+}
 .subreddit-categories {
     margin: 0;
     padding: 0;

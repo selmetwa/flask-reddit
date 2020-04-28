@@ -12,61 +12,77 @@ state = {
 }
 @main.route('/')
 def index():
-    all_posts = Post.query.all()
+    all_posts = list(Post.query.all())
+    print('type all_posts: ', type(all_posts))
+    all_posts = sorted(all_posts, key = lambda i: i.id) 
+    page = request.args.get('page', 1, type=int)
+    posts = Post.query.order_by(Post.id.desc()).paginate(page=page, per_page=5)
     subreddits = Subreddit.query.all()
-    return render_template('index.html', all_posts=all_posts, subreddits=subreddits, profile=False, page_name='home')
+    return render_template('index.html', all_posts=posts, subreddits=subreddits, profile=False, page_name='home')
 
-@main.route('/sort_upvotes')
-def sort_upvotes():
+@main.route('/sort_upvotes/<page_num>')
+def sort_upvotes(page_num):
     state['sort'] = 'sort-by-upvote';
     print('sort: ', state['sort'])
     all_posts = Post.query.all()
+    page = request.args.get('page', int(page_num), type=int)
+    posts = Post.query.paginate(page=page, per_page=5)
     subreddits = Subreddit.query.all()
-    return render_template('index.html', all_posts=all_posts, subreddits=subreddits, profile=False, page_name='home', sort_by=state['sort'])
+    return render_template('index.html', all_posts=posts, subreddits=subreddits, profile=False, page_name='home', sort_by=state['sort'])
 
-@main.route('/sort_downvotes')
-def sort_downvotes():
+@main.route('/sort_downvotes/<page_num>')
+def sort_downvotes(page_num):
     state['sort'] = 'sort-by-downvote';
     print('sort: ' , state['sort'])
     all_posts = Post.query.all()
+    page = request.args.get('page', int(page_num), type=int)
+    posts = Post.query.paginate(page=page, per_page=5)
     subreddits = Subreddit.query.all()
-    return render_template('index.html', all_posts=all_posts, subreddits=subreddits, profile=False, page_name='home', sort_by=state['sort'])
+    return render_template('index.html', all_posts=posts, subreddits=subreddits, profile=False, page_name='home', sort_by=state['sort'])
 
-@main.route('/sort_oldest')
-def sort_oldest():
+@main.route('/sort_oldest/<page_num>')
+def sort_oldest(page_num):
     state['sort'] = 'dates_oldest';
     print('sort: ' , state['sort'])
     all_posts = Post.query.all()
+    page = request.args.get('page', int(page_num), type=int)
+    posts = Post.query.order_by(Post.id.asc()).paginate(page=page, per_page=5)
     subreddits = Subreddit.query.all()
-    return render_template('index.html', all_posts=all_posts, subreddits=subreddits, profile=False, page_name='home', sort_by=state['sort'])
+    return render_template('index.html', all_posts=posts, subreddits=subreddits, profile=False, page_name='home', sort_by=state['sort'])
 
-@main.route('/sort_newest')
-def sort_newest():
+@main.route('/sort_newest/<page_num>')
+def sort_newest(page_num):
     state['sort'] = 'dates_newest';
     print('sort: ' , state['sort'])
     all_posts = Post.query.all()
+    page = request.args.get('page', int(page_num), type=int)
+    posts = Post.query.order_by(Post.id.desc()).paginate(page=page, per_page=5)
     subreddits = Subreddit.query.all()
-    return render_template('index.html', all_posts=all_posts, subreddits=subreddits, profile=False, page_name='home', sort_by=state['sort'])
+    return render_template('index.html', all_posts=posts, subreddits=subreddits, profile=False, page_name='home', sort_by=state['sort'])
 
-@main.route('/upvote_post/<post_id>')
+@main.route('/upvote_post/<post_id>/<page_num>')
 @login_required
-def upvote_post(post_id):
+def upvote_post(post_id, page_num):
     subreddits = Subreddit.query.all()
     post = Post.query.filter_by(id=post_id).first_or_404()
     post.votes = post.votes + 1
     db.session.commit()
     all_posts = Post.query.all()
-    return render_template('index.html', all_posts=all_posts, subreddits=subreddits, profile=False, page_name='home', sort_by=state['sort'])
+    page = request.args.get('page', int(page_num), type=int)
+    posts = Post.query.order_by(Post.id.desc()).paginate(page=page, per_page=5)
+    return render_template('index.html', all_posts=posts, subreddits=subreddits, profile=False, page_name='home', sort_by=state['sort'])
 
-@main.route('/downvote_post/<post_id>')
+@main.route('/downvote_post/<post_id>/<page_num>')
 @login_required
-def downvote_post(post_id):
+def downvote_post(post_id, page_num):
     post = Post.query.filter_by(id=post_id).first_or_404()
     subreddits = Subreddit.query.all()
     post.votes = post.votes - 1
     db.session.commit()
     all_posts = Post.query.all()
-    return render_template('index.html', all_posts=all_posts, subreddits=subreddits, page_name='home', sort_by=state['sort'])
+    page = request.args.get('page', int(page_num), type=int)
+    posts = Post.query.order_by(Post.id.desc()).paginate(page=page, per_page=5)
+    return render_template('index.html', all_posts=posts, subreddits=subreddits, page_name='home', sort_by=state['sort'])
 
 @main.route('/', methods=['POST'])
 @login_required
@@ -94,11 +110,14 @@ def create_post():
     # print('newtime: ', type(newtime))
     subreddits = Subreddit.query.all()
     sub = subreddit
-    newPost = Post(title=title, description=content, sub=sub, votes=0, user=current_user, subreddit_id=subreddit_id, timestamp=time)
+    newPost = Post(title=title, description=content, sub=sub, votes=0, user=current_user, subreddit_id=subreddit_id, timestamp=newtime)
     db.session.add(newPost)
     db.session.commit()
     all_posts = Post.query.all()
-    return render_template('index.html', name=current_user.name, all_posts=all_posts, subreddits=subreddits, profile=False, page_name='home')    
+    state['sort'] = 'dates_newest';
+    page = request.args.get('page', 1, type=int)
+    posts = Post.query.paginate(page=page, per_page=5)
+    return render_template('index.html', name=current_user.name, all_posts=posts, subreddits=subreddits, profile=False, page_name='home', sort_by=state['sort'])    
 
 @main.route('/delete_post/<post_id>/<user_id>', methods=['GET'])
 def delete_post(post_id, user_id):
@@ -312,9 +331,10 @@ def edit_post(post_id, user_id):
     subreddits = Subreddit.query.all()
     user_posts = Post.query.filter_by(user_id=post_id)
     list_of_posts = list(user_posts)
-    user_comments = Comment.query.filter_by(user_id=user_id)
+    print('user_id: ', user_id)
+    user_comments = Comment.query.filter_by(user_id=post_id)
     list_of_comments = list(user_comments)
-    return render_template('user.html', user_posts=user_posts,user_comments=user_comments, subreddits=subreddits, name=current_user.name, page_name=current_user.name, list_of_posts=list_of_posts, list_of_comments=list_of_comments)
+    return render_template('user.html', user_posts=user_posts,user_comments=user_comments, name=current_user.name, subreddits=subreddits, page_name=current_user.name, list_of_posts=list_of_posts, list_of_comments=list_of_comments)
 
 @main.route('/delete_comment/<comment_id>/<user_id>/<post_id>', methods=['GET'])
 def delete_comment(comment_id, user_id, post_id):

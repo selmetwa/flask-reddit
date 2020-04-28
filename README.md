@@ -21,6 +21,7 @@
 - [x] Allow a user to delete his/her comment
 - [x] Allow a user to edit his/her comment
 - [x] allow user to sort posts by date, votes
+- [x] pagination
 - [ ] threading of comments
 - [ ] Refactor routes
 

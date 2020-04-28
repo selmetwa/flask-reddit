@@ -15,11 +15,11 @@
       {% if page_name == 'home' %}
         <div class="post-vote-wrapper">
           <button class="upvote">
-            <a href="{{ url_for('main.upvote_post', post_id=post.id) }}">></a>        
+            <a href="{{ url_for('main.upvote_post', post_id=post.id, page_num=all_posts.page) }}">></a>        
           </button>
           <p class='post-votes'>{{post.votes}}</p>
           <button class="downvote">
-            <a href="{{ url_for('main.downvote_post', post_id=post.id) }}">></a>
+            <a href="{{ url_for('main.downvote_post', post_id=post.id, page_num=all_posts.page) }}">></a>
           </button>
         </div>
       {% elif page_name == post.user.name %}

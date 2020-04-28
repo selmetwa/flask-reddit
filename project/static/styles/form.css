@@ -155,3 +155,9 @@
     transition: .2s;
     cursor: pointer;
 }
+.edit-post-form-title {
+    font-family: 'Lato','Avenir', Helvetica,Arial , sans-serif!important;
+    color: #333;
+    margin-bottom: -1vh!important;
+    font-size: 1.3rem;
+}

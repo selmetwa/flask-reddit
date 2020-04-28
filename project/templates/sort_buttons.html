@@ -13,10 +13,10 @@
 <body>
     <div class="sort-buttons-wrapper">
         <h3 class="sort-title">Sort Posts</h3>
-        <button type="submit" class="sort-button sort-by-newest" id="first"><a href="{{ url_for('main.sort_newest') }}" type="submit">newest post</a></button>
-        <button type="submit" class="sort-button sort-by-oldest"><a href="{{ url_for('main.sort_oldest') }}" type="submit">oldest post</a></button>
-        <button type="submit" class="sort-button sort-by-upvotes"><a href="{{ url_for('main.sort_upvotes') }}" type="submit">upvotes</a></button>
-        <button type="submit" class="sort-button sort-by-downvotes"><a href="{{ url_for('main.sort_downvotes') }}" type="submit">downvotes</a></button>
+        <button type="submit" class="sort-button sort-by-newest" id="first"><a href="{{ url_for('main.sort_newest', page_num=all_posts.page) }}" type="submit">newest post</a></button>
+        <button type="submit" class="sort-button sort-by-oldest"><a href="{{ url_for('main.sort_oldest', page_num=all_posts.page) }}" type="submit">oldest post</a></button>
+        <button type="submit" class="sort-button sort-by-upvotes"><a href="{{ url_for('main.sort_upvotes', page_num=all_posts.page) }}" type="submit">upvotes</a></button>
+        <button type="submit" class="sort-button sort-by-downvotes"><a href="{{ url_for('main.sort_downvotes', page_num=all_posts.page) }}" type="submit">downvotes</a></button>
     </div>
     {% block javascript %}
     <script>
