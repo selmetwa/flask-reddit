@@ -12,7 +12,7 @@
 </head>
 <body>
     <div class="sidebar-wrapper">
-        <a href="{{ url_for('main.create_post_form') }}" class="create-post-button">create post</a>
+        <a href="{{ url_for('main.create_post_form', paginate=paginate) }}" class="create-post-button">create post</a>
         <div class='subreddits-container'>
         <h1 class="subreddit-categories">subreddits</h1>
             <div class="subreddit-container">

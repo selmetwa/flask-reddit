@@ -3,48 +3,62 @@
 {% block content %}
 <div class="feed-wrapper">
   <div class="all-posts-wrapper">
-    <div class="posts-wrapper {{sort_by}}" name='index'>
-    {# {% include "sort_buttons.html" %} #} 
-  {% if all_posts %}
-    {% if sort_by == 'sort-by-upvote' %}
-      {% for post in all_posts.items|sort(attribute='votes', reverse = True) %}
-        {% include "post.html" %}
-      {% endfor %}
-    {% elif sort_by == 'sort-by-downvote' %}
-      {% for post in all_posts.items|sort(attribute='votes') %}
-        {% include "post.html" %}
-      {% endfor %}
-    {% elif sort_by == 'dates_oldest' %}
-      {% for post in all_posts.items|sort(attribute='id') %}
-        {% include "post.html" %}
-      {% endfor %}
-    {% elif sort_by == 'dates_newest' %}
-      {% for post in all_posts.items|sort(attribute='id', reverse = True) %}
-          {% include "post.html" %}
-        {% endfor %}
-    {% else %}
-      {% for post in all_posts.items|sort(attribute='id', reverse = True) %}
-        {% include "post.html" %}
-      {% endfor %}
-    {% endif %}
-  {% endif %}
-  <div class="page-links-wrapper">
-    {% for page_num in all_posts.iter_pages() %}
-      {% if page_num %}
-        {% if all_posts.page == page_num %}
-          <a href="{{ url_for('main.index', page=page_num) }}" class="page-link-active">{{ page_num }}</a>
-        {% else %}
-          <a href="{{ url_for('main.index', page=page_num) }}" class="page-link">{{ page_num }}</a>
-        {% endif %}
+    {% if all_posts %}
+      {% if paginate %}
+        <div class="posts-wrapper" id="paginate" name='index'>
+            {% for post in all_posts.items|sort(attribute='id', reverse = True) %}
+                {% include "post.html" %}
+            {% endfor %}
+            <div class="page-links-wrapper">
+                {% for page_num in all_posts.iter_pages() %}
+                {% if page_num %}
+                {% if all_posts.page == page_num %}
+                    <a href="{{ url_for('main.paginate', page=page_num) }}" class="page-link-active">{{ page_num }}</a>
+                {% else %}
+                    <a href="{{ url_for('main.paginate', page=page_num) }}" class="page-link">{{ page_num }}</a>
+                {% endif %}
+                {% else %}
+                <p class="page-link-dots">...</p>
+                {% endif %}
+            {% endfor %}
+                <button class="view-all-button">
+                    <a href="{{ url_for('main.view_all') }}" >view all posts</a>
+                </button>
+            </div>
+        </div> 
       {% else %}
-        ...
+        <div class="posts-wrapper {{sort_by}}" name='index'>
+            {% include "sort_buttons.html" %} 
+            {% if sort_by == 'sort-by-upvote' %}
+                {% for post in all_posts|sort(attribute='votes', reverse = True) %}
+                {% include "post.html" %}
+                {% endfor %}
+            {% elif sort_by == 'sort-by-downvote' %}
+                {% for post in all_posts|sort(attribute='votes') %}
+                {% include "post.html" %}
+                {% endfor %}
+            {% elif sort_by == 'dates_oldest' %}
+                {% for post in all_posts|sort(attribute='id') %}
+                {% include "post.html" %}
+                {% endfor %}
+            {% elif sort_by == 'dates_newest' %}
+                {% for post in all_posts|sort(attribute='id', reverse = True) %}
+                    {% include "post.html" %}
+                {% endfor %}
+            {% else %}
+                {% for post in all_posts|sort(attribute='id', reverse = True) %}
+                {% include "post.html" %}
+                {% endfor %}
+            {% endif %}
+        </div>
       {% endif %}
-    {% endfor %}
-  </div>
-  </div>
+    {% endif %}
+  
   </div>
   <div class="subreddits-wrapper">
-    {% include "sidebar.html" %}
+    {% with paginate=paginate %}
+      {% include "sidebar.html" %}
+    {% endwith %}
   </div>
 </div>
 {% block javascript %}

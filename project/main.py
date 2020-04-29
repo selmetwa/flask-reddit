@@ -8,57 +8,84 @@ main = Blueprint('main', __name__)
 
 state = {
     "limit": 5,
-    "sort": None
+    "sort": None,
+    "paginate": False
 }
 @main.route('/')
 def index():
+    state['sort'] = 'dates_newest';
+    # all_posts = list(Post.query.all())
+    # print('type all_posts: ', type(all_posts))
+    # all_posts = sorted(all_posts, key = lambda i: i.id) 
+    # page = request.args.get('page', 1, type=int)
+    # posts = Post.query.order_by(Post.id.desc()).paginate(page=page, per_page=5)
+    posts = Post.query.order_by(Post.id.desc())
+    subreddits = Subreddit.query.all()
+    return render_template('index.html', all_posts=posts, subreddits=subreddits, profile=False, page_name='home', paginate=False)
+
+@main.route('/paginate')
+def paginate():
     all_posts = list(Post.query.all())
+    state['paginate'] = True;
     print('type all_posts: ', type(all_posts))
     all_posts = sorted(all_posts, key = lambda i: i.id) 
     page = request.args.get('page', 1, type=int)
-    posts = Post.query.order_by(Post.id.desc()).paginate(page=page, per_page=5)
+    posts = Post.query.order_by(Post.id.desc()).paginate(page=page, per_page=4)
     subreddits = Subreddit.query.all()
-    return render_template('index.html', all_posts=posts, subreddits=subreddits, profile=False, page_name='home')
+    return render_template('index.html', all_posts=posts, subreddits=subreddits, profile=False, page_name='home', paginate=True)
 
-@main.route('/sort_upvotes/<page_num>')
-def sort_upvotes(page_num):
+@main.route('/view_all')
+def view_all():
+    posts = Post.query.order_by(Post.id.desc())
+    state['paginate'] = False;
+    subreddits = Subreddit.query.all()
+    return render_template('index.html', all_posts=posts, subreddits=subreddits, profile=False, page_name='home', paginate=state['paginate'])
+
+@main.route('/sort_upvotes/')
+def sort_upvotes():
     state['sort'] = 'sort-by-upvote';
     print('sort: ', state['sort'])
-    all_posts = Post.query.all()
-    page = request.args.get('page', int(page_num), type=int)
-    posts = Post.query.paginate(page=page, per_page=5)
-    subreddits = Subreddit.query.all()
-    return render_template('index.html', all_posts=posts, subreddits=subreddits, profile=False, page_name='home', sort_by=state['sort'])
+    # all_posts = Post.query.all()
+    # page = request.args.get('page', int(page_num), type=int)
+    # posts = Post.query.paginate(page=page, per_page=5)
 
-@main.route('/sort_downvotes/<page_num>')
-def sort_downvotes(page_num):
+    posts = Post.query.order_by(Post.id.desc())
+    subreddits = Subreddit.query.all()
+    return render_template('index.html', all_posts=posts, subreddits=subreddits, profile=False, page_name='home', sort_by=state['sort'], paginate=False)
+
+@main.route('/sort_downvotes/')
+def sort_downvotes():
     state['sort'] = 'sort-by-downvote';
     print('sort: ' , state['sort'])
-    all_posts = Post.query.all()
-    page = request.args.get('page', int(page_num), type=int)
-    posts = Post.query.paginate(page=page, per_page=5)
+    # all_posts = Post.query.all()
+    # page = request.args.get('page', int(page_num), type=int)
+    # posts = Post.query.paginate(page=page, per_page=5)
+    posts = Post.query.order_by(Post.id.desc())
     subreddits = Subreddit.query.all()
-    return render_template('index.html', all_posts=posts, subreddits=subreddits, profile=False, page_name='home', sort_by=state['sort'])
+    return render_template('index.html', all_posts=posts, subreddits=subreddits, profile=False, page_name='home', sort_by=state['sort'], paginate=False)
 
-@main.route('/sort_oldest/<page_num>')
-def sort_oldest(page_num):
+@main.route('/sort_oldest/')
+def sort_oldest():
     state['sort'] = 'dates_oldest';
     print('sort: ' , state['sort'])
-    all_posts = Post.query.all()
-    page = request.args.get('page', int(page_num), type=int)
-    posts = Post.query.order_by(Post.id.asc()).paginate(page=page, per_page=5)
+    # all_posts = Post.query.all()
+    # page = request.args.get('page', int(page_num), type=int)
+    # posts = Post.query.order_by(Post.id.asc()).paginate(page=page, per_page=5)
+    posts = Post.query.order_by(Post.id.asc())
     subreddits = Subreddit.query.all()
-    return render_template('index.html', all_posts=posts, subreddits=subreddits, profile=False, page_name='home', sort_by=state['sort'])
+    return render_template('index.html', all_posts=posts, subreddits=subreddits, profile=False, page_name='home', sort_by=state['sort'], paginate=False)
 
-@main.route('/sort_newest/<page_num>')
-def sort_newest(page_num):
+@main.route('/sort_newest/')
+def sort_newest():
     state['sort'] = 'dates_newest';
     print('sort: ' , state['sort'])
-    all_posts = Post.query.all()
-    page = request.args.get('page', int(page_num), type=int)
-    posts = Post.query.order_by(Post.id.desc()).paginate(page=page, per_page=5)
+    # all_posts = Post.query.all()
+    # page = request.args.get('page', int(page_num), type=int)
+    # posts = Post.query.order_by(Post.id.desc()).paginate(page=page, per_page=5)
+
+    posts = Post.query.order_by(Post.id.desc())
     subreddits = Subreddit.query.all()
-    return render_template('index.html', all_posts=posts, subreddits=subreddits, profile=False, page_name='home', sort_by=state['sort'])
+    return render_template('index.html', all_posts=posts, subreddits=subreddits, profile=False, page_name='home', sort_by=state['sort'], paginate=False)
 
 @main.route('/upvote_post/<post_id>/<page_num>')
 @login_required
@@ -70,7 +97,7 @@ def upvote_post(post_id, page_num):
     all_posts = Post.query.all()
     page = request.args.get('page', int(page_num), type=int)
     posts = Post.query.order_by(Post.id.desc()).paginate(page=page, per_page=5)
-    return render_template('index.html', all_posts=posts, subreddits=subreddits, profile=False, page_name='home', sort_by=state['sort'])
+    return render_template('index.html', all_posts=posts, subreddits=subreddits, profile=False, page_name='home', sort_by=state['sort'], paginate=True)
 
 @main.route('/downvote_post/<post_id>/<page_num>')
 @login_required
@@ -82,9 +109,63 @@ def downvote_post(post_id, page_num):
     all_posts = Post.query.all()
     page = request.args.get('page', int(page_num), type=int)
     posts = Post.query.order_by(Post.id.desc()).paginate(page=page, per_page=5)
-    return render_template('index.html', all_posts=posts, subreddits=subreddits, page_name='home', sort_by=state['sort'])
+    return render_template('index.html', all_posts=posts, subreddits=subreddits, page_name='home', sort_by=state['sort'], paginate=True)
 
-@main.route('/', methods=['POST'])
+
+@main.route('/upvote_post_main/<post_id>')
+@login_required
+def upvote_post_main(post_id):
+    post = Post.query.filter_by(id=post_id).first_or_404()
+    subreddits = Subreddit.query.all()
+    post.votes = post.votes + 1
+    db.session.commit()
+    all_posts = Post.query.all()
+    return render_template('index.html', all_posts=all_posts, subreddits=subreddits, profile=False, page_name='home', sort_by=state['sort'], paginate=False)
+
+@main.route('/downvote_post_main/<post_id>')
+@login_required
+def downvote_post_main(post_id):
+    post = Post.query.filter_by(id=post_id).first_or_404()
+    subreddits = Subreddit.query.all()
+    post.votes = post.votes - 1
+    db.session.commit()
+    all_posts = Post.query.all()
+    return render_template('index.html', all_posts=all_posts, subreddits=subreddits, profile=False, page_name='home', sort_by=state['sort'], paginate=False)
+
+
+@main.route('/create_post_paginate', methods=['POST'])
+@login_required
+def create_post_paginate():
+    title = request.form['post-title']
+    content = request.form['post-content'] 
+    subreddit = request.form['subreddit']
+    if subreddit == 'Music':
+        subreddit_id = 0
+    elif subreddit == 'Funny':
+        subreddit_id = 1
+    elif subreddit == 'Programming':
+        subreddit_id = 2
+    elif subreddit == 'News':
+        subreddit_id = 3
+    elif subreddit == 'Design':
+        subreddit_id = 4
+    else:
+        subreddit_id = 5 
+
+    time = datetime.now()
+    newtime = datetime.strftime(time, '%d/%m/%Y')
+    subreddits = Subreddit.query.all()
+    sub = subreddit
+    newPost = Post(title=title, description=content, sub=sub, votes=0, user=current_user, subreddit_id=subreddit_id, timestamp=newtime)
+    db.session.add(newPost)
+    db.session.commit()
+    all_posts = Post.query.all()
+    state['sort'] = 'dates_newest';
+    page = request.args.get('page', 1, type=int)
+    posts = Post.query.paginate(page=page, per_page=5)
+    return render_template('index.html', name=current_user.name, all_posts=posts, subreddits=subreddits, profile=False, page_name='home', sort_by=state['sort'], paginate=True)    
+
+@main.route('/create_post', methods=['POST'])
 @login_required
 def create_post():
     title = request.form['post-title']
@@ -105,19 +186,15 @@ def create_post():
 
     time = datetime.now()
     newtime = datetime.strftime(time, '%d/%m/%Y')
-    # print('newtime: ', newtime)
-    # print('time: ', time)
-    # print('newtime: ', type(newtime))
     subreddits = Subreddit.query.all()
     sub = subreddit
     newPost = Post(title=title, description=content, sub=sub, votes=0, user=current_user, subreddit_id=subreddit_id, timestamp=newtime)
     db.session.add(newPost)
     db.session.commit()
-    all_posts = Post.query.all()
     state['sort'] = 'dates_newest';
-    page = request.args.get('page', 1, type=int)
-    posts = Post.query.paginate(page=page, per_page=5)
-    return render_template('index.html', name=current_user.name, all_posts=posts, subreddits=subreddits, profile=False, page_name='home', sort_by=state['sort'])    
+
+    posts = Post.query.order_by(Post.id.desc())
+    return render_template('index.html', name=current_user.name, all_posts=posts, subreddits=subreddits, profile=False, page_name='home', sort_by=state['sort'], paginate=False)
 
 @main.route('/delete_post/<post_id>/<user_id>', methods=['GET'])
 def delete_post(post_id, user_id):
@@ -307,7 +384,7 @@ def downvote_comment(post_id, user_id, comment_id):
 @main.route('/create_post_form', methods=['GET'])
 @login_required
 def create_post_form():
-    return render_template('form.html')
+    return render_template('form.html', paginate=state['paginate'])
 
 @main.route('/edit_post_form/<user_id>/<post_id>', methods=['GET'])
 def edit_post_form(user_id, post_id):

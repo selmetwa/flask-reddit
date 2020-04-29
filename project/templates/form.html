@@ -6,7 +6,8 @@
     <button class="form-tab text-tab active">Text</button>
     <button class="form-tab link-tab">Link</button>
   </div>
-  <form action="/" method="POST" class="page-wrapper addPostForm" id="form-text">
+  {% if paginate %}
+  <form action="/create_post_paginate" method="POST" class="page-wrapper addPostForm" id="form-text">
       <label class="create-post-label">Title</label>
       <input
         type="text"
@@ -31,7 +32,7 @@
       </button>
       </div>
   </form>
-  <form action="/" method="POST" class="page-wrapper addPostForm" id="form-link">
+  <form action="/create_post_paginate" method="POST" class="page-wrapper addPostForm" id="form-link">
       <label class="create-post-label">Title</label>
       <input
         type="text"
@@ -56,6 +57,58 @@
       </button>
       </div>
   </form>
+  {% else %}
+  <form action="/create_post" method="POST" class="page-wrapper addPostForm" id="form-text">
+      <label class="create-post-label">Title</label>
+      <input
+        type="text"
+        placeholder="title"
+        class="create-post-title form-input"
+        name="post-title"
+      />
+      <label class="create-post-label">Text</label>
+      <textarea type="text" placeholder="text" class="create-post-content form-input" name="post-content"></textarea>
+      <label class="create-post-label">Subreddit</label>
+      <select class="create-post-select" name="subreddit">
+        <option value="Music">Music</option>
+        <option value="Funny">Funny</option>
+        <option value="Programming">Programming</option>
+        <option value="News">News</option>
+        <option value="Design">Design</option>
+      </select>
+      <div class="buttons-wrapper">
+      <button type="submit" value="post" class="create-form-button form-submit" onClick="return empty()">Post</button>
+      <button type="submit" value="submit" class="create-form-button form-cancel">
+        <a href="{{ url_for('main.index') }}">cancel</a>
+      </button>
+      </div>
+  </form>
+  <form action="/create_post" method="POST" class="page-wrapper addPostForm" id="form-link">
+      <label class="create-post-label">Title</label>
+      <input
+        type="text"
+        placeholder="title"
+        class="create-post-title form-input post-title-form-link"
+        name="post-title"
+      />
+      <label class="create-post-label">Link</label>
+      <input type="text" placeholder="url" class="link-input form-input" name="post-content" />
+      <label class="create-post-label">Subreddit</label>
+      <select class="create-post-select" name="subreddit">
+        <option value="Music">Music</option>
+        <option value="Funny">Funny</option>
+        <option value="Programming">Programming</option>
+        <option value="News">News</option>
+        <option value="Design">Design</option>
+      </select>
+      <div class="buttons-wrapper">
+      <button type="submit" value="post" class="create-form-button form-submit" onClick="return empty_link()">Post</button>
+      <button type="submit" value="submit" class="create-form-button form-cancel">
+        <a href="{{ url_for('main.index') }}">cancel</a>
+      </button>
+      </div>
+  </form>
+  {% endif %}
 </div>
 <script>
   let postTitle;

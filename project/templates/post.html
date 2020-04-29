@@ -13,6 +13,7 @@
 <body>
 <div class="post">
       {% if page_name == 'home' %}
+        {% if paginate %}
         <div class="post-vote-wrapper">
           <button class="upvote">
             <a href="{{ url_for('main.upvote_post', post_id=post.id, page_num=all_posts.page) }}">></a>        
@@ -22,6 +23,17 @@
             <a href="{{ url_for('main.downvote_post', post_id=post.id, page_num=all_posts.page) }}">></a>
           </button>
         </div>
+        {% else %}
+        <div class="post-vote-wrapper">
+          <button class="upvote">
+            <a href="{{ url_for('main.upvote_post_main', post_id=post.id) }}">></a>        
+          </button>
+          <p class='post-votes'>{{post.votes}}</p>
+          <button class="downvote">
+            <a href="{{ url_for('main.downvote_post_main', post_id=post.id) }}">></a>
+          </button>
+        </div>
+        {% endif %}
       {% elif page_name == post.user.name %}
       <div class="post-vote-wrapper">
         <button class="upvote">
