@@ -1,15 +1,13 @@
 .sidebar-wrapper {
-    width: 18%!important;
+    width: 100%!important;
     display: flex;
     flex-direction: column;
     background-color: #fff;
     margin: 0;
     padding: 0;
-    position: fixed;
     padding-bottom: 10px;
     box-shadow: 0px 1px 1px rgba(34, 34, 34, 0.3);
 }
-
 .create-post-button {
     font-family: 'Lato','Avenir', Helvetica,Arial , sans-serif!important;
     background-color: #3B60E4!important;
@@ -29,7 +27,7 @@
     margin: 0;
     padding: 0;
     font-family: 'Avenir', Helvetica,Arial , sans-serif!important;
-    color: #333;
+    color: #323648;
     opacity: .7;
     letter-spacing: 1px;
     padding: 10px;
@@ -43,7 +41,7 @@
     margin: 0;
     padding: 0;
     font-family: 'Avenir', Helvetica,Arial , sans-serif!important;
-    color: #333;
+    color: #323648;
     opacity: .7;
     letter-spacing: 1px;
     padding: 10px;
@@ -55,12 +53,35 @@
     background-color: transparent;
 }
 .subreddit {
-    color: #333;
+    color: #323648;
     text-decoration: none;
     background-color: transparent!important;
+    font-family: 'Avenir', Helvetica,Arial , sans-serif!important;
     transition: .2s
 }
 .subreddit:hover {
     color: #3B60E4;
     transition: .2s;
+}
+.sidebar-section-container {
+    display: flex;
+    width: 18%!important;
+    flex-direction: column;
+    position: fixed;
+}
+.back-to-top {
+    padding: 5px;
+    display: none;
+    margin-top: 1vh;
+    background-color: transparent;
+    color: #323648;
+    font-family: 'Lora', 'Times New Roman', Times, serif;
+    /* font-family:'Avenir', Helvetica,Arial , sans-serif!important; */
+    text-decoration: underline;
+    font-size: .9rem;
+    border: none;
+}
+.back-to-top:hover {
+    cursor: pointer;
+    color: #17349e;
 }

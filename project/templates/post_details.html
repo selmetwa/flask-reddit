@@ -8,11 +8,15 @@
     {% if current_user.is_authenticated %}
       <div class="post-vote-wrapper">
         <button class="upvote">
-          <a href="{{ url_for('main.upvote_post_details', post_id=post.id, user_id=post.user.id) }}">></a>        
+          <a href="{{ url_for('main.upvote_post_details', post_id=post.id, user_id=post.user.id) }}">
+            <i class="fa fa-sort-up fa-lg"></i>
+          </a>        
         </button>
         <p class='post-votes'>{{post.votes}}</p>
         <button class="downvote">
-          <a href="{{ url_for('main.downvote_post_details', post_id=post.id, user_id=post.user.id) }}">></a>
+          <a href="{{ url_for('main.downvote_post_details', post_id=post.id, user_id=post.user.id) }}">
+            <i class="fa fa-sort-down fa-lg"></i>
+          </a>
         </button>
       </div>
       {% endif %}

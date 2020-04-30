@@ -5,14 +5,17 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    {{ fontawesome_html() }}
     <title>Heddit</title>
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Sigmar+One&display=swap" rel="stylesheet">
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/sort-buttons.css') }}">
+    <link rel='stylesheet' href="{{ url_for('static', filename='font-awesome/css/font-awesome.min.css')}}">
 </head>
 <body>
     <div class="sort-buttons-wrapper">
         <h3 class="sort-title">Sort Posts</h3>
+        <!-- 
         <button type="submit" class="sort-button sort-by-newest" id="first"><a href="{{ url_for('main.sort_newest') }}" type="submit">newest post</a></button>
         <button type="submit" class="sort-button sort-by-oldest"><a href="{{ url_for('main.sort_oldest') }}" type="submit">oldest post</a></button>
         <button type="submit" class="sort-button sort-by-upvotes"><a href="{{ url_for('main.sort_upvotes') }}" type="submit">upvotes</a></button>
@@ -20,6 +23,13 @@
         <button class="sort-button sort-by-downvotes">
             <a href="{{ url_for('main.paginate') }}">paginate</a>
         </button>
+        -->
+        <a href="{{ url_for('main.sort_newest') }}" type="submit" class="sort-button sort-by-newest" id="first">newest post</a>
+        <a href="{{ url_for('main.sort_oldest') }}" type="submit" class="sort-button sort-by-oldest">oldest post</a>
+        <a href="{{ url_for('main.sort_upvotes') }}" type="submit" class="sort-button sort-by-upvotes">upvotes</a>
+        <a href="{{ url_for('main.sort_downvotes') }}" type="submit" class="sort-button sort-by-downvotes">downvotes</a>
+        <a href="{{ url_for('main.paginate') }}" class="sort-button sort-by-downvotes">paginate</a>
+        
     </div>
     {% block javascript %}
     <script>

@@ -5,7 +5,6 @@ from project.models import Post, Subreddit, User, Comment
 from datetime import datetime
 
 main = Blueprint('main', __name__)
-
 state = {
     "limit": 5,
     "sort": None,
@@ -36,6 +35,7 @@ def paginate():
 
 @main.route('/view_all')
 def view_all():
+    state['sort'] = 'dates_newest';
     posts = Post.query.order_by(Post.id.desc())
     state['paginate'] = False;
     subreddits = Subreddit.query.all()
@@ -94,9 +94,9 @@ def upvote_post(post_id, page_num):
     post = Post.query.filter_by(id=post_id).first_or_404()
     post.votes = post.votes + 1
     db.session.commit()
-    all_posts = Post.query.all()
     page = request.args.get('page', int(page_num), type=int)
-    posts = Post.query.order_by(Post.id.desc()).paginate(page=page, per_page=5)
+    # all_posts = Post.query.all().paginate(page=page, per_page=5)
+    posts = Post.query.order_by(Post.id.desc()).paginate(page=page, per_page=4)
     return render_template('index.html', all_posts=posts, subreddits=subreddits, profile=False, page_name='home', sort_by=state['sort'], paginate=True)
 
 @main.route('/downvote_post/<post_id>/<page_num>')
@@ -108,7 +108,7 @@ def downvote_post(post_id, page_num):
     db.session.commit()
     all_posts = Post.query.all()
     page = request.args.get('page', int(page_num), type=int)
-    posts = Post.query.order_by(Post.id.desc()).paginate(page=page, per_page=5)
+    posts = Post.query.order_by(Post.id.desc()).paginate(page=page, per_page=4)
     return render_template('index.html', all_posts=posts, subreddits=subreddits, page_name='home', sort_by=state['sort'], paginate=True)
 
 

@@ -4,17 +4,17 @@
     flex-direction: row;
     margin: 0;
     padding: 0;
-    line-height: .35;
+    /* line-height: .35; */
 }
 .sort-title {
     font-family: 'Avenir', Helvetica,Arial , sans-serif!important;
     font-size: .9rem;
-    color: #333;    
+    color: #323648;    
 }
 #first {
     margin-left: 2%;
 }
-.sort-button {
+/* .sort-button {
     font-family: 'Avenir', Helvetica,Arial , sans-serif!important;
     border: 1px solid #3B60E4;
     border-radius: 3px;
@@ -26,8 +26,33 @@
     font-size: .75rem;
     transition: .2s;
     transition: .2s ease-in-out;
+} */
+.sort-button {
+    /* font-family: 'Avenir', Helvetica,Arial , sans-serif!important; */
+    font-family: 'Lato', Helvetica,Arial , sans-serif;
+    text-decoration: none;
+    border-radius: 3px;
+    color: #323648;    
+    padding: 5px;
+    margin: 2px;
+    margin-top: 1.4vh;
+    /* font-weight: 100; */
+    font-size: .9rem;
+    background: transparent!important;
+    transition: .2s ease-in-out;
 }
 .sort-button:hover {
+    cursor: pointer;
+    color: #3B60E4;
+}
+.active {
+    transition: .2s ease-in-out;
+    font-weight: 600;
+    color: #3B60E4;
+    font-size: .95rem;
+    margin-top: 1.3vh;
+}
+/* .sort-button:hover {
     background-color: #3B60E4;
     border: 1px solid #3B60E4;
     transition: .2s ease-in-out;
@@ -39,17 +64,12 @@
 }
 .sort-button a {
     background: transparent!important;
-    color: #333;
+    color: #323648;
     text-decoration: none;
     opacity: .5;
 }
-.active {
-    background-color: #3B60E4;
-    border: 1px solid #3B60E4;
-    transition: .2s ease-in-out;
-    font-weight: 600;
-}
+
 .active a {
     color: #fff!important;
     opacity: 1;
-}
+} */

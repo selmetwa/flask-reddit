@@ -19,7 +19,7 @@
     margin: 0;
     padding: 0;
     font-family: 'Lato','Avenir', Helvetica,Arial , sans-serif!important;
-    color: #333;
+    color: #323648;
     text-decoration: none;
     font-weight: 700;
     font-size: 1.3rem;
@@ -30,7 +30,7 @@
     margin: 0;
     margin-right: 2%;
     font-family: 'Avenir', Helvetica,Arial , sans-serif!important;
-    color: #333;
+    color: #323648;
     background-color: #fff!important;
     opacity: .7;
     text-decoration: none;
@@ -45,7 +45,7 @@
     width: 90%;
     font-family: 'Avenir', Helvetica,Arial , sans-serif!important;
     background-color: #fff!important;
-    color: #333;
+    color: #323648;
     margin-top: 2px;
     opacity: .8;
     font-weight: 100;
@@ -59,7 +59,8 @@
     padding: 0;
     margin-top: 1.5%!important;
     font-size: .95rem;
-    width: 90%;    color: #3B60E4;
+    width: 90%;    
+    color: #3B60E4;
     background-color: #fff!important;
     text-decoration: none;
     font-family: 'Avenir', Helvetica,Arial , sans-serif!important;

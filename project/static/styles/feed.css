@@ -24,21 +24,29 @@
     flex-direction: column;
     background-color: transparent;
 }
+.subreddit-title-wrapper {
+    width: 50%;
+    margin: 0;
+    padding: 0;
+}
 .subreddit-title {
-    font-family: 'Lato','Avenir', Helvetica,Arial , sans-serif!important;
-    color: #333;
+    /* font-family: 'Lato','Avenir', Helvetica,Arial , sans-serif!important; */
+    font-family: 'Lora', 'Times New Roman', Times, serif;
+    color: #323648;
     text-decoration: none;
-    font-weight: 700;
-    font-size: 1.5rem;
+    font-weight: 600;
+    font-size: 2rem;
     opacity: 1;
+    margin: 0;
+    padding: 0;
 }
 .subreddit-subtitle {
     font-family: 'Avenir', Helvetica,Arial , sans-serif!important;
-    color: #333;
+    color: #323648;
     text-decoration: none;
     font-weight: 100;
-    margin-top: -2%;
-    font-size: 1.1rem;
+    margin-top: 2%;
+    font-size: 1rem;
     opacity: .7;
 }
 
@@ -54,11 +62,12 @@
     /* justify-content: space-between; */
 }
 .page-link {
-    font-family: 'Avenir', Helvetica,Arial , sans-serif!important;
+    /* font-family: 'Avenir', Helvetica,Arial , sans-serif!important; */
+    font-family: 'Lora', 'Times New Roman', Times, serif;
     font-size: 1rem;
     font-weight: 600;
     background-color: transparent!important;
-    color: #333;
+    color: #323648;
     padding: 5px;
     margin-left: 1vw;
     text-decoration: none;
@@ -69,8 +78,9 @@
     margin-left: 1vw;
 }
 .page-link-active {
-    font-family: 'Avenir', Helvetica,Arial , sans-serif!important;
-    font-size: 1.4rem;
+    /* font-family: 'Avenir', Helvetica,Arial , sans-serif!important; */
+    font-family: 'Lora', 'Times New Roman', Times, serif;
+    font-size: 1.1rem;
     font-weight: 600;
     margin-left: 1vw;
     background-color: transparent!important;
@@ -79,8 +89,8 @@
     transition: .2s ease-in-out;
     text-decoration: none;
 }
-.view-all-button {
-    font-family: 'Avenir', Helvetica,Arial , sans-serif!important;
+/* .view-all-button {
+    font-family: 'Lora', 'Times New Roman', Times, serif;
     border: 1px solid #3B60E4;
     background-color: #3B60E4;
     border-radius: 3px;
@@ -93,10 +103,27 @@
     font-size: .9rem;
     transition: .2s;
     transition: .2s ease-in-out;
+} */
+
+.view-all-button {
+    padding: 5px;
+    /* margin-top: -.5vh; */
+    background-color: transparent!important;
+    color: #323648;
+    font-family: 'Lora', 'Times New Roman', Times, serif;
+    /* font-family:'Avenir', Helvetica,Arial , sans-serif!important; */
+    text-decoration: underline;
+    font-size: .9rem;
+    border: none;
+    margin-left: auto!important;
 }
-.view-all-button a {
+.view-all-button:hover {
+    cursor: pointer;
+    color: #17349e;
+}
+/* .view-all-button a {
     background: transparent!important;
-    color: #fafafa!important;
+    color: #323648!important;
     text-decoration: none!important;
     opacity: 1;
 }
@@ -105,6 +132,6 @@
     border: 1px solid #2a4fd3;
     transition: .2s;
     cursor: pointer;
-}
+} */
 #paginate {
 }

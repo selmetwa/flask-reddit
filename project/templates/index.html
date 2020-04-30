@@ -21,9 +21,11 @@
                 <p class="page-link-dots">...</p>
                 {% endif %}
             {% endfor %}
+                {# 
                 <button class="view-all-button">
-                    <a href="{{ url_for('main.view_all') }}" >view all posts</a>
                 </button>
+                #}
+                  <a href="{{ url_for('main.view_all') }}" class="view-all-button">view all posts</a>
             </div>
         </div> 
       {% else %}
@@ -63,7 +65,18 @@
 </div>
 {% block javascript %}
   <script>
-    
+  backToTop = document.querySelector('.back-to-top')
+  window.addEventListener("scroll", function(){
+    if(window.scrollY <= 300){
+      backToTop.style.display = 'none'
+    } else {
+      backToTop.style.display = 'flex'
+    }
+  });
+
+  backToTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  })
   </script>
 {% endblock %}
 {% endblock %}

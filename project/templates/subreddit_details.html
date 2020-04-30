@@ -5,12 +5,14 @@
   <div class="all-posts-wrapper">
   <div class="posts-wrapper">
   {% if music_posts %}
-  <h1 class="subreddit-title">/h/{{music_posts[0].sub}}</h1>
-  {% for subreddit in subreddits %}
-    {% if subreddit.name == music_posts[0].sub %}
-      <h1 class="subreddit-subtitle">{{subreddit.description}}</h1>
-    {% endif %}
-  {% endfor %}
+  <div class="subreddit-title-wrapper">
+    <h1 class="subreddit-title">/h/{{music_posts[0].sub}}</h1>
+    {% for subreddit in subreddits %}
+      {% if subreddit.name == music_posts[0].sub %}
+        <h1 class="subreddit-subtitle">{{subreddit.description}}</h1>
+      {% endif %}
+    {% endfor %}
+  </div>
     {% for post in music_posts %}
       {% include "post.html" %}
     {% endfor %}
@@ -18,7 +20,9 @@
   </div>
   </div>
   <div class="subreddits-wrapper">
-    {% include "sidebar.html" %}  
+    {% with paginate=paginate %}
+      {% include "sidebar.html" %}
+    {% endwith %}
   </div>
 </div>
 {% block javascript %}

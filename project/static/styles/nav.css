@@ -19,7 +19,7 @@ html {
     margin:0;
     padding:0;
     width: 100vw;
-    height: 8vh;
+    height: 6vh;
     flex-direction: row;
     text-decoration: none!important;
     list-style: none;
@@ -30,10 +30,11 @@ html {
 .nav-title {
     font-size: 1.5rem;
     font-weight: 900;
-	color: #d3d1d1!important;
+    color: #d3d1d1!important;
+    font-family: 'Lora', 'Times New Roman', Times, serif;    
     margin:0;
     padding:0;
-    margin-top: 1.5vh;
+    margin-top: 1.3vh;
     margin-left: 10vw;
     text-decoration: none!important;
 }
@@ -74,37 +75,39 @@ html {
     padding:0;
     text-decoration: none!important;
     background-color: #fafafa!important;
-	color: #333!important;
+	color: #323648!important;
     border: none;
-    padding: 20px;
-    font-family:  Avenir,Lato, Arial, Helvetica, sans-serif;
+    padding: 5px;
+    margin-left: 4vw;
+    /* font-family:  Avenir,Lato, Arial, Helvetica, sans-serif; */
+    font-family: 'Lato', Helvetica,Arial , sans-serif;
     outline: none;
 }
 .nav-item:hover {
     cursor: pointer;
 }
 .profile-button {
-    border-left: 1px solid lightgray;
+    /* border-left: 1px solid lightgray; */
 }
 .profile-button:hover {
-    border-bottom: 2px solid #386FA4;
+    /* border-bottom: 2px solid #386FA4; */
     margin-top: 2px;
 }
 .logout-button {
-    border-left: 1px solid lightgray;
-    border-right: 1px solid lightgray;
+    /* border-left: 1px solid lightgray; */
+    /* border-right: 1px solid lightgray; */
 }
 a {
     background-color: #fafafa!important;
 }
 .logout-button:hover {
-    border-bottom: 2px solid #386FA4;
+    /* border-bottom: 2px solid #386FA4; */
     margin-top: 2px;
 }
 .route-link {
     text-decoration: none!important;
 }
 .right-side {
-    margin-right: 10%;
-    margin-top: 1.5%;
+    margin-right: 15%;
+    margin-top: 1%;
 }

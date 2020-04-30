@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    {{ fontawesome_html() }}
     <title>Heddit</title>
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Sigmar+One&display=swap" rel="stylesheet">
@@ -16,32 +17,44 @@
         {% if paginate %}
         <div class="post-vote-wrapper">
           <button class="upvote">
-            <a href="{{ url_for('main.upvote_post', post_id=post.id, page_num=all_posts.page) }}">></a>        
+            <a href="{{ url_for('main.upvote_post', post_id=post.id, page_num=all_posts.page) }}">
+              <i class="fa fa-sort-up fa-lg"></i>
+            </a>        
           </button>
           <p class='post-votes'>{{post.votes}}</p>
           <button class="downvote">
-            <a href="{{ url_for('main.downvote_post', post_id=post.id, page_num=all_posts.page) }}">></a>
+            <a href="{{ url_for('main.downvote_post', post_id=post.id, page_num=all_posts.page) }}">
+              <i class="fa fa-sort-down fa-lg"></i>
+            </a>
           </button>
         </div>
         {% else %}
         <div class="post-vote-wrapper">
           <button class="upvote">
-            <a href="{{ url_for('main.upvote_post_main', post_id=post.id) }}">></a>        
+            <a href="{{ url_for('main.upvote_post_main', post_id=post.id) }}">
+              <i class="fa fa-sort-up fa-lg"></i>
+            </a>        
           </button>
           <p class='post-votes'>{{post.votes}}</p>
           <button class="downvote">
-            <a href="{{ url_for('main.downvote_post_main', post_id=post.id) }}">></a>
+            <a href="{{ url_for('main.downvote_post_main', post_id=post.id) }}">
+              <i class="fa fa-sort-down fa-lg"></i>
+            </a>
           </button>
         </div>
         {% endif %}
       {% elif page_name == post.user.name %}
       <div class="post-vote-wrapper">
         <button class="upvote">
-          <a href="{{ url_for('main.upvote_post_user', user_id=post.user.id, post_id=post.id) }}">></a>        
+          <a href="{{ url_for('main.upvote_post_user', user_id=post.user.id, post_id=post.id) }}">
+            <i class="fa fa-sort-up fa-lg"></i>
+          </a>        
         </button>
         <p class='post-votes'>{{post.votes}}</p>
         <button class="downvote">
-          <a href="{{ url_for('main.downvote_post_user', user_id=post.user.id, post_id=post.id) }}">></a>
+          <a href="{{ url_for('main.downvote_post_user', user_id=post.user.id, post_id=post.id) }}">
+            <i class="fa fa-sort-down fa-lg"></i>
+          </a>
         </button>
       </div>
       {% else %}
@@ -49,11 +62,15 @@
           {% if page_name == subreddit.name %}
             <div class="post-vote-wrapper">
               <button class="upvote">
-                <a href="{{ url_for('main.upvote_post_subreddit', sub_name=subreddit.name, post_id=post.id) }}">></a>        
+                <a href="{{ url_for('main.upvote_post_subreddit', sub_name=subreddit.name, post_id=post.id) }}">
+                  <i class="fa fa-sort-up fa-lg"></i>
+                </a>        
               </button>
               <p class='post-votes'>{{post.votes}}</p>
               <button class="downvote">
-                <a href="{{ url_for('main.downvote_post_subreddit', sub_name=subreddit.name, post_id=post.id) }}">></a>
+                <a href="{{ url_for('main.downvote_post_subreddit', sub_name=subreddit.name, post_id=post.id) }}">
+                  <i class="fa fa-sort-down fa-lg"></i>
+                </a>
               </button>
             </div>
           {% endif %}          
@@ -79,7 +96,9 @@
           {% if post.user.name == current_user.name and page_name == post.user.name %}
             <div class="modify-buttons-wrapper">
                 <form action="/delete_post/{{ post.id }}/{{ post.user.id }}" method="GET" class="comment-form">
-                  <button type="submit" value="delete" class="delete-button modify-button">delete post</button>
+                  <button type="submit" value="delete" class="delete-button modify-button">
+                    <i class="fa fa-trash-alt fa-lg"></i>
+                  </button>
                 </form>
                 {% with post=post, user=post.user %}
                   {% include "edit_post_button.html" %}

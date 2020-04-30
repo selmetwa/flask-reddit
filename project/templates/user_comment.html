@@ -4,9 +4,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    {{ fontawesome_html() }}
     <title>Heddit</title>
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Sigmar+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,700&display=swap" rel="stylesheet">
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/post.css') }}">
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/user-comment.css') }}">
 </head>
@@ -44,11 +46,16 @@
         </div>
         {% if comment.author == current_user.name %}
         <div class="user-modify-content-buttons">
+        <!--
           <button class="view-original-post user-modify-button">
               <a href="{{ url_for('main.post_details', post_id=comment.post_id) }}" >View Parent Post</a>
           </button>
+          -->
+            <a href="{{ url_for('main.post_details', post_id=comment.post_id) }}" class="view-original-post user-modify-button">View Parent Post</a>
             <form action="/delete_comment/{{ comment.id }}/{{ comment.user_id }}/{{comment.post_id}}" method="GET" class="user-comment-form">
-                <button type="submit" value="delete" class="user-delete-button user-modify-button">delete comment</button>
+                <button type="submit" value="delete" class="user-delete-button user-modify-button">
+                  <i class="fa fa-trash-alt fa-lg"></i>
+                </button>
             </form>
             {% with comment=comment %}
                 {% include "edit_comment_button.html" %}

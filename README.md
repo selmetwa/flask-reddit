@@ -22,6 +22,7 @@
 - [x] Allow a user to edit his/her comment
 - [x] allow user to sort posts by date, votes
 - [x] pagination
+- [ ] add styles for signup/login
 - [ ] threading of comments
 - [ ] Refactor routes
 

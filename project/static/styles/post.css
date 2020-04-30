@@ -22,17 +22,18 @@
 .upvote {
     margin: 0;
     padding: 0; 
-    font-family: 'Sigmar One', cursive;    
-    color: #333;
-    font-size: 1.4rem;
-    transform: rotate(270deg);
+    font-family: 'Sigmar One', cursive;
+    color: #323648;
+    font-size: 1.3rem;
+    /* transform: rotate(270deg); */
+    margin-top: 3vh;
     font-weight: 900;
     background-color: transparent!important;
     border: none;
     opacity: .75;
 }
 .upvote a {
-    color: #333;
+    color: #323648;
     text-decoration: none;
     transition: .2s;
     background-color: transparent!important;
@@ -44,26 +45,29 @@
 .post-votes {
     margin: 0;
     padding: 0;
-    margin-top: 3px;
-    font-family: 'Lato','Avenir', Helvetica,Arial , sans-serif!important;
-    color: #333;
-    font-size: .85rem;
-    opacity: .75;
+    margin-top: -1vh;
+    margin-bottom: -1vh;
+    /* margin-top: 3px; */
+    /* font-family: 'Lato','Avenir', Helvetica,Arial , sans-serif!important; */
+    font-family: 'Lora', 'Times New Roman', Times, serif;
+    color: #323648;
+    font-size: 1rem;
+    opacity: .8;
 }
 .downvote {
     margin: 0;
     padding: 0;
-    font-family: 'Sigmar One', cursive;    
-    font-size: 1.4rem;
-    margin-left: 2px;
-    transform: rotate(90deg);
+    font-family: 'Sigmar One', cursive;
+    font-size: 1.3rem;
+    margin-top: 0vh;
+    /* transform: rotate(90deg); */
     font-weight: 900;
     background-color: transparent!important;
     opacity: .75;
     border: none;
 }
 .downvote a {
-    color: #333;
+    color: #323648;
     text-decoration: none;
     transition: .2s;
     background-color: transparent!important;
@@ -92,7 +96,7 @@
     margin: 0;
     padding: 0;
     font-family: 'Lato','Avenir', Helvetica,Arial , sans-serif!important;
-    color: #333;
+    color: #323648;
     text-decoration: none;
     font-weight: 600;
     font-size: 1rem;
@@ -103,7 +107,7 @@
     margin: 0;
     margin-right: 2%;
     font-family: 'Avenir', Helvetica,Arial , sans-serif!important;
-    color: #333;
+    color: #323648;
     opacity: .7;
     text-decoration: none;
     font-weight: 100;
@@ -118,7 +122,7 @@
     white-space: pre-line;
     width: 90%;
     font-family: 'Avenir', Helvetica,Arial , sans-serif!important;
-    color: #333;
+    color: #323648;
     margin-top: 2px;
     opacity: .5;
     font-weight: 100;
@@ -127,7 +131,8 @@
     display: flex;
     flex-direction: row;
     margin-top: 1%;
-    font-family: 'Avenir', Helvetica,Arial , sans-serif!important;
+    /* font-family: 'Avenir', Helvetica,Arial , sans-serif!important; */
+    font-family: 'Lora', 'Times New Roman', Times, serif;    
     font-size: 1.1rem;
     width: 100%;
     opacity: .9;
@@ -141,14 +146,14 @@
 }
 .post-content-footer a {
     text-decoration: none!important;
-    color: #333!important;
+    color: #323648!important;
 }
 .post-comments {
     margin-right: 2%;
     padding: 0;
     font-size: .85rem;
     opacity: .7;
-    color: #333;
+    color: #323648;
     font-weight: 100;
     transition: .2s;
     background-color: transparent!important;
@@ -163,7 +168,7 @@
     font-size: .85rem;
     opacity: .7;
     font-weight: 100;
-    color: #333;
+    color: #323648;
     transition: .2s;
     background-color: transparent!important;
 }
@@ -190,11 +195,12 @@
 }
 
 .modify-buttons-wrapper {
-    flex: 2;
+    flex: 1;
     display: flex;
     flex-direction: row!important;
     margin-top: 1.5%;
     margin-right: 5%;
+    /* border: 1px solid red; */
     padding-bottom: 10px;
 }
 .modify-button {
@@ -209,25 +215,27 @@
     border: none;
 }
 .delete-button {
-    color: #fafafa;
+    /* color: #fafafa;
     background-color: #BA274A;
-    border: 1px solid #BA274A;
+    border: 1px solid #BA274A; */
+    color: #323648;
+    opacity: .9;
 }
 .edit-button {
-    color: #1f1e1e;
+    color: #323648;
+    opacity: .9;
     margin-left: 1vw;
     background-color: transparent;
-    border: 1px solid #3B60E4;
 }
 .edit-button:hover {
-    border: 1px solid rgb(26, 61, 190);
-    background-color: #fafafa;
+    /* border: 1px solid rgb(26, 61, 190);
+    background-color: #fafafa; */
+    opacity: 1;
     order: 2;
     cursor: pointer;
 }
 .delete-button:hover {
-    background-color: rgb(141, 29, 55);
-    border: 1px solid rgb(141, 29, 55);
+    opacity: 1;
     margin-left: auto!important;
     order:2;
     cursor: pointer;
