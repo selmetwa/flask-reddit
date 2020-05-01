@@ -22,7 +22,8 @@
 - [x] Allow a user to edit his/her comment
 - [x] allow user to sort posts by date, votes
 - [x] pagination
-- [ ] add styles for signup/login
+- [x] add styles for signup/login
+- [x] fix @loginrequired issues
 - [ ] threading of comments
 - [ ] Refactor routes
 

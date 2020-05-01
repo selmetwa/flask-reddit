@@ -1,0 +1,176 @@
+.signup-wrapper {
+    width: 35%;
+    margin-left: 30%; 
+    /* margin: auto; */
+    background-color: #ffffff;
+    margin-top: 5%;
+    height: min-content;
+    padding-bottom: 20px;
+    box-shadow: 0px 1px 1px rgba(34, 34, 34, 0.3);
+}
+ 
+.signup-title {
+    font-family: 'Lora', 'Times New Roman', Times, serif;
+    color: #323648;
+    font-weight: 900;
+    font-size: 2rem;
+    margin-left: 5%;
+    padding-top: 5%;
+}
+.signup-form {
+    margin-top: -3vh;
+}
+.messages {
+    margin-left: 5%;
+    font-size: 1.1rem;
+    color: #BA274A;
+}
+.field {
+    display: flex;
+    flex-direction: column;
+}
+.control {
+    display: flex;
+    flex-direction: column;
+    width: 85%;
+    margin-left: 5%;
+}
+.signup-label {
+    font-family: 'Lato','Avenir', Helvetica,Arial , sans-serif!important;
+    font-size: .9rem;
+    color: #323648;
+    margin-top: 3vh;
+}
+.input {
+    padding: 12px;
+    font-family: 'Lato','Avenir', Helvetica,Arial , sans-serif!important;
+    border: 1px solid #dfdede;
+    color: #323648;
+    background-color: #fcfcfc;
+    font-size: .9rem;
+    margin-top: 1vh;
+    border-radius: 5px;
+    font-weight: 100;
+}
+.signup-button-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+.email-exists {
+    margin-top: 4%;
+    margin-left: 5%;
+    font-family: 'Lato','Avenir', Helvetica,Arial , sans-serif!important;
+    color: #323648;
+}
+.go-to-login {
+    font-family: 'Lato','Avenir', Helvetica,Arial , sans-serif!important;
+    color: #3B60E4;
+    background-color: #fff!important;
+    /* margin-left: 1%; */
+}
+.signup-button {
+    font-family: 'Lato','Avenir', Helvetica,Arial , sans-serif!important;
+    border: 1px solid #3B60E4;
+    background-color: #3B60E4;
+    color: #fafafa;
+    width: 30%;
+    margin-top: 3vh;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 1.2rem;
+    transition: .2s;
+    margin-left: 5%;
+}
+.signup-button:hover {
+    background-color: rgb(42, 79, 211);
+    transition: .2s;
+    cursor: pointer;
+}
+.checkbox-label {
+    margin-left: 5%;
+    margin-top: 3%;
+    font-family: 'Lora', 'Times New Roman', Times, serif;
+    color: #323648;
+}
+.checkbox {
+    border: 1px solid red;
+    padding: 5px;
+}
+
+
+
+/*                             */ 
+.container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    margin-left: 5%;
+    margin-top: 3%;
+    cursor: pointer;
+    font-size: 1rem;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    /* font-family: 'Lora', 'Times New Roman', Times, serif; */
+    font-family: 'Lato','Avenir', Helvetica,Arial , sans-serif!important;
+    color: #323648;
+  }
+  
+  /* Hide the browser's default checkbox */
+  .container .checkbox {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  
+  /* Create a custom checkbox */
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: transparent;
+    border: 1px solid #3B60E4;
+    border-radius: 3px;
+  }
+  
+  /* On mouse-over, add a grey background color */
+  .container:hover .checkbox ~ .checkmark {
+    background-color: transparent;
+  }
+  
+  /* When the checkbox is checked, add a blue background */
+  .container .checkbox:checked ~ .checkmark {
+    background-color: #3B60E4;
+  }
+  
+  /* Create the checkmark/indicator (hidden when not checked) */
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  /* Show the checkmark when checked */
+  .container .checkbox:checked ~ .checkmark:after {
+    display: block;
+  }
+  
+  /* Style the checkmark/indicator */
+  .container .checkmark:after {
+    left: 7px;
+    top: 2px;
+    width: 4px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+ 

@@ -2,35 +2,51 @@
 
 {% block content %}
 
-<div class="column is-4 is-offset-4">
-    <h3 class="title">Login</h3>
-    <div class="box">
+<div class="signup-wrapper">
+    <h3 class="signup-title">Login</h3>
+    {# <div class="box"> #}
+        
+        <form method="POST" action="/login" class="signup-form">
         {% with messages = get_flashed_messages() %}
             {% if messages %}
-                <div>
+                <div class="messages">
                     {{ messages[0] }}
                 </div>
             {% endif %}
         {% endwith %}
-        <form method="POST" action="/login">
             <div class="field">
                 <div class="control">
-                    <input class="input is-large" type="email" name="email" placeholder="Your Email" autofocus="">
+                    <label class="signup-label email-label">Email</label>
+                    <input class="input" type="email" name="email" placeholder="Your Email" autofocus="">
                 </div>
             </div>
 
             <div class="field">
                 <div class="control">
-                    <input class="input is-large" type="password" name="password" placeholder="Your Password">
+                    <label class="signup-label password-label">Email</label>
+                    <input class="input" type="password" name="password" placeholder="Your Password">
                 </div>
             </div>
+            {#
             <div class="field">
-                <label class="checkbox">
-                    <input type="checkbox">
+                <label class="checkbox-label">
+                    <input type="checkbox" class="checkbox">
                     Remember me
                 </label>
             </div>
-            <button class="button is-block is-info is-large is-fullwidth">Login</button>
+            #}
+            <div class="field">
+                <label class="container">Remember me
+                    <input type="checkbox" checked="checked" class="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+            </div>
+            <div class="signup-buttons-wrapper"> 
+                <button class="signup-button">Login</button>
+                <div class="email-exists">
+                    New to heddit? <a href="{{ url_for('auth.signup') }}" class="go-to-login">Sign Up</a>
+                </div>
+            </div>
         </form>
     </div>
 </div>

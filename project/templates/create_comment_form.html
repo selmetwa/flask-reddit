@@ -12,6 +12,7 @@
 
 <body>
 <div class="comment-form-wrapper">
+  {% if current_user.is_authenticated %}
   <form action="/create_comment/{{ post.id }}/{{ current_user.id }}" method="POST" class="comment-form">
       <input
         type="text"
@@ -19,9 +20,23 @@
         class="comment-text"
         name="comment-text"
       >
-      <button type="submit" value="post" class="comment-submit" onClick="return empty()">comment</button>
+        <button type="submit" value="post" class="comment-submit" onClick="return empty()">comment</button>
     </form>
+  {% else %}
+  <form class="comment-form">
+      <input
+        type="text"
+        placeholder="enter your comment..."
+        class="comment-text"
+        name="comment-text"
+      >
+      <button type="submit" value="post" class="comment-submit" onClick="return login()">comment</button>
+  </form>
+  {% endif %}
 </div>
+
+
+
 <script>
   function empty() {
       let commentText;
@@ -30,6 +45,10 @@
           alert("comment cannot be empty");
           return false;
       }
+  }
+
+  function login() {
+    alert('You must be logged in to create a comment')
   }
 </script>
 </body>

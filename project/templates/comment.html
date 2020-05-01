@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    {{ fontawesome_html() }}
     <title>Heddit</title>
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Sigmar+One&display=swap" rel="stylesheet">
@@ -12,24 +13,20 @@
 </head>
 <body>
 <div class="comment">
-    {% if current_user.is_authenticated %}    
     <div class="post-vote-wrapper">
         <button class="upvote">
-          <a href="{{ url_for('main.upvote_comment', post_id=comment.post_id, user_id=comment.user_id, comment_id=comment.id) }}">></a>        
+          <a href="{{ url_for('main.upvote_comment', post_id=comment.post_id, user_id=comment.user_id, comment_id=comment.id) }}">
+            <i class="fa fa-sort-up fa-lg"></i>
+          </a>        
         </button>
         <p class='post-votes'>{{comment.votes}}</p>
         <button class="downvote">
-          <a href="{{ url_for('main.downvote_comment', post_id=comment.post_id, user_id=comment.user_id, comment_id=comment.id) }}">></a>
+          <a href="{{ url_for('main.downvote_comment', post_id=comment.post_id, user_id=comment.user_id, comment_id=comment.id) }}">
+            <i class="fa fa-sort-down fa-lg"></i>
+          </a>
         </button>
       </div>
-      {% endif %}
-      {% if not current_user.is_authenticated %}
-      <div class="post-vote-wrapper">
-        <button class="upvote">></button>
-        <p class='post-votes'>{{comment.votes}}</p>
-        <button class="downvote">></button>
-      </div>
-      {% endif %}
+
       <div class="comment-content">
         <div class="comment-header">
             {% if comment.author == current_user.name %}

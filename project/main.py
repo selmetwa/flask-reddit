@@ -313,10 +313,11 @@ def post_details(post_id):
     subreddits = Subreddit.query.all()
     target_post = Post.query.filter_by(id=post_id).first_or_404()
     comments = Comment.query.filter_by(post_id=post_id)
-    print('target_post: ', target_post)
-    return render_template('post_details.html', post=target_post, name=current_user.name, subreddits=subreddits, comments=comments)
+    print('target_post: ', target_post.user.name)
+    return render_template('post_details.html', post=target_post, name=target_post.user.name, subreddits=subreddits, comments=comments)
 
 @main.route('/upvote_post_details/<user_id>/<post_id>')
+@login_required
 def upvote_post_details(post_id, user_id):
     subreddits = Subreddit.query.all()
     current_user = User.query.filter_by(id=user_id).first_or_404()
@@ -328,6 +329,7 @@ def upvote_post_details(post_id, user_id):
     return render_template('post_details.html', post=target_post, subreddits=subreddits, comments=comments)
 
 @main.route('/downvote_post_details/<user_id>/<post_id>')
+@login_required
 def downvote_post_details(post_id, user_id):
     subreddits = Subreddit.query.all()
     current_user = User.query.filter_by(id=user_id).first_or_404()
@@ -339,6 +341,7 @@ def downvote_post_details(post_id, user_id):
     return render_template('post_details.html', post=target_post, subreddits=subreddits, comments=comments)
 
 @main.route('/create_comment/<post_id>/<user_id>', methods=['POST'])
+@login_required
 def create_comment(post_id, user_id):
     target_post = Post.query.filter_by(id=post_id).first_or_404()
     subreddits = Subreddit.query.all()
@@ -357,6 +360,7 @@ def create_comment(post_id, user_id):
     return render_template('post_details.html', post=target_post, name=current_user.name, subreddits=subreddits, comments=comments)
 
 @main.route('/upvote_comment/<user_id>/<post_id>/<comment_id>')
+@login_required
 def upvote_comment(post_id, user_id, comment_id):
     subreddits = Subreddit.query.all()
     current_user = User.query.filter_by(id=user_id).first_or_404()
@@ -370,6 +374,7 @@ def upvote_comment(post_id, user_id, comment_id):
     return render_template('post_details.html', post=target_post, subreddits=subreddits, comments=comments)
 
 @main.route('/downvote_comment/<user_id>/<post_id>/<comment_id>')
+@login_required
 def downvote_comment(post_id, user_id, comment_id):
     subreddits = Subreddit.query.all()
     current_user = User.query.filter_by(id=user_id).first_or_404()
