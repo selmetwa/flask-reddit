@@ -52,6 +52,9 @@
     border-radius: 5px;
     font-weight: 100;
 }
+.input:hover {
+    border: 1px solid #3B60E4;
+}
 .signup-button-wrapper {
     display: flex;
     flex-direction: column;

@@ -6,14 +6,16 @@
     color: #323648;
     text-decoration: none;
     font-weight: 600;
-    margin-left: 20%;
+    /* margin-left: 20%; */
+    margin-left: 15%;
     font-size: 2rem;
 }
 .user-tabs-wrapper {
     display: flex;
     flex-direction: row;
     width: 40%;
-    margin-left: 20%;
+    /* margin-left: 20%; */
+    margin-left: 15%;
     margin-top: 2vh;
 }
 .user-tab {
