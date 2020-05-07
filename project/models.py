@@ -41,4 +41,7 @@ class Comment(db.Model):
     author = db.Column(db.String(100))
     votes = db.Column(db.Integer)
     timestamp = db.Column(db.String(50))
-
+    father_id = db.Column(db.Integer, db.ForeignKey('comment.id'))
+    replies = db.relationship(
+        'Comment', backref=db.backref('father', remote_side=[id]),
+        lazy='dynamic')

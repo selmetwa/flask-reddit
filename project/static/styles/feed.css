@@ -8,8 +8,10 @@
 .all-posts-wrapper {
     display: flex;
     flex: 2;
+    border: 1px solid green;
     flex-direction: column;
 }
+
 .subreddits-wrapper {
     display: flex;
     flex-direction: column;
@@ -20,6 +22,7 @@
 }
 .posts-wrapper {
     width: 70%;
+    border: 1px solid red;
     flex: 6;
     margin-left: 15%;
     flex-direction: column;

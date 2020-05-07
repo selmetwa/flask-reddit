@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Sigmar+One&display=swap" rel="stylesheet">
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/post.css') }}">
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/comment.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 </head>
 <body>
 <div class="comment">
@@ -41,8 +42,50 @@
             <p class='comment-timestamp'>{{comment.timestamp}}</p>
         </div>
         <p class="comment-details">{{comment.text}}</p>
+        <button id="reply-form-button" class="{{comment.id}}" onClick="openReplyForm(this.className)">reply</button>
+        <div class="{{comment.id}}reply-form-wrapper ">
+          {% if current_user.is_authenticated %}
+          <form action="/comment_reply/{{ comment.id }}/{{ comment.post_id }}/{{ comment.user_id }}" method="POST" class="{{comment.id}}comment-form reply-form-container" id="reply-form" onsubmit="clearAll()">
+              <input
+                type="text"
+                placeholder="enter your comment..."
+                class="reply-text"
+                name="reply-text"
+              >
+                <button type="submit" value="post" class="comment-submit">post</button>
+            </form>
+          {% else %}
+          <form class="comment-form" id="reply-form">
+              <input
+                type="text"
+                placeholder="enter your comment..."
+                class="reply-text"
+                name="reply-text"
+              >
+              <button type="submit" value="post" class="comment-submit" onClick="return login()">post</button>
+          </form>
+          {% endif %}
+        </div>
     </div>
     </div>
 </div>
+{% block javascript %}
+  <script>
+      const replyFormButtons = document.querySelectorAll('.reply-form-button')
+      const replyForm = document.querySelector('.reply-form-wrapper')
+      let replyFormIsOpen = false
+
+      openReplyForm = (id) => {
+        console.log('id: ', id)
+        let currentFormIsOpen = document.getElementsByClassName(`${id}comment-form`)[0].style.display;
+        console.log('currentFormIsOpen: ', currentFormIsOpen)
+        if (currentFormIsOpen != 'flex') {
+          document.getElementsByClassName(`${id}comment-form`)[0].style.display = 'flex';
+        } else {
+          document.getElementsByClassName(`${id}comment-form`)[0].style.display = 'none'
+        }
+      }
+  </script>
+{% endblock %}
 </body>
 </html>

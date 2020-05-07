@@ -359,6 +359,29 @@ def create_comment(post_id, user_id):
     db.session.commit()
     return render_template('post_details.html', post=target_post, name=current_user.name, subreddits=subreddits, comments=comments)
 
+@main.route('/comment_reply/<parent_id>/<post_id>/<user_id>', methods=['POST'])
+@login_required
+def comment_reply(parent_id, post_id, user_id):
+    target_post = Post.query.filter_by(id=post_id).first_or_404()
+    target_comment = Comment.query.filter_by(id=parent_id).first_or_404()
+    subreddits = Subreddit.query.all()
+    print('replied')
+    print('parent_id: ', parent_id)
+    print('post_id: ', post_id)
+    print('user_id: ', user_id)
+    text = request.form['reply-text']
+    time = datetime.now()
+    newtime = datetime.strftime(time, '%d/%m/%Y')
+    author = User.query.filter_by(id=user_id).first_or_404().name
+    author_id = User.query.filter_by(name=current_user.name).first_or_404().id
+    reply = Comment(text=text, post_id=post_id, user_id=user_id, author=author, votes=0, timestamp=newtime, father_id=parent_id)
+    db.session.add(reply)
+    db.session.commit()
+    comments = Comment.query.filter_by(post_id=post_id)
+    for reply in target_comment.replies:
+        print('reply: ', reply.id)
+    return render_template('post_details.html', post=target_post, name=current_user.name, subreddits=subreddits, comments=comments)
+    
 @main.route('/upvote_comment/<user_id>/<post_id>/<comment_id>')
 @login_required
 def upvote_comment(post_id, user_id, comment_id):

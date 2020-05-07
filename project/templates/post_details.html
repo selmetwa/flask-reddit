@@ -62,11 +62,59 @@
     </div>
     {% include "create_comment_form.html" %}
     <div class='comments-wrapper'>
-    {% for comment in comments%}
-    <div class="comment-wrapper">
-    {% include "comment.html" %}
-    {% endfor %}
-    </div>
+    {% set existingIds = [] %}
+   {# {% for comment in comments if not comment.father_id recursive %} #}
+      {% for comment in comments recursive %}
+          {% if not comment.father_id%}
+            <div class="comment-wrapper">
+                <li>
+                {% include "comment.html" %}
+                <ul>
+                {% for reply in comment.replies recursive %}
+                  <li>
+                  <div>
+                    <p>{{reply.author}}</p>
+                    <p>{{reply.timestamp}}</p>
+                    <p>{{reply.text}}</p>
+                  </div>
+                    <button id="reply-form-button" class="{{reply.id}}" onClick="openReplyForm(this.className)">reply</button>
+                    <form action="/comment_reply/{{ reply.id }}/{{ reply.post_id }}/{{ reply.user_id }}" method="POST" class="{{reply.id}}comment-form reply-form-container" id="reply-form" onsubmit="clearAll()">
+                      <input
+                        type="text"
+                        placeholder="enter your comment..."
+                        class="reply-text"
+                        name="reply-text"
+                      >
+                        <button type="submit" value="post" class="comment-submit">post</button>
+                    </form>
+                  </li>
+                  {% if reply.replies %}
+                    <ul>{{loop(reply.replies)}}</ul>
+                  {% endif %}
+                {% endfor %}
+                </ul>
+                  {# <ul>{{ loop(comment.replies) }}</ul> #}
+                </li>
+            </div>
+          {% endif %}
+      {% endfor %}
+      {#
+        <div class="reply-wrapper">
+          <p>{{reply.text}}</p>
+          <button id="reply-form-button" class="{{reply.id}}" onClick="openReplyForm(this.className)">reply</button>
+          <form action="/comment_reply/{{ reply.id }}/{{ reply.post_id }}/{{ reply.user_id }}" method="POST" class="{{reply.id}}comment-form reply-form-container" id="reply-form" onsubmit="clearAll()">
+            <input
+              type="text"
+              placeholder="enter your comment..."
+              class="reply-text"
+              name="reply-text"
+            >
+              <button type="submit" value="post" class="comment-submit">post</button>
+          </form>
+        </div>
+        #}
+      {# {% endfor %} #}
+      {# {% endif %} #} 
   {% endif %}
   </div>
   </div>
@@ -75,3 +123,71 @@
   </div>
 </div>
 {% endblock %}
+{% block javascript %}
+  <script>
+      const replyFormButtons = document.querySelectorAll('.reply-form-button')
+      const replyForm = document.querySelector('.reply-form-wrapper')
+      let replyFormIsOpen = false
+
+      $(document).ready(function() {
+        $('form').on('submit', function(event) {
+            $.ajax({
+                data: {
+                    text: $('.reply-text').val(),
+                },
+                type: 'POST',
+                url: '/comment_reply'
+            })
+        event.preventDefault();
+        });
+        });
+
+      openReplyForm = (id) => {
+        console.log('id: ', id)
+        let currentFormIsOpen = document.getElementsByClassName(`${id}comment-form`)[0].style.display;
+        console.log('currentFormIsOpen: ', currentFormIsOpen)
+        if (currentFormIsOpen != 'flex') {
+          document.getElementsByClassName(`${id}comment-form`)[0].style.display = 'flex';
+        } else {
+          document.getElementsByClassName(`${id}comment-form`)[0].style.display = 'none'
+        }
+      }
+  </script>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+{#
+
+    {% for comment in comments recursive %}
+      <div class="comment-wrapper">
+      <li>
+      {% include "comment.html" %}
+      {% if comment.replies %}
+        <ul>{{ loop(comment.replies) }}</ul>
+      </li>
+      {% endif %}      
+    {% endfor %}
+#}
+
+{#
+{% for comment in comments recursive %}
+  {% if comment.replies %}
+    <li>
+      {% include "comment.html" %}
+      <ul>{{ loop(comment.replies) }}</ul>
+    </li>
+  {% else %}
+    <li>
+      {% include "comment.html" %}
+    <li>
+  {% endif %}
+{% endfor %}
+#}

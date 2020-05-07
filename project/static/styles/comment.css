@@ -8,6 +8,7 @@
     padding-bottom: 5px;
     box-shadow: 0px 1px 3px rgba(34, 34, 34, 0.1);
     font-family: Arial, Helvetica, sans-serif;
+    border: 1px solid blue;
 }
 .comment-content {
     display: flex;
@@ -52,4 +53,15 @@
     opacity: .8;
     width: 90%;
     font-weight: 100;
+}
+/* #reply-form {
+    border: 1px solid red;
+    display: none;
+} */
+.reply-form-container {
+    /* border: 1px solid red; */
+    display: none;
+}
+.reply-wrapper {
+    border: 1px solid red;
 }
