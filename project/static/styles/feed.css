@@ -22,13 +22,7 @@
 }
 .posts-wrapper {
     width: 70%;
-<<<<<<< HEAD
-    border: 1px solid red;
-    flex: 6;
-    margin-left: 15%;
-=======
     margin-left: 20%;
->>>>>>> parent of 8550edf... update styleS
     flex-direction: column;
     background-color: transparent;
 }
