@@ -1,0 +1,193 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="feed-wrapper">
+  <div class="all-posts-wrapper">
+  <div class="posts-wrapper">
+  {% if post %}
+    <div class="post">
+      <div class="post-vote-wrapper">
+        <button class="upvote">
+          <a href="{{ url_for('main.upvote_post_details', post_id=post.id, user_id=post.user.id) }}">
+            <i class="fa fa-sort-up fa-lg"></i>
+          </a>        
+        </button>
+        <p class='post-votes'>{{post.votes}}</p>
+        <button class="downvote">
+          <a href="{{ url_for('main.downvote_post_details', post_id=post.id, user_id=post.user.id) }}">
+            <i class="fa fa-sort-down fa-lg"></i>
+          </a>
+        </button>
+      </div>
+      <div class="post-details-content-wrapper">
+        <div class="post-details-header">
+          <a href="{{ url_for('main.post_details', post_id=post.id) }} " class="post-details-title">{{post.title}}</a>        
+          <p class="post-details-timestamp">{{post.timestamp}}</p>   
+        </div>
+        {% if post.description.startswith('http') %}
+        <a href="{{ (post.description) }} " class="post-link" target="_blank">{{post.description}}</a>
+        {% else %}
+        <h3 class='post-details-description'>{{post.description}}</h3>
+        {% endif %}
+        <div class="post-content-footer">
+        <div class='post-footer-content-wrapper'>
+          {% set ns = namespace(comment_count=0) %}
+            {% for comment in post.comments %}
+              {% set ns.comment_count = ns.comment_count + 1 %}
+            {% endfor %}
+            <a href="{{ url_for('main.post_details', post_id=post.id) }} " class="post-comments">{{ ns.comment_count }} comments</a>
+            <a href="{{ url_for('main.get_posts_for_subreddit', sub_name=post.sub) }} " class="post-subreddit">/h/{{post.sub}}</a>
+            {% if current_user.is_authenticated %}
+              {% if post.user.name == current_user.name %}
+              <a href="{{ url_for('main.user_profile', user_id=post.user.id) }}" class="post-author">
+                  <span class='by'>by</span> <span class="author-wrapper">{{ post.user.name }}</span>
+              </a>
+              {% else %}
+              <a href="{{ url_for('main.user_profile', user_id=post.user.id) }}" class="post-author"><span class='by'>by</span> <span class="author-wrapper">{{ post.user.name }}</span></a>
+              {% endif %}
+            {% else %}
+              <a href="{{ url_for('main.user_profile', user_id=post.user.id) }}" class="post-author"><span class='by'>by</span> <span class="author-wrapper">{{ post.user.name }}</span></a>
+            {% endif %}
+          </div>
+          <div class="delete-button-wrapper">
+            {% if profile %}
+            <form action="/delete_post/{{ post.id }}/{{ post.user.id }}" method="GET" class="comment-form">
+            <button type="submit" value="post" class="delete-button">delete post</button>
+            </form>
+            {% else %}
+            <p></p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+    {% include "create_comment_form.html" %}
+    <div class='comments-wrapper'>
+    {% set existingIds = [] %}
+   {# {% for comment in comments if not comment.father_id recursive %} #}
+      {% for comment in comments recursive %}
+          {% if not comment.father_id%}
+            <div class="comment-wrapper">
+                <li>
+                {% include "comment.html" %}
+                <ul>
+                {% for reply in comment.replies recursive %}
+                  <li>
+                  <div>
+                    <p>{{reply.author}}</p>
+                    <p>{{reply.timestamp}}</p>
+                    <p>{{reply.text}}</p>
+                  </div>
+                    <button id="reply-form-button" class="{{reply.id}}" onClick="openReplyForm(this.className)">reply</button>
+                    <form action="/comment_reply/{{ reply.id }}/{{ reply.post_id }}/{{ reply.user_id }}" method="POST" class="{{reply.id}}comment-form reply-form-container" id="reply-form" onsubmit="clearAll()">
+                      <input
+                        type="text"
+                        placeholder="enter your comment..."
+                        class="reply-text"
+                        name="reply-text"
+                      >
+                        <button type="submit" value="post" class="comment-submit">post</button>
+                    </form>
+                  </li>
+                  {% if reply.replies %}
+                    <ul>{{loop(reply.replies)}}</ul>
+                  {% endif %}
+                {% endfor %}
+                </ul>
+                  {# <ul>{{ loop(comment.replies) }}</ul> #}
+                </li>
+            </div>
+          {% endif %}
+      {% endfor %}
+      {#
+        <div class="reply-wrapper">
+          <p>{{reply.text}}</p>
+          <button id="reply-form-button" class="{{reply.id}}" onClick="openReplyForm(this.className)">reply</button>
+          <form action="/comment_reply/{{ reply.id }}/{{ reply.post_id }}/{{ reply.user_id }}" method="POST" class="{{reply.id}}comment-form reply-form-container" id="reply-form" onsubmit="clearAll()">
+            <input
+              type="text"
+              placeholder="enter your comment..."
+              class="reply-text"
+              name="reply-text"
+            >
+              <button type="submit" value="post" class="comment-submit">post</button>
+          </form>
+        </div>
+        #}
+      {# {% endfor %} #}
+      {# {% endif %} #} 
+  {% endif %}
+  </div>
+  </div>
+  <div class="subreddits-wrapper">
+    {% include "sidebar.html" %}
+  </div>
+</div>
+{% endblock %}
+{% block javascript %}
+  <script>
+      const replyFormButtons = document.querySelectorAll('.reply-form-button')
+      const replyForm = document.querySelector('.reply-form-wrapper')
+      let replyFormIsOpen = false
+
+      $(document).ready(function() {
+        $('form').on('submit', function(event) {
+            $.ajax({
+                data: {
+                    text: $('.reply-text').val(),
+                },
+                type: 'POST',
+                url: '/comment_reply'
+            })
+        event.preventDefault();
+        });
+        });
+
+      openReplyForm = (id) => {
+        console.log('id: ', id)
+        let currentFormIsOpen = document.getElementsByClassName(`${id}comment-form`)[0].style.display;
+        console.log('currentFormIsOpen: ', currentFormIsOpen)
+        if (currentFormIsOpen != 'flex') {
+          document.getElementsByClassName(`${id}comment-form`)[0].style.display = 'flex';
+        } else {
+          document.getElementsByClassName(`${id}comment-form`)[0].style.display = 'none'
+        }
+      }
+  </script>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+{#
+
+    {% for comment in comments recursive %}
+      <div class="comment-wrapper">
+      <li>
+      {% include "comment.html" %}
+      {% if comment.replies %}
+        <ul>{{ loop(comment.replies) }}</ul>
+      </li>
+      {% endif %}      
+    {% endfor %}
+#}
+
+{#
+{% for comment in comments recursive %}
+  {% if comment.replies %}
+    <li>
+      {% include "comment.html" %}
+      <ul>{{ loop(comment.replies) }}</ul>
+    </li>
+  {% else %}
+    <li>
+      {% include "comment.html" %}
+    <li>
+  {% endif %}
+{% endfor %}
+#}
