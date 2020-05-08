@@ -42,17 +42,20 @@
             <p class='comment-timestamp'>{{comment.timestamp}}</p>
         </div>
         <p class="comment-details">{{comment.text}}</p>
-        <button id="reply-form-button" class="{{comment.id}}" onClick="openReplyForm(this.className)">reply</button>
+        <div id="reply-form-button-wrapper" class="{{comment.id}}" onClick="openReplyForm(this.className)">
+          <i class="fa fa-comment reply-icon"></i>
+          <button id="reply-form-button" >reply</button>
+        </div>
         <div class="{{comment.id}}reply-form-wrapper ">
           {% if current_user.is_authenticated %}
           <form action="/comment_reply/{{ comment.id }}/{{ comment.post_id }}/{{ comment.user_id }}" method="POST" class="{{comment.id}}comment-form reply-form-container" id="reply-form" onsubmit="clearAll()">
               <input
                 type="text"
-                placeholder="enter your comment..."
+                placeholder="What do you think?"
                 class="reply-text"
                 name="reply-text"
               >
-                <button type="submit" value="post" class="comment-submit">post</button>
+                <button type="submit" value="post" class="comment-submit">reply</button>
             </form>
           {% else %}
           <form class="comment-form" id="reply-form">

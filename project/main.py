@@ -149,8 +149,12 @@ def create_post_paginate():
         subreddit_id = 3
     elif subreddit == 'Design':
         subreddit_id = 4
+    elif subreddit == 'Sports':
+        subreddit_id = 5
+    elif subreddit == 'Politics':
+        subreddit_id = 6
     else:
-        subreddit_id = 5 
+        subreddit_id = 7
 
     time = datetime.now()
     newtime = datetime.strftime(time, '%d/%m/%Y')
@@ -181,8 +185,12 @@ def create_post():
         subreddit_id = 3
     elif subreddit == 'Design':
         subreddit_id = 4
+    elif subreddit == 'Sports':
+        subreddit_id = 5
+    elif subreddit == 'Politics':
+        subreddit_id = 6
     else:
-        subreddit_id = 5 
+        subreddit_id = 7
 
     time = datetime.now()
     newtime = datetime.strftime(time, '%d/%m/%Y')
@@ -372,9 +380,9 @@ def comment_reply(parent_id, post_id, user_id):
     text = request.form['reply-text']
     time = datetime.now()
     newtime = datetime.strftime(time, '%d/%m/%Y')
-    author = User.query.filter_by(id=user_id).first_or_404().name
+    author = User.query.filter_by(id=current_user.id).first_or_404().name
     author_id = User.query.filter_by(name=current_user.name).first_or_404().id
-    reply = Comment(text=text, post_id=post_id, user_id=user_id, author=author, votes=0, timestamp=newtime, father_id=parent_id)
+    reply = Comment(text=text, post_id=post_id, user_id=current_user.id, author=author, votes=0, timestamp=newtime, father_id=parent_id)
     db.session.add(reply)
     db.session.commit()
     comments = Comment.query.filter_by(post_id=post_id)

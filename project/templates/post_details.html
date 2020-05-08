@@ -66,27 +66,54 @@
         {% if not comment.father_id%}
           <div class="comment-wrapper">
             {% include "comment.html" %}
-            <ul>
+            <ul class="reply-list">
                 {% for reply in comment.replies recursive %}
-                  <li>
-                  <div>
-                    <p>{{reply.author}}</p>
-                    <p>{{reply.timestamp}}</p>
-                    <p>{{reply.text}}</p>
-                  </div>
-                    <button id="reply-form-button" class="{{reply.id}}" onClick="openReplyForm(this.className)">reply</button>
-                    <form action="/comment_reply/{{ reply.id }}/{{ reply.post_id }}/{{ reply.user_id }}" method="POST" class="{{reply.id}}comment-form reply-form-container" id="reply-form" onsubmit="clearAll()">
-                      <input
-                        type="text"
-                        placeholder="enter your comment..."
-                        class="reply-text"
-                        name="reply-text"
-                      >
-                        <button type="submit" value="post" class="comment-submit">post</button>
-                    </form>
+                  <li class="reply-list-item">
+                    <div class="post-vote-wrapper">
+                      <button class="upvote">
+                        <a href="{{ url_for('main.upvote_comment', post_id=comment.post_id, user_id=reply.user_id, comment_id=reply.id) }}">
+                          <i class="fa fa-sort-up fa-lg"></i>
+                        </a>        
+                      </button>
+                      <p class='post-votes'>{{reply.votes}}</p>
+                      <button class="downvote">
+                        <a href="{{ url_for('main.downvote_comment', post_id=comment.post_id, user_id=reply.user_id, comment_id=reply.id) }}">
+                          <i class="fa fa-sort-down fa-lg"></i>
+                        </a>
+                      </button>
+                    </div>
+                    <div class="reply-list-content">
+                      <div class="reply-list-item-header">
+                      {% if reply.author == current_user.name %}
+                        <a href="{{ url_for('main.user_profile', user_id=reply.user_id) }}" class="reply-author">
+                          <span class='by'>by</span> <span class="author-wrapper">{{ reply.author }}</span>
+                        </a>
+                      {% else %}
+                        <a href="{{ url_for('main.user_profile', user_id=reply.user_id) }}" class="reply-author">
+                          <span class='by'>by</span> <span class="author-wrapper">{{ reply.author }}</span>
+                        </a>
+                      {% endif %}
+                        {# <p class="reply-author">by {{reply.author}}</p> #}
+                        <p class="reply-timestamp">{{reply.timestamp}}</p>
+                      </div>
+                      <p class="reply-content">{{reply.text}}</p>
+                        <div id="reply-form-button-wrapper" class="{{reply.id}}" onClick="openReplyForm(this.className)">
+                          <i class="fa fa-comment reply-icon"></i>
+                          <button id="reply-form-button" >reply</button>
+                        </div>
+                        <form action="/comment_reply/{{ reply.id }}/{{ reply.post_id }}/{{ reply.user_id }}" method="POST" class="{{reply.id}}comment-form reply-form-container" id="reply-form" onsubmit="clearAll()">
+                          <input
+                            type="text"
+                            placeholder="What do you think?"
+                            class="reply-text"
+                            name="reply-text"
+                          >
+                            <button type="submit" value="post" class="comment-submit">reply</button>
+                        </form>
+                      </div>
                   </li>
                   {% if reply.replies %}
-                    <ul>{{loop(reply.replies)}}</ul>
+                    <ul class="reply-list">{{loop(reply.replies)}}</ul>
                   {% endif %}
                 {% endfor %}
                 </ul>
