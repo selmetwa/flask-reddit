@@ -17,14 +17,18 @@
     flex-direction: column;
     width: 50%;
     margin-top: .5%;
-    margin-left: -10%;
+    margin-left: -5.5%;
     flex: 1;
 }
 .posts-wrapper {
     width: 70%;
+<<<<<<< HEAD
     border: 1px solid red;
     flex: 6;
     margin-left: 15%;
+=======
+    margin-left: 20%;
+>>>>>>> parent of 8550edf... update styleS
     flex-direction: column;
     background-color: transparent;
 }
