@@ -64,7 +64,7 @@
         {% else %}
         <div  class="user-modify-content-buttons-else">
             <button class="view-original-post user-modify-button">
-                <a href="{{ url_for('main.post_details', post_id=comment.post_id) }}" >View Parent Post</a>
+              <a href="{{ url_for('main.post_details', post_id=comment.post_id) }}" class="view-original-post user-modify-button">View Parent Post</a>
             </button>
         </div>
         {% endif %}

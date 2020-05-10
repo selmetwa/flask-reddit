@@ -65,13 +65,14 @@
     border-radius: 3px;
     display: flex;
     flex-direction: row;
-    width: 10%;
-    padding: 3px;
+    width: min-content;
+    padding: 4px;
     margin-left: -5px;
 }
 #reply-form-button-wrapper:hover {
     background-color: #b4b1b1;
     cursor: pointer;
+    /* width: 15%; */
 }
 .reply-icon {
     opacity: .8;

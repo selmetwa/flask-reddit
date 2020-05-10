@@ -93,7 +93,6 @@
                           <span class='by'>by</span> <span class="author-wrapper">{{ reply.author }}</span>
                         </a>
                       {% endif %}
-                        {# <p class="reply-author">by {{reply.author}}</p> #}
                         <p class="reply-timestamp">{{reply.timestamp}}</p>
                       </div>
                       <p class="reply-content">{{reply.text}}</p>
@@ -108,7 +107,7 @@
                             class="reply-text"
                             name="reply-text"
                           >
-                            <button type="submit" value="post" class="comment-submit">reply</button>
+                            <button type="submit" value="post" class="comment-submit" onClick="return empty()">reply</button>
                         </form>
                       </div>
                   </li>
@@ -127,4 +126,17 @@
     {% include "sidebar.html" %}
   </div>
 </div>
+{% endblock %}
+
+{% block javascript %}
+  <script>
+    function empty() {
+      let replyText;
+      replyText = document.querySelector(".reply-text").value;
+      if (replyText == "" ) {
+          alert("reply cannot be empty");
+          return false;
+      }
+    }
+  </script>
 {% endblock %}

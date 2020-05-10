@@ -25,8 +25,8 @@
 - [x] add styles for signup/login
 - [x] fix @loginrequired issues
 - [x] threading of comments
-- [ ] fix little bugs and inconsistencies 
-- [ ] add more posts for demo
+- [x] fix little bugs and inconsistencies 
+- [x] add more posts for demo
 
 ###### db
 ![Blank Diagram](https://user-images.githubusercontent.com/46908343/79140232-a9bbc900-7d85-11ea-9c43-8045f59f3675.png)
