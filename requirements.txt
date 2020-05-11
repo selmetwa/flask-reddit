@@ -27,7 +27,6 @@ flask-marshmallow==0.11.0
 Flask-Migrate==2.5.3
 Flask-SQLAlchemy==2.4.1
 funcsigs==1.0.2
-functools32==3.2.3.post2
 future==0.17.1
 futures==3.3.0
 importlib-metadata==1.5.0
