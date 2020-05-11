@@ -66,6 +66,8 @@
     color: #3B60E4;
     background-color: #fff!important;
     text-decoration: none;
+    word-wrap: break-word;
+    white-space: pre-line;
     font-family: 'Avenir', Helvetica,Arial , sans-serif!important;
     font-weight: 100;
     margin-top: 2px;

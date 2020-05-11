@@ -107,7 +107,7 @@
                             class="reply-text"
                             name="reply-text"
                           >
-                            <button type="submit" value="post" class="comment-submit" onClick="return empty()">reply</button>
+                          <button type="submit" value="post" class="comment-submit" onClick="return emptyReply()">reply</button>
                         </form>
                       </div>
                   </li>
@@ -130,10 +130,11 @@
 
 {% block javascript %}
   <script>
-    function empty() {
+    function emptyReply() {
       let replyText;
       replyText = document.querySelector(".reply-text").value;
       if (replyText == "" ) {
+          console.log('replyText')
           alert("reply cannot be empty");
           return false;
       }

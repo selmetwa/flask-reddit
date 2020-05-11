@@ -10,6 +10,7 @@
     box-shadow: 0px 1px 3px rgba(34, 34, 34, 0.1);
     transition: .2s ease-in-out;
     font-family: Arial, Helvetica, sans-serif;
+    /* border: 1px solid red; */
 }
 .post-votes-wrapper {
     display: flex;
@@ -123,6 +124,10 @@
     width: 90%;
     font-family: 'Avenir', Helvetica,Arial , sans-serif!important;
     color: #323648;
+    /* border: 1px solid red; */
+    height: 35px; 
+    line-height: 35px;
+    overflow: hidden; 
     margin-top: 2px;
     opacity: .5;
     font-weight: 100;
