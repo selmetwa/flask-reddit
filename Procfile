@@ -1,2 +1,2 @@
-web: cd project; python manager.py db migrate; gunicorn "app:create_app()"
+web: cd project; python manage.py db migrate; gunicorn "app:create_app()"
 
