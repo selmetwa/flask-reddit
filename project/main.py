@@ -95,7 +95,6 @@ def upvote_post(post_id, page_num):
     post.votes = post.votes + 1
     db.session.commit()
     page = request.args.get('page', int(page_num), type=int)
-    # all_posts = Post.query.all().paginate(page=page, per_page=5)
     posts = Post.query.order_by(Post.id.desc()).paginate(page=page, per_page=4)
     return render_template('index.html', all_posts=posts, subreddits=subreddits, profile=False, page_name='home', sort_by=state['sort'], paginate=True)
 
