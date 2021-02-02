@@ -9,7 +9,7 @@ backports-abc==0.5
 backports.shutil-get-terminal-size==1.0.0
 bcrypt==3.1.7
 bdist-mpkg==0.5.0
-bleach==3.1.4
+bleach==3.3.0
 cffi==1.12.2
 Click==7.0
 configparser==4.0.2
