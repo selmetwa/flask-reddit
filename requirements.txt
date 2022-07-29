@@ -43,7 +43,7 @@ Mako==1.1.2
 MarkupSafe==1.1.1
 marshmallow==2.21.0
 marshmallow-sqlalchemy==0.19.0
-mistune==0.8.4
+mistune==2.0.3
 modulegraph==0.10.4
 more-itertools==5.0.0
 mpmath==1.1.0
